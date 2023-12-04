@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, dev, dev-cc3, 'upstream-main-*']
+    branches: [main, dev]
   pull_request:
-    branches: [main, dev, dev-cc3, 'upstream-main-*']
+    branches: [main, dev]
 
 jobs:
   check-license-lines:
