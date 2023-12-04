@@ -84,7 +84,7 @@ const makeNetworkList = () => {
         lightClient: null,
         defaultRpcEndpoint: 'Gluwa',
         rpcEndpoints: {
-          Gluwa: 'wss://rpc.mainnet.creditcoin.network/ws',
+          Gluwa: 'wss://rpc.cc3-mainnet.creditcoin.network/ws',
         },
       },
       namespace: 'creditcoin-mainnet',
@@ -96,11 +96,11 @@ const makeNetworkList = () => {
         lightClient: null,
         defaultRpcEndpoint: 'Gluwa',
         rpcEndpoints: {
-          Gluwa: 'wss://rpc.testnet.creditcoin.network/ws',
+          Gluwa: 'wss://rpc.cc3-testnet.creditcoin.network/ws',
         },
       },
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
-      subscanEndpoint: 'https://subscan-testnet.creditcoin.network/',
+      subscanEndpoint: 'http://127.0.0.1:4399',
     }),
     creditcoinDev: makeCreditcoinNetwork({
       name: 'creditcoinDev',
@@ -108,7 +108,7 @@ const makeNetworkList = () => {
         lightClient: null,
         defaultRpcEndpoint: 'Gluwa',
         rpcEndpoints: {
-          Gluwa: 'wss://rpc.devnet.creditcoin.network/ws',
+          Gluwa: 'wss://rpc.cc3-devnet.creditcoin.network/ws',
         },
       },
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
