@@ -1,5 +1,5 @@
 # build environment
-FROM node:18 as build
+FROM node:21 as build
 WORKDIR /app
 COPY . .
 RUN npm install yarn --legacy-peer-deps
