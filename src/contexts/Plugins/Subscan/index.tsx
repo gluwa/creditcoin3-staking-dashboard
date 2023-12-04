@@ -173,6 +173,13 @@ export const SubscanProvider = ({
         }
       }
     }
+
+    // sort payouts by block_timestamp
+    // FIXME: the payouts should already be correctly sorted when fetched from Subscan but for some reason they are not.
+    newClaimedPayouts.sort((a, b) => b.block_timestamp - a.block_timestamp);
+
+    newUnclaimedPayouts.sort((a, b) => b.block_timestamp - a.block_timestamp);
+
     return {
       newClaimedPayouts,
       newUnclaimedPayouts,
