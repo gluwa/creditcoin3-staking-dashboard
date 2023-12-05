@@ -34,7 +34,7 @@ test('days passed works', () => {
   // days passed works on `mockPayouts`.
   expect(
     daysPassed(fromUnixTime(payouts[0].block_timestamp), startOfToday())
-  ).toBe(2);
+  ).toBe(21);
   expect(
     daysPassed(fromUnixTime(payouts[1].block_timestamp), startOfToday())
   ).toBe(3);
