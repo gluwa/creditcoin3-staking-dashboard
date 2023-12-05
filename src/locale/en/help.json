@@ -395,16 +395,16 @@
       "claimRewards": "Claiming Nomination Pool Rewards",
       "connectAccounts": "How to Connect Your Accounts",
       "createPools": "Creating Nomination Pools",
+      "creditcoinDocs": "Link to Creditcoin documentation",
       "howToUse": "How to Use the Staking Dashboard: Overview",
       "rebonding": "Rebonding",
       "stakeDot": "Staking your CTC",
-      "unbondingTokens": "Unbonding Your Tokens",
-      "creditcoinDocs": "Link to Creditcoin documentation"
+      "unbondingTokens": "Unbonding Your Tokens"
     },
     "modal": {
-      "docs": "Documentation",
       "close": "Close",
       "definitions": "Definitions",
+      "docs": "Documentation",
       "helpResources": "Help Resources",
       "related": "Related"
     }
