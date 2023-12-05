@@ -27,7 +27,14 @@ jobs:
       - run: yarn install
       - run: yarn list
       - run: yarn build
-      - run: yarn lint
+
+      - run: |
+          yarn lint
+          if [ -n "$(git status --short)" ]; then
+              git diff
+              exit 1
+          fi
+
       - run: yarn test
 
   all:
