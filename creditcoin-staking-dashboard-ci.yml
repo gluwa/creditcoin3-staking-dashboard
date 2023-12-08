@@ -32,7 +32,7 @@ jobs:
         displayName: 'Build Docker Image'
         inputs:
           containerRegistry: 'substrate-relayer'
-          repository: 'gluwa/staking-dashboard'
+          repository: 'gluwa/cc3-staking-dashboard'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
           tags: |
