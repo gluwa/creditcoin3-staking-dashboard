@@ -1,13 +1,13 @@
 name: Docker
 
 on:
-  push:
-    branches: [main, dev]
   pull_request:
     branches: [main, dev]
 
 jobs:
   build:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,3 +15,53 @@ jobs:
       - name: Build docker image
         run: |
           docker build -t gluwa/creditcoin3-staking-dashboard .
+
+      - name: Extract application from docker image
+        run: |
+          docker images
+
+          docker run -d --rm --name ephemeral-container gluwa/creditcoin3-staking-dashboard
+          sleep 10
+
+          mkdir ./build/
+          docker cp ephemeral-container:/usr/share/nginx/html ./build/
+          docker kill ephemeral-container
+
+      - name: Install Azure cli tools
+        run: |
+          # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt#option-1-install-with-one-command
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: Azure login
+        if: env.GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          allow-no-subscriptions: true
+
+      - name: Upload application to Azure Storage
+        id: upload
+        if: env.GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
+        run: |
+          AZURE_STORAGE_KEY=${{ secrets.LLVM_AZURE_STORAGE_KEY }}
+          export AZURE_STORAGE_KEY
+          PR_NUMBER=$(echo "$GITHUB_REF" | sed "s|refs/pull/||" | sed "s|/merge||")
+          DESTINATION_PATH="cc3-staking-dashboard/PR-$PR_NUMBER"
+          export DESTINATION_PATH
+
+          az storage blob upload-batch --account-name staticsitellvmhtml --auth-mode key -d "\$web" --destination-path "$DESTINATION_PATH" --overwrite -s ./build/
+
+          echo "message=**[Staking Dashboad Preview](https://staticsitellvmhtml.z13.web.core.windows.net/$DESTINATION_PATH/html/)!**" >> "$GITHUB_OUTPUT"
+
+      - name: Post comment to PR
+        if: env.GITHUB_TOKEN
+        uses: mshick/add-pr-comment@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
+        with:
+          message: ${{ steps.upload.outputs.message }}
+          allow-repeats: false
