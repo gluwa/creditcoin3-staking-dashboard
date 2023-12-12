@@ -18,6 +18,10 @@ jobs:
           # Use relative paths for the PR preview build
           sed -i "s|vite build --base '/'|vite build --base './'|" package.json
 
+          # Specify development mode which activates the CreditcoinLocal network in the menu,
+          # which in turn enables testing the PR preview build with a locally running creditcoin3-node
+          sed -i "s|vite build|vite build --mode development|" package.json
+
       - name: Build docker image
         run: |
           docker build -t gluwa/creditcoin3-staking-dashboard .
