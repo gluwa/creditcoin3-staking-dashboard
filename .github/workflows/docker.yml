@@ -15,12 +15,15 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Preview build configuration - Use relative paths
-        if: ${{ github.event_name == 'pull_request' && github.base_ref == 'dev' }}
+        # NOTE: doesn't affect app functionality compared to a production build!
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
           # Use relative paths for the PR preview build
           sed -i "s|vite build --base '/'|vite build --base './'|" package.json
 
       - name: Preview build configuration - Use 'development' mode
+        # WARNING: may affect app functionality compared to a production build!
+        # keep it enabled only for PRs against `dev` branch for now!
         if: ${{ github.event_name == 'pull_request' && github.base_ref == 'dev' }}
         run: |
           # Specify development mode which activates the CreditcoinLocal network in the menu,
