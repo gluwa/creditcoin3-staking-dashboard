@@ -1,6 +1,8 @@
 name: Docker
 
 on:
+  push:
+    branches: [main, dev]
   pull_request:
     branches: [main, dev]
 
@@ -13,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Tweak build configuration
-        if: github.base_ref == 'dev'
+        if: ${{ github.event_name == 'pull_request' && github.base_ref == 'dev' }}
         run: |
           # Use relative paths for the PR preview build
           sed -i "s|vite build --base '/'|vite build --base './'|" package.json
@@ -26,7 +28,8 @@ jobs:
         run: |
           docker build -t gluwa/creditcoin3-staking-dashboard .
 
-      - name: Extract application from docker image
+      - name: Extract application files from docker image
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
           docker images
 
@@ -38,12 +41,13 @@ jobs:
           docker kill ephemeral-container
 
       - name: Install Azure cli tools
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
           # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt#option-1-install-with-one-command
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
       - name: Azure login
-        if: env.GITHUB_TOKEN
+        if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
         uses: azure/login@v1
@@ -51,9 +55,9 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           allow-no-subscriptions: true
 
-      - name: Upload application to Azure Storage
+      - name: Upload application files to Azure Storage
         id: upload
-        if: env.GITHUB_TOKEN
+        if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
         run: |
@@ -68,7 +72,7 @@ jobs:
           echo "message=**Test before merge -> [Staking Dashboad Preview](https://staticsitellvmhtml.z13.web.core.windows.net/$DESTINATION_PATH/html/)!**" >> "$GITHUB_OUTPUT"
 
       - name: Post comment to PR
-        if: env.GITHUB_TOKEN
+        if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
         uses: mshick/add-pr-comment@v2
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
