@@ -12,6 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Tweak build configuration
+        if: github.base_ref == 'dev'
+        run: |
+          # Use relative paths for the PR preview build
+          sed -i "s|vite build --base '/'|vite build --base './'|" package.json
+
       - name: Build docker image
         run: |
           docker build -t gluwa/creditcoin3-staking-dashboard .
