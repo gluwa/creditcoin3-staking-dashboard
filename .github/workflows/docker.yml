@@ -14,12 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Tweak build configuration
+      - name: Preview build configuration - Use relative paths
         if: ${{ github.event_name == 'pull_request' && github.base_ref == 'dev' }}
         run: |
           # Use relative paths for the PR preview build
           sed -i "s|vite build --base '/'|vite build --base './'|" package.json
 
+      - name: Preview build configuration - Use 'development' mode
+        if: ${{ github.event_name == 'pull_request' && github.base_ref == 'dev' }}
+        run: |
           # Specify development mode which activates the CreditcoinLocal network in the menu,
           # which in turn enables testing the PR preview build with a locally running creditcoin3-node
           sed -i "s|vite build|vite build --mode development|" package.json
