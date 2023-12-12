@@ -65,7 +65,7 @@ jobs:
 
           az storage blob upload-batch --account-name staticsitellvmhtml --auth-mode key -d "\$web" --destination-path "$DESTINATION_PATH" --overwrite -s ./build/
 
-          echo "message=**[Staking Dashboad Preview](https://staticsitellvmhtml.z13.web.core.windows.net/$DESTINATION_PATH/html/)!**" >> "$GITHUB_OUTPUT"
+          echo "message=**Test before merge -> [Staking Dashboad Preview](https://staticsitellvmhtml.z13.web.core.windows.net/$DESTINATION_PATH/html/)!**" >> "$GITHUB_OUTPUT"
 
       - name: Post comment to PR
         if: env.GITHUB_TOKEN
