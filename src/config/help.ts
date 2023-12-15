@@ -54,8 +54,8 @@ export const HelpConfig: HelpItems = [
       'Pool Commission Change Rate',
     ],
     external: [
-      ['createPools', 'https://docs.creditcoin.org', 'docs.creditcoin.org'],
-      ['claimRewards', 'https://docs.creditcoin.org', 'docs.creditcoin.org'],
+      // ['createPools', 'https://docs.creditcoin.org', 'docs.creditcoin.org'],
+      // ['claimRewards', 'https://docs.creditcoin.org', 'docs.creditcoin.org'],
     ],
   },
   {
