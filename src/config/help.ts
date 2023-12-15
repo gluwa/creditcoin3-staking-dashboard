@@ -89,16 +89,18 @@ export const HelpConfig: HelpItems = [
   {
     key: 'ledger',
     definitions: [
-      'Ledger Hardware Wallets',
-      'Ledger Rejected Transaction',
-      'Ledger Request Timeout',
-      'Open App On Ledger',
-      'Wrong Transaction',
+      // 'Ledger Hardware Wallets',
+      // 'Ledger Rejected Transaction',
+      // 'Ledger Request Timeout',
+      // 'Open App On Ledger',
+      // 'Wrong Transaction',
     ],
     external: [],
   },
   {
     key: 'vault',
-    definitions: ['Polkadot Vault'],
+    definitions: [
+      // 'Polkadot Vault',
+    ],
   },
 ];
