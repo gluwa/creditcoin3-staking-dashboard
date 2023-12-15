@@ -31,7 +31,7 @@ jobs:
         run: |
           # Specify development mode which activates the CreditcoinLocal network in the menu,
           # which in turn enables testing the PR preview build with a locally running creditcoin3-node
-          sed -i "s|vite build|vite build --mode development|" package.json
+          sed -i "s|yarn build|export NODE_ENV='development' \&\& yarn build|" Dockerfile
           echo "===== DEBUG ====="
           git diff
           echo "===== END ====="
