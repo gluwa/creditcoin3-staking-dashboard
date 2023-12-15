@@ -129,6 +129,7 @@ export const Connect = () => {
   }, []);
 
   // Hardware connect options JSX.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const ConnectHardwareJSX = (
     <>
       <ActionItem text={t('hardware')} />
@@ -160,13 +161,13 @@ export const Connect = () => {
   // If in Nova Wallet, display extensions before hardware.
   const ConnectCombinedJSX = !inNova ? (
     <>
-      {ConnectHardwareJSX}
+      {/* {ConnectHardwareJSX} */}
       {ConnectExtensionsJSX}
     </>
   ) : (
     <>
       {ConnectExtensionsJSX}
-      {ConnectHardwareJSX}
+      {/* {ConnectHardwareJSX} */}
     </>
   );
 
