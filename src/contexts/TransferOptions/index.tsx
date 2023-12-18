@@ -121,7 +121,7 @@ export const TransferOptionsProvider = ({
       } = getUnlocking(unlockingPool, activeEra.index);
 
       return {
-        active: BigNumber(membership?.points ?? 0),
+        active: membership?.balance || new BigNumber(0),
         totalUnlocking: totalUnlockingPool,
         totalUnlocked: totalUnlockedPool,
         totalPossibleBond: BigNumber.max(freeMinusReserve.minus(maxLock), 0),
