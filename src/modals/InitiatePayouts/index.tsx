@@ -1,6 +1,3 @@
-// Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
-// SPDX-License-Identifier: GPL-3.0-only
-
 import { ModalPadding } from '@polkadot-cloud/react';
 import { Close } from 'library/Modal/Close';
 import { useApi } from 'contexts/Api';
@@ -10,7 +7,8 @@ import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useOverlay } from '@polkadot-cloud/react/hooks';
 import { InputWrapper } from 'library/Form/Wrappers';
 import { useActivePools } from 'contexts/Pools/ActivePools';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNetworkMetrics } from 'contexts/NetworkMetrics';
 
 export const InitiatePayout = () => {
   const { api } = useApi();
@@ -19,6 +17,11 @@ export const InitiatePayout = () => {
   const { selectedActivePool } = useActivePools();
   const [eraIndex, setEraIndex] = useState<number>(0);
   const isValid = eraIndex > 0;
+  const { activeEra } = useNetworkMetrics();
+
+  useEffect(() => {
+    setEraIndex(activeEra.index.toNumber() - 1);
+  }, [activeEra]);
 
   const submitExtrinsic = useSubmitExtrinsic({
     tx: api?.tx.staking.payoutStakers(
@@ -37,7 +40,9 @@ export const InitiatePayout = () => {
     <>
       <Close />
       <ModalPadding>
-        <h2 className="title unbounded">Initiate Payout to Pool</h2>
+        <h2 className="title unbounded">
+          Initiate Payout to Pool (Active Era: {activeEra.index.toString()})
+        </h2>
         <InputWrapper>
           <span className="inner">
             <section style={{ opacity: 1 }}>

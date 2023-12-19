@@ -114,18 +114,6 @@ const makeNetworkList = () => {
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
       subscanEndpoint: 'http://127.0.0.1:4399',
     }),
-    creditcoinLocal: makeCreditcoinNetwork({
-      name: 'creditcoinLocal',
-      endpoints: {
-        lightClient: null,
-        defaultRpcEndpoint: 'Gluwa',
-        rpcEndpoints: {
-          Gluwa: 'ws://127.0.0.1:9944',
-        },
-      },
-      namespace: '09573a3526818a8ecd6eb92f60f1175d',
-      subscanEndpoint: 'http://127.0.0.1:4399',
-    }),
   };
   if (import.meta.env.DEV) {
     networks.creditcoinLocal = makeCreditcoinNetwork({
