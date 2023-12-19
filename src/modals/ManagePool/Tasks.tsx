@@ -137,8 +137,8 @@ export const Tasks = forwardRef(({ setSection, setTask }: any, ref: any) => {
             }}
           >
             <div>
-              <h3>{t('unbondFunds')}</h3>
-              <p>{t('unbondYourFunds')}</p>
+              <h3>{t('leavePool')}</h3>
+              <p>{t('unbondFundsLeavePool')}</p>
             </div>
           </ButtonOption>
         )}
