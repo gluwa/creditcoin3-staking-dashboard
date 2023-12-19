@@ -4,7 +4,7 @@
 
 import type { PayoutsContextInterface } from './types';
 
-export const MaxSupportedPayoutEras = 7;
+export const MaxSupportedPayoutEras = 84;
 
 export const defaultPayoutsContext: PayoutsContextInterface = {
   payoutsSynced: 'unsynced',
