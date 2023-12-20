@@ -1,10 +1,8 @@
-![ci](https://github.com/gluwa/creditcoin-staking-dashboard/actions/workflows/ci.yml/badge.svg) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
 # Creditcoin Staking Dashboard
 
-#### Production:
+![ci](https://github.com/gluwa/creditcoin-staking-dashboard/actions/workflows/ci.yml/badge.svg) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-https://staking.creditcoin.org
+**Production URL:** <https://staking.creditcoin.org>
 
 ## Validator Operator Setup Guide
 
@@ -37,7 +35,7 @@ Next, add your operator details to the `ValidatorCommunity` object. Only provide
 
 The following example defines 2 validators on the Creditcoin Mainnet, and 1 on the Creditcoin Testnet:
 
-```
+```typescript
 export const ValidatorCommunity = [
   ...
   {

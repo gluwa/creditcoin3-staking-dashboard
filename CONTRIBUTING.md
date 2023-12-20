@@ -2,13 +2,13 @@
 
 This section aims to familiarise developers to the Polkadot Staking Dashboard [[GitHub](https://github.com/paritytech/polkadot-staking-dashboard), [Demo](https://paritytech.github.io/polkadot-staking-dashboard/#/overview)] for the purpose of contributing to the project.
 
-Reach out to ross@parity.io for clarification of any content within this document.
+Reach out to <ross@parity.io> for clarification of any content within this document.
 
 ## Submitting Pull Requests
 
 This project follows the Conventional Commits specification. Pull requests are merged and squashed, with the pull request title being used as the commit message. Commit messages should adhere to the following structure:
 
-```
+```text
 <type>(<scope>): <summary>
 ```
 
