@@ -16,6 +16,7 @@ RUN git config --global url."https://github.com/".insteadOf git@github.com: \
 
 # production environment
 FROM nginx:1.25.3-alpine
+HEALTHCHECK CMD wget -O /dev/null http://localhost || exit 1
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
