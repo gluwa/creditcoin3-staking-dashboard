@@ -1,12 +1,15 @@
 # build environment
 FROM node:21 as build
+
+WORKDIR /tmp
+RUN npm install yarn --legacy-peer-deps
+
 WORKDIR /app
 COPY . .
-RUN npm install yarn --legacy-peer-deps
-RUN git config --global url."https://github.com/".insteadOf git@github.com:
-RUN git config --global url."https://".insteadOf ssh://git
-RUN yarn install
-RUN yarn build
+RUN git config --global url."https://github.com/".insteadOf git@github.com: \
+ && git config --global url."https://".insteadOf ssh://git \
+ && yarn install \
+ && yarn build
 
 # production environment
 FROM nginx:1.25.3-alpine
