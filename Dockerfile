@@ -1,3 +1,5 @@
+# hadolint global ignore=DL3016
+
 # build environment
 FROM node:21 as build
 
