@@ -6,3 +6,7 @@ CVE-2023-44270
 
 # sharp is a transitive dependency
 GHSA-54xq-cgqr-rpm3
+
+# nginx process will drop priviledges to the nginx user
+# however the container is launched as root initially
+AVD-DS-0002
