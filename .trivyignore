@@ -1,0 +1,8 @@
+# axios is a transitive dependency
+CVE-2023-45857
+
+# postcss is a transitive dependency
+CVE-2023-44270
+
+# sharp is a transitive dependency
+GHSA-54xq-cgqr-rpm3
