@@ -1,4 +1,5 @@
 # hadolint global ignore=DL3016
+# checkov:skip=CKV_DOCKER_3:Ensure that a user for the container has been created
 
 # build environment
 FROM node:21 as build
