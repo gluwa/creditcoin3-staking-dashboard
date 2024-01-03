@@ -39,7 +39,9 @@ export const MembershipStatus = ({
   const membershipButtons = [];
   let membershipDisplay = t('pools.notInPool');
 
-  if (selectedActivePool) {
+  const inPool = selectedActivePool && (isOwner() || isBouncer() || isMember());
+
+  if (inPool) {
     const pool = bondedPools.find(
       (p) => p.addresses.stash === selectedActivePool.addresses.stash
     );
@@ -74,7 +76,7 @@ export const MembershipStatus = ({
 
   return (
     <>
-      {selectedActivePool ? (
+      {inPool ? (
         <>
           <Stat
             label={label}
