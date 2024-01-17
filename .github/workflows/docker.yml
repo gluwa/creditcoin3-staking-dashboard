@@ -62,6 +62,7 @@ jobs:
 
       - name: Azure login
         if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
         uses: azure/login@v1
@@ -72,6 +73,7 @@ jobs:
       - name: Upload application files to Azure Storage
         id: upload
         if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
         run: |
@@ -87,6 +89,7 @@ jobs:
 
       - name: Post comment to PR
         if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
+        continue-on-error: true
         uses: mshick/add-pr-comment@v2
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
