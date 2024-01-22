@@ -70,7 +70,6 @@
         [
           "Validators can take a percentage of the rewards they earn. This chunk is called their commission.",
           "Nominating validators with low commissions mean you will receive a larger share of the rewards they generate.",
-          "Many validators will have a commission rate of 100%, meaning you will receive no rewards by nominating these validators.",
           "Examples of such validators include those operating on behalf of exchanges, where nominating and reward distribution is done centrally on the exchange in question.",
           "A validator can update their commission rates as and when they please, and such changes will have an impact on your profitability. Be sure to monitor your nominations on this dashboard to keep updated on their commission rates."
         ]
@@ -238,7 +237,7 @@
         "Payout Destination",
         [
           "Your payout destination determines to which account your payouts are sent to.",
-          "Payouts can be automatically bonded on top of your current bond, or they can be sent to your stash, controller, or an external account of your choosing."
+          "Payouts can be automatically bonded on top of your current bond, or they can be sent to your account or an external account of your choosing."
         ]
       ],
       "payoutHistory": [
@@ -367,7 +366,7 @@
       "validator": [
         "Validator",
         [
-          "An entity that validates blocks for the {NETWORK_NAME} Relay Chain. Validators play a key role in {NETWORK_NAME} to secure the network and produce blocks.",
+          "Validators play a key role in Creditcoin to secure the network and produce blocks.",
           "As a nominator, you choose which validators you wish to back, and receive rewards for doing so."
         ]
       ],
