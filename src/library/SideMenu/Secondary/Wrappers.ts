@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import type { MinimisedProps } from '../types';
 
 export const Wrapper = styled(motion.button)<MinimisedProps>`
-  border: 1px solid var(--border-primary-color);
+  border: 1px solid var(--custom-side-button-border);
   border-radius: 0.7rem;
   height: 3.2rem;
   display: flex;
@@ -18,7 +18,7 @@ export const Wrapper = styled(motion.button)<MinimisedProps>`
   width: 100%;
 
   .name {
-    color: var(--text-color-primary);
+    color: #fff;
     font-family: InterSemiBold, sans-serif;
     font-size: 1.1rem;
   }
@@ -35,10 +35,10 @@ export const Wrapper = styled(motion.button)<MinimisedProps>`
   }
 
   &.active {
-    background: var(--highlight-primary);
+    background: #262a2d;
   }
   &.inactive:hover {
-    background: var(--highlight-secondary);
+    background: #262a2d;
   }
   &.success {
     border: 1px solid var(--status-success-color-transparent);

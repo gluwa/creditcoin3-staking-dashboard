@@ -14,7 +14,7 @@ import { applyWidthAsPadding, minDecimalPlaces } from '@polkadot-cloud/utils';
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useHelp } from 'contexts/Help';
 import { useNotifications } from 'contexts/Notifications';
-import { useNetwork } from 'contexts/Network';
+// import { useNetwork } from 'contexts/Network';
 import { Wrapper } from './Wrapper';
 import type { StatAddress, StatProps } from './types';
 
@@ -28,9 +28,9 @@ export const Stat = ({
   type = 'string',
   buttonType = 'primary',
 }: StatProps) => {
-  const {
-    brand: { token: Token },
-  } = useNetwork().networkData;
+  // const {
+  //   brand: { token: Token },
+  // } = useNetwork().networkData;
   const { openHelp } = useHelp();
   const { addNotification } = useNotifications();
 
@@ -62,13 +62,13 @@ export const Stat = ({
     case 'odometer':
       display = (
         <h2>
-          <Token
+          {/* <Token
             style={{
               width: '1.9rem',
               height: '1.9rem',
               marginRight: '0.55rem',
             }}
-          />
+          /> */}
           <Odometer
             value={minDecimalPlaces(stat.value, 2)}
             spaceAfter="0.4rem"

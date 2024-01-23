@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 export const PromptWrapper = styled.div`
   background: var(--overlay-background-color);
+  backdrop-filter: blur(1.4rem);
   position: fixed;
   width: 100%;
   height: 100%;
@@ -49,10 +50,11 @@ export const HeightWrapper = styled.div<{ size: string }>`
   z-index: 9;
   position: relative;
   overflow: auto;
+  box-shadow: 0 1.75px 0 1.25px rgba(0, 0, 0, 0.1);
 `;
 
 export const ContentWrapper = styled.div`
-  background: var(--background-default);
+  background: #fff;
   width: 100%;
   height: auto;
   overflow: hidden;
@@ -103,7 +105,7 @@ export const TitleWrapper = styled.div`
       > h2 {
         display: flex;
         align-items: center;
-        font-family: 'NeueBit-R', 'sans-serif', sans-serif;
+        font-family: 'SF-Pro-R', 'sans-serif', sans-serif;
         font-size: 1.3rem;
 
         > button {
