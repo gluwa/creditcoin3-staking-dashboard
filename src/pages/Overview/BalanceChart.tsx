@@ -155,7 +155,7 @@ export const BalanceChart = () => {
       <CardHeaderWrapper>
         <h4>{t('overview.balance')}</h4>
         <h2>
-          <Token className="networkIcon" />
+          <Token className="networkIcon" style={{ display: 'none' }} />
           <Odometer
             value={minDecimalPlaces(totalBalance.toFormat(), 2)}
             zeroDecimals={2}

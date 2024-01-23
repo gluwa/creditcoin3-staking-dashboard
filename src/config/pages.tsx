@@ -38,7 +38,7 @@ export const PagesConfig: PagesConfigItems = [
     uri: `${BASE_URL}`,
     hash: '/overview',
     Entry: Overview,
-    icon: () => <OverviewIcon width="13.5" height="11.7" />,
+    icon: () => <OverviewIcon width={'13'} height={'11'} />,
   },
   {
     category: 2,
@@ -46,7 +46,7 @@ export const PagesConfig: PagesConfigItems = [
     uri: `${BASE_URL}pools`,
     hash: '/pools',
     Entry: Pools,
-    icon: () => <PoolsIcon height={'12.6'} width={'12.6'} />,
+    icon: () => <PoolsIcon height={'14'} width={'14'} />,
   },
   {
     category: 2,
@@ -54,7 +54,7 @@ export const PagesConfig: PagesConfigItems = [
     uri: `${BASE_URL}nominate`,
     hash: '/nominate',
     Entry: Nominate,
-    icon: () => <NominateIcon width="12.6" height="7.2" />,
+    icon: () => <NominateIcon width={'14'} height={'8'} />,
   },
   {
     category: 2,
@@ -62,7 +62,7 @@ export const PagesConfig: PagesConfigItems = [
     uri: `${BASE_URL}payouts`,
     hash: '/payouts',
     Entry: Payouts,
-    icon: () => <PayoutsIcon width="12.6" height="10.8" />,
+    icon: () => <PayoutsIcon width={'14'} height={'12'} />,
   },
   {
     category: 3,
@@ -70,7 +70,7 @@ export const PagesConfig: PagesConfigItems = [
     uri: `${BASE_URL}validators`,
     hash: '/validators',
     Entry: Validators,
-    icon: () => <ValidatorsIcon width="12.6" height="12.6" />,
+    icon: () => <ValidatorsIcon width={'13'} height={'13'} />,
   },
   {
     category: 3,
@@ -78,6 +78,6 @@ export const PagesConfig: PagesConfigItems = [
     uri: `${BASE_URL}community`,
     hash: '/community',
     Entry: Community,
-    icon: () => <CommunityIcon width="12.6" height="11.7" />,
+    icon: () => <CommunityIcon width={'14'} height={'14'} />,
   },
 ];
