@@ -29,7 +29,7 @@ export const BarChartWrapper = styled.div<{ $lessPadding?: boolean }>`
     background: var(--accent-color-primary);
     color: rgba(255, 255, 255, 0.95);
     span {
-      color: var(--accent-color-secondary);
+      color: #fff;
     }
   }
   .d2 {
@@ -42,7 +42,7 @@ export const BarChartWrapper = styled.div<{ $lessPadding?: boolean }>`
   }
   .d4 {
     background: var(--button-tertiary-background);
-    color: var(--text-color-secondary);
+    color: var(--text-color-primary);
   }
 `;
 
@@ -77,7 +77,7 @@ export const Legend = styled.div`
       width: 1rem;
       height: 1rem;
       margin-right: 0.5rem;
-      border-radius: 0.25rem;
+      // border-radius: 0.25rem;
     }
   }
 `;

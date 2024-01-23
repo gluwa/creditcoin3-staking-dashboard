@@ -61,7 +61,7 @@ export const ManageBond = () => {
           <ButtonHelp marginLeft onClick={() => openHelp('Bonding')} />
         </h4>
         <h2>
-          <Token className="networkIcon" />
+          <Token className="networkIcon" style={{ display: 'none' }} />
           <Odometer
             value={minDecimalPlaces(planckToUnit(active, units).toFormat(), 2)}
             zeroDecimals={2}

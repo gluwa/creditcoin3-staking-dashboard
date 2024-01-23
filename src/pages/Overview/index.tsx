@@ -94,7 +94,7 @@ export const Overview = () => {
             <CardHeaderWrapper>
               <h4>{t('overview.recentPayouts')}</h4>
               <h2>
-                <Token className="networkIcon" />
+                <Token className="networkIcon" style={{ display: 'none' }} />
                 <Odometer
                   value={minDecimalPlaces(
                     lastReward === null

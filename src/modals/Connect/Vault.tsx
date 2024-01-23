@@ -40,7 +40,7 @@ export const Vault = (): React.ReactElement => {
               style={{
                 opacity: 1,
                 color: 'var(--accent-color-primary)',
-                // fontFamily: 'NeueBit-R',
+                // fontFamily: 'SF-Pro-R',
               }}
             />
           </div>
