@@ -32,7 +32,7 @@ export const TitleWrapper = styled.div<{ $fixed: boolean }>`
       > h2 {
         display: flex;
         align-items: center;
-        font-family: 'NeueBit-R', 'sans-serif', sans-serif;
+        font-family: 'SF-Pro-R', 'sans-serif', sans-serif;
         font-size: 2.3rem;
         margin: 0;
 

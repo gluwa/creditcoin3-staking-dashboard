@@ -30,13 +30,14 @@ import { ReadOnly } from './ReadOnly';
 import { Vault } from './Vault';
 import { ExtensionsWrapper } from './Wrappers';
 
+// some Extensions removed by SS-463
 const desiredOrder = [
   'subwallet-js',
-  'metamask-polkadot-snap',
+  // 'metamask-polkadot-snap',
   'talisman',
-  'enkrypt',
-  'polkagate',
-  'fearless-wallet',
+  // 'enkrypt',
+  // 'polkagate',
+  // 'fearless-wallet',
 ];
 
 interface ExtensionItem {
@@ -51,6 +52,23 @@ export const Connect = () => {
   const { t } = useTranslation('modals');
   const { extensionsStatus } = useExtensions();
   const { replaceModal, setModalHeight, modalMaxHeight } = useOverlay().modal;
+
+  const sortOutExtensions = (
+    dataArray: ExtensionItem[],
+    orderArray: string[]
+  ) => {
+    const resultArray: ExtensionItem[] = [];
+
+    dataArray.forEach((item) => {
+      orderArray.forEach((key) => {
+        if (item.id === key) {
+          resultArray.push(item);
+        }
+      });
+    });
+
+    return resultArray;
+  };
 
   const sortByDesiredOrder = (
     dataArray: ExtensionItem[],
@@ -72,10 +90,8 @@ export const Connect = () => {
     });
   };
 
-  const ExtensionsArray = sortByDesiredOrder(
-    OriginExtensionsArray,
-    desiredOrder
-  );
+  let ExtensionsArray = sortOutExtensions(OriginExtensionsArray, desiredOrder);
+  ExtensionsArray = sortByDesiredOrder(ExtensionsArray, desiredOrder);
 
   const inNova = !!window?.walletExtension?.isNovaWallet || false;
 
