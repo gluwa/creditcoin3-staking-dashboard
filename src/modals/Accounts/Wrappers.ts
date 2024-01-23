@@ -76,7 +76,6 @@ export const AccountWrapper = styled.div`
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            color: #fff;
 
             > span {
               opacity: 0.7;
