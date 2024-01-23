@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [main, dev]
 
+permissions: read-all
+
 jobs:
   build:
     permissions:
@@ -20,6 +22,9 @@ jobs:
         run: |
           # Use relative paths for the PR preview build
           sed -i "s|vite build --base '/'|vite build --base './'|" package.json
+          echo "===== DEBUG ====="
+          git diff
+          echo "===== END ====="
 
       - name: Preview build configuration - Use 'development' mode
         # WARNING: may affect app functionality compared to a production build!
@@ -28,7 +33,10 @@ jobs:
         run: |
           # Specify development mode which activates the CreditcoinLocal network in the menu,
           # which in turn enables testing the PR preview build with a locally running creditcoin3-node
-          sed -i "s|vite build|vite build --mode development|" package.json
+          sed -i "s|yarn build|export NODE_ENV='development' \&\& yarn build|" Dockerfile
+          echo "===== DEBUG ====="
+          git diff
+          echo "===== END ====="
 
       - name: Build docker image
         run: |
@@ -54,6 +62,7 @@ jobs:
 
       - name: Azure login
         if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
         uses: azure/login@v1
@@ -64,6 +73,7 @@ jobs:
       - name: Upload application files to Azure Storage
         id: upload
         if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}
         run: |
@@ -79,6 +89,7 @@ jobs:
 
       - name: Post comment to PR
         if: ${{ github.event_name == 'pull_request' && env.GITHUB_TOKEN }}
+        continue-on-error: true
         uses: mshick/add-pr-comment@v2
         env:
           GITHUB_TOKEN: ${{ secrets.CREDITCOIN_GITHUB_API_TOKEN }}

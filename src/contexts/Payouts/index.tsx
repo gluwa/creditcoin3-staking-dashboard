@@ -151,13 +151,16 @@ export const PayoutsProvider = ({
     // Helper function to check which eras a validator was exposed in.
     const validatorExposedEras = (validator: string) => {
       const exposedEras: string[] = [];
-      for (const era of erasToCheck)
+      for (const era of erasToCheck) {
         if (
-          Object.values(
-            Object.keys(getLocalEraExposure(network, era, activeAccount))
-          )?.[0] === validator
+          (
+            Object.values(
+              Object.keys(getLocalEraExposure(network, era, activeAccount))
+            ) ?? []
+          ).includes(validator)
         )
           exposedEras.push(era);
+      }
       return exposedEras;
     };
 
