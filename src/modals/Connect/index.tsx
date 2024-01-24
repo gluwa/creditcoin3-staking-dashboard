@@ -38,6 +38,7 @@ const desiredOrder = [
   // 'enkrypt',
   // 'polkagate',
   // 'fearless-wallet',
+  'polkadot-js',
 ];
 
 interface ExtensionItem {
