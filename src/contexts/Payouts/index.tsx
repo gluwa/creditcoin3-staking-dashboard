@@ -311,7 +311,7 @@ export const PayoutsProvider = ({
 
   // Fetch payouts if active account is nominating.
   useEffect(() => {
-    if (!activeEra.index.isZero()) {
+    if (!activeEra.isPlaceholder) {
       if (!isNominating()) {
         setStateWithRef('synced', setPayoutsSynced, payoutsSyncedRef);
       } else if (

@@ -3,7 +3,6 @@
 
 import { faBars, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isNotZero } from '@polkadot-cloud/utils';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -103,7 +102,7 @@ export const MembersListInner = ({
 
   // Configure list when network is ready to fetch.
   useEffect(() => {
-    if (isReady && isNotZero(activeEra.index) && fetched === 'unsynced') {
+    if (isReady && !activeEra.isPlaceholder && fetched === 'unsynced') {
       setupMembersList();
     }
   }, [isReady, fetched, activeEra.index]);

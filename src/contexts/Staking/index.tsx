@@ -4,7 +4,6 @@
 import type { VoidFn } from '@polkadot/api/types';
 import {
   greaterThanZero,
-  isNotZero,
   localStorageOrDefault,
   setStateWithRef,
 } from '@polkadot-cloud/utils';
@@ -135,7 +134,7 @@ export const StakingProvider = ({
 
   // Multi subscription to staking metrics.
   const subscribeToStakingkMetrics = async () => {
-    if (api !== null && isReady && isNotZero(activeEra.index)) {
+    if (api !== null && isReady && !activeEra.isPlaceholder) {
       const previousEra = activeEra.index.minus(1);
 
       const u = await api.queryMulti<AnyApi>(
@@ -221,7 +220,7 @@ export const StakingProvider = ({
 
   // Fetches the active nominator set and metadata around it.
   const fetchActiveEraStakers = async () => {
-    if (!isReady || activeEra.index.isZero() || !api) return;
+    if (!isReady || activeEra.isPlaceholder || !api) return;
 
     // flag eraStakers is recyncing
     setStateWithRef(true, setErasStakersSyncing, erasStakersSyncingRef);
