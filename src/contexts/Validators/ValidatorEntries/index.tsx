@@ -134,7 +134,7 @@ export const ValidatorsProvider = ({
   // Fetches era reward points for eligible eras.
   const fetchErasRewardPoints = async () => {
     if (
-      activeEra.index.isZero() ||
+      activeEra.isPlaceholder ||
       !api ||
       erasRewardPointsFetched !== 'unsynced'
     )

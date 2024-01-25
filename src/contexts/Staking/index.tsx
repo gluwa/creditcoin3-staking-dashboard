@@ -221,7 +221,7 @@ export const StakingProvider = ({
 
   // Fetches the active nominator set and metadata around it.
   const fetchActiveEraStakers = async () => {
-    if (!isReady || activeEra.index.isZero() || !api) return;
+    if (!isReady || activeEra.isPlaceholder || !api) return;
 
     // flag eraStakers is recyncing
     setStateWithRef(true, setErasStakersSyncing, erasStakersSyncingRef);
