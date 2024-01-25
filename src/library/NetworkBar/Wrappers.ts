@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   bottom: 0px;
   left: 0px;
   overflow: hidden;
-  z-index: 6;
+  z-index: 7;
   backdrop-filter: blur(4px);
   position: relative;
   padding-top: 0.15rem;
