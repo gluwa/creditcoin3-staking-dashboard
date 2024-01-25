@@ -3,7 +3,6 @@
 
 import { faBars, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isNotZero } from '@polkadot-cloud/utils';
 import { motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -284,7 +283,7 @@ export const ValidatorListInner = ({
 
   // Configure validator list when network is ready to fetch.
   useEffect(() => {
-    if (isReady && isNotZero(activeEra.index) && !fetched) setupValidatorList();
+    if (isReady && !activeEra.isPlaceholder && !fetched) setupValidatorList();
   }, [isReady, activeEra.index, fetched]);
 
   // Control render throttle.
@@ -310,7 +309,6 @@ export const ValidatorListInner = ({
   useEffect(() => {
     maybeHandleModalResize();
   }, [listFormat, renderIteration, validators, page]);
-
   return (
     <ListWrapper>
       <List $flexBasisLarge={allowMoreCols ? '33.33%' : '50%'}>

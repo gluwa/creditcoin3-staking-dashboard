@@ -103,7 +103,7 @@ export const PoolPerformanceProvider = ({
     if (
       api &&
       bondedPools.length &&
-      activeEra.index.isGreaterThan(0) &&
+      !activeEra.isPlaceholder &&
       erasRewardPointsFetched === 'synced' &&
       poolRewardPointsFetched === 'unsynced'
     ) {

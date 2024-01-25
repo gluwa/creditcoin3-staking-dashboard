@@ -3,7 +3,6 @@
 
 import { faBars, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isNotZero } from '@polkadot-cloud/utils';
 import { motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -141,7 +140,7 @@ export const PoolList = ({
 
   // Configure pool list when network is ready to fetch.
   useEffect(() => {
-    if (isReady && isNotZero(activeEra.index) && !fetched) {
+    if (isReady && !activeEra.isPlaceholder && !fetched) {
       setupPoolList();
     }
   }, [isReady, fetched, activeEra.index]);
