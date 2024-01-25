@@ -506,7 +506,7 @@ export const ValidatorsProvider = ({
 
   // Fetch validators and era reward points when fetched status changes.
   useEffect(() => {
-    if (isReady && activeEra.index.isGreaterThan(0)) {
+    if (isReady && !activeEra.isPlaceholder) {
       fetchValidators();
       fetchErasRewardPoints();
     }
@@ -514,7 +514,7 @@ export const ValidatorsProvider = ({
 
   // Mark unsynced and fetch session validators when activeEra changes.
   useEffectIgnoreInitial(() => {
-    if (isReady && activeEra.index.isGreaterThan(0)) {
+    if (isReady && !activeEra.isPlaceholder) {
       if (erasRewardPointsFetched === 'synced')
         setErasRewawrdPointsFetched('unsynced');
 
