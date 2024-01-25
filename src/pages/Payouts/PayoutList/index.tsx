@@ -3,7 +3,7 @@
 
 import { faBars, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ellipsisFn, isNotZero, planckToUnit } from '@polkadot-cloud/utils';
+import { ellipsisFn, planckToUnit } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import { formatDistance, fromUnixTime } from 'date-fns';
 import { motion } from 'framer-motion';
@@ -83,7 +83,7 @@ export const PayoutListInner = ({
 
   // configure list when network is ready to fetch
   useEffect(() => {
-    if (isReady && isNotZero(activeEra.index) && !fetched) {
+    if (isReady && !activeEra.isPlaceholder && !fetched) {
       setPayouts(initialPayouts);
       setFetched(true);
     }
