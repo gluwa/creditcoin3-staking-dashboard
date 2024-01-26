@@ -126,69 +126,69 @@ const processExposures = (data: DataInitialiseExposures) => {
       })) ?? [];
 
     // Accumulate active nominators and min active stake threshold.
-    if (others.length) {
-      // Sort `others` by value bonded, largest first.
-      others = others.sort((a, b) => {
-        const r = new BigNumber(rmCommas(b.value)).minus(rmCommas(a.value));
-        return r.isZero() ? 0 : r.isLessThan(0) ? -1 : 1;
-      });
+    // if (others.length) {
+    // Sort `others` by value bonded, largest first.
+    others = others.sort((a, b) => {
+      const r = new BigNumber(rmCommas(b.value)).minus(rmCommas(a.value));
+      return r.isZero() ? 0 : r.isLessThan(0) ? -1 : 1;
+    });
 
-      const lowestRewardIndex = Math.min(
-        maxNominatorRewardedPerValidator - 1,
-        others.length
-      );
+    const lowestRewardIndex = Math.min(
+      maxNominatorRewardedPerValidator - 1,
+      others.length
+    );
 
-      const lowestReward =
-        others.length > 0
-          ? planckToUnit(
-              new BigNumber(others[lowestRewardIndex]?.value || 0),
-              units
-            ).toString()
-          : '0';
-
-      const oversubscribed = others.length > maxNominatorRewardedPerValidator;
-
-      stakers.push({
-        address,
-        lowestReward,
-        oversubscribed,
-        others,
-        own: rmCommas(val.own),
-        total: rmCommas(val.total),
-      });
-
-      // Accumulate active stake for all nominators.
-      for (const o of others) {
-        const value = new BigNumber(rmCommas(o.value));
-
-        // Check nominator already exists.
-        const index = nominators.findIndex(({ who }) => who === o.who);
-
-        // Add value to nominator, otherwise add new entry.
-        if (index === -1) {
-          nominators.push({
-            who: o.who,
-            value: value.toString(),
-          });
-        } else {
-          nominators[index].value = new BigNumber(nominators[index].value)
-            .plus(value)
-            .toFixed();
-        }
-      }
-
-      // get own stake if present
-      const own = others.find(({ who }) => who === activeAccount);
-      if (own !== undefined) {
-        activeAccountOwnStake.push({
-          address,
-          value: planckToUnit(
-            new BigNumber(rmCommas(own.value)),
+    const lowestReward =
+      others.length > 0
+        ? planckToUnit(
+            new BigNumber(others[lowestRewardIndex]?.value || 0),
             units
-          ).toFixed(),
+          ).toString()
+        : '0';
+
+    const oversubscribed = others.length > maxNominatorRewardedPerValidator;
+
+    stakers.push({
+      address,
+      lowestReward,
+      oversubscribed,
+      others,
+      own: rmCommas(val.own),
+      total: rmCommas(val.total),
+    });
+
+    // Accumulate active stake for all nominators.
+    for (const o of others) {
+      const value = new BigNumber(rmCommas(o.value));
+
+      // Check nominator already exists.
+      const index = nominators.findIndex(({ who }) => who === o.who);
+
+      // Add value to nominator, otherwise add new entry.
+      if (index === -1) {
+        nominators.push({
+          who: o.who,
+          value: value.toString(),
         });
+      } else {
+        nominators[index].value = new BigNumber(nominators[index].value)
+          .plus(value)
+          .toFixed();
       }
     }
+
+    // get own stake if present
+    const own = others.find(({ who }) => who === activeAccount);
+    if (own !== undefined) {
+      activeAccountOwnStake.push({
+        address,
+        value: planckToUnit(
+          new BigNumber(rmCommas(own.value)),
+          units
+        ).toFixed(),
+      });
+    }
+    // }
   });
 
   return {
