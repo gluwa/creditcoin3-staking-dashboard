@@ -35,6 +35,7 @@ import type { ValidatorListProps } from './types';
 import { FilterHeaders } from './Filters/FilterHeaders';
 import { FilterBadges } from './Filters/FilterBadges';
 import type { NominationStatus } from './ValidatorItem/types';
+import { useStaking } from 'contexts/Staking';
 
 export const ValidatorListInner = ({
   nominator: initialNominator,
@@ -79,10 +80,11 @@ export const ValidatorListInner = ({
   const { activeEra } = useNetworkMetrics();
   const { activeAccount } = useActiveAccounts();
   const { setModalResize } = useOverlay().modal;
-  const { injectValidatorListData } = useValidators();
+  const { injectValidatorListData, sessionValidators } = useValidators();
   const { getNomineesStatus } = useNominationStatus();
   const { getPoolNominationStatus } = useBondedPools();
   const { applyFilter, applyOrder, applySearch } = useValidatorFilters();
+  const { eraStakers } = useStaking();
 
   const { selected, listFormat, setListFormat } = listProvider;
   const includes = getFilters('include', 'validators');
@@ -163,6 +165,10 @@ export const ValidatorListInner = ({
     renderIterationRef.current = iter;
     setRenderIterationState(iter);
   };
+
+  useEffect(() => {
+    setupValidatorList();
+  }, [eraStakers]);
 
   // Pagination.
   const totalPages = Math.ceil(validators.length / ListItemsPerPage);
@@ -303,7 +309,7 @@ export const ValidatorListInner = ({
   // List ui changes / validator changes trigger re-render of list.
   useEffect(() => {
     if (allowFilters && fetched) handleValidatorsFilterUpdate();
-  }, [order, isSyncing, includes?.length, excludes?.length]);
+  }, [order, isSyncing, includes?.length, excludes?.length, sessionValidators]);
 
   // Handle modal resize on list format change.
   useEffect(() => {
