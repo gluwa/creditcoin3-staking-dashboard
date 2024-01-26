@@ -131,7 +131,7 @@ export const SideMenu = () => {
           type="button"
           onClick={() =>
             window.open(
-              'https://github.com/gluwa/creditcoin-staking-dashboard',
+              'https://github.com/gluwa/creditcoin3-staking-dashboard ',
               '_blank'
             )
           }
