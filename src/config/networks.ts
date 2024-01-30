@@ -78,18 +78,6 @@ const makeCreditcoinNetwork = ({
 
 const makeNetworkList = () => {
   const networks: Networks = {
-    creditcoin: makeCreditcoinNetwork({
-      name: 'creditcoin',
-      endpoints: {
-        lightClient: null,
-        defaultRpcEndpoint: 'Gluwa',
-        rpcEndpoints: {
-          Gluwa: 'wss://rpc.cc3-mainnet.creditcoin.network/ws',
-        },
-      },
-      namespace: 'creditcoin-mainnet',
-      subscanEndpoint: 'http://127.0.0.1:4399',
-    }),
     creditcoinTest: makeCreditcoinNetwork({
       name: 'creditcoinTest',
       endpoints: {
@@ -102,7 +90,22 @@ const makeNetworkList = () => {
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
       subscanEndpoint: 'http://127.0.0.1:4399',
     }),
-    creditcoinDev: makeCreditcoinNetwork({
+  };
+
+  if (import.meta.env.VITE_ENVIRONMENT !== 'testnet') {
+    networks.creditcoin = makeCreditcoinNetwork({
+      name: 'creditcoin',
+      endpoints: {
+        lightClient: null,
+        defaultRpcEndpoint: 'Gluwa',
+        rpcEndpoints: {
+          Gluwa: 'wss://rpc.cc3-mainnet.creditcoin.network/ws',
+        },
+      },
+      namespace: 'creditcoin-mainnet',
+      subscanEndpoint: 'http://127.0.0.1:4399',
+    });
+    networks.creditcoinDev = makeCreditcoinNetwork({
       name: 'creditcoinDev',
       endpoints: {
         lightClient: null,
@@ -113,8 +116,8 @@ const makeNetworkList = () => {
       },
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
       subscanEndpoint: 'http://127.0.0.1:4399',
-    }),
-  };
+    });
+  }
   if (import.meta.env.DEV) {
     networks.creditcoinLocal = makeCreditcoinNetwork({
       name: 'creditcoinLocal',
@@ -128,6 +131,7 @@ const makeNetworkList = () => {
       subscanEndpoint: 'http://127.0.0.1:4399',
     });
   }
+
   return networks;
 };
 
