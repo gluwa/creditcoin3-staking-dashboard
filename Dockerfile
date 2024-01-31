@@ -4,15 +4,12 @@
 # build environment
 FROM node:21 as build
 
-WORKDIR /tmp
-RUN npm install yarn --legacy-peer-deps
-
 WORKDIR /app
 COPY . .
-RUN git config --global url."https://github.com/".insteadOf git@github.com: \
- && git config --global url."https://".insteadOf ssh://git \
- && yarn install \
- && yarn build
+RUN yarn policies set-version '3.3.1'
+
+RUN yarn install \
+&& yarn run build
 
 # production environment
 FROM nginx:1.25.3-alpine
