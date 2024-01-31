@@ -1,9 +1,11 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
   CategoryScale,
   Chart as ChartJS,
+  ChartOptions,
   Legend,
   LinearScale,
   LineElement,
@@ -33,9 +35,12 @@ export const EraPoints = ({ items = [], height }: EraPointsProps) => {
   const { mode } = useTheme();
   const { colors } = useNetwork().networkData;
 
-  const options = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      mode: 'nearest',
+    },
     scales: {
       x: {
         border: {
@@ -66,8 +71,8 @@ export const EraPoints = ({ items = [], height }: EraPointsProps) => {
         },
         ticks: {
           display: true,
-          beginAtZero: false,
         },
+        beginAtZero: false,
       },
     },
     plugins: {
@@ -84,16 +89,13 @@ export const EraPoints = ({ items = [], height }: EraPointsProps) => {
         titleColor: graphColors.label[mode],
         bodyColor: graphColors.label[mode],
         bodyFont: {
-          weight: '600',
+          weight: 'bold',
         },
         callbacks: {
           title: () => [],
           label: (context: any) => `${context.parsed.y}`,
         },
         intersect: false,
-        interaction: {
-          mode: 'nearest',
-        },
       },
     },
   };
