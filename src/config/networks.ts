@@ -78,7 +78,7 @@ const makeCreditcoinNetwork = ({
 
 const makeNetworkList = () => {
   const networks: Networks = {};
-  if (import.meta.env.VITE_ENVIRONMENT !== 'testnet') {
+  if (import.meta.env.VITE_NETWORK !== 'testnet') {
     networks.creditcoin = makeCreditcoinNetwork({
       name: 'creditcoin',
       endpoints: {
@@ -105,7 +105,7 @@ const makeNetworkList = () => {
     subscanEndpoint: 'http://127.0.0.1:4399',
   });
 
-  if (import.meta.env.VITE_ENVIRONMENT !== 'testnet') {
+  if (import.meta.env.VITE_NETWORK !== 'testnet') {
     networks.creditcoinDev = makeCreditcoinNetwork({
       name: 'creditcoinDev',
       endpoints: {
