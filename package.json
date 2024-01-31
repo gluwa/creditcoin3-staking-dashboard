@@ -5,6 +5,7 @@
   "license": "GPL-3.0-only",
   "scripts": {
     "build": "tsc && vite build --base '/'",
+    "build:testnet": "tsc && vite build --mode testnet --base '/'",
     "build:pages": "tsc && vite build --base '/polkadot-staking-dashboard/'",
     "clear": "rm -rf node_modules build tsconfig.tsbuildinfo",
     "deploy:pages": "yarn build:pages && gh-pages -d build",
