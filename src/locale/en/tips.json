@@ -22,14 +22,14 @@
       ]
     ],
     "joinAnotherPool": [
-      "Joining Another Pool (Coming Soon)",
-      "Switch to a different account to join another pool (Coming Soon).",
+      "Joining Another Pool",
+      "Switch to a different account to join another pool.",
       [
         "Only one pool can be joined per account on {NETWORK_NAME}. To join more pools, firstly switch to another account."
       ]
     ],
     "keepPoolNominating": [
-      "Managing Your Pool (Coming Soon)",
+      "Managing Your Pool",
       "It is important to keep your pool actively nominating.",
       [
         "It is important to keep your pool actively nominating.",
@@ -59,7 +59,7 @@
       "tips": "Tips"
     },
     "monitoringPool": [
-      "Managing Pool Membership (Coming Soon)",
+      "Managing Pool Membership",
       "It's  a good idea to check regularly whether your pool is actively earning rewards.",
       [
         "Pools will manage nominations on your behalf, but it is still a good idea to check regularly whether your pool is actively earning rewards.",
