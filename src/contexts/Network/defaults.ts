@@ -4,7 +4,8 @@
 import { NetworkList } from 'config/networks';
 
 export const defaultNetworkContext = {
-  network: NetworkList.creditcoin.name,
-  networkData: NetworkList.creditcoin,
+  network: NetworkList.creditcoin?.name ?? NetworkList.creditcoinTest?.name,
+  networkData: NetworkList.creditcoin ?? NetworkList.creditcoinTest,
+
   switchNetwork: () => {},
 };
