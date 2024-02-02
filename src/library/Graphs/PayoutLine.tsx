@@ -2,9 +2,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import BigNumber from 'bignumber.js';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
   CategoryScale,
   Chart as ChartJS,
+  ChartOptions,
   Legend,
   LinearScale,
   LineElement,
@@ -124,9 +126,12 @@ export const PayoutLine = ({
       : colors.secondary[mode];
 
   // configure graph options
-  const options = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      mode: 'nearest',
+    },
     scales: {
       x: {
         grid: {
@@ -141,7 +146,6 @@ export const PayoutLine = ({
       y: {
         ticks: {
           display: false,
-          beginAtZero: false,
         },
         border: {
           display: false,
@@ -161,7 +165,7 @@ export const PayoutLine = ({
         titleColor: graphColors.label[mode],
         bodyColor: graphColors.label[mode],
         bodyFont: {
-          weight: '600',
+          weight: 'bold',
         },
         callbacks: {
           title: () => [],
@@ -171,9 +175,6 @@ export const PayoutLine = ({
               .toFormat()} ${unit}`,
         },
         intersect: false,
-        interaction: {
-          mode: 'nearest',
-        },
       },
     },
   };
