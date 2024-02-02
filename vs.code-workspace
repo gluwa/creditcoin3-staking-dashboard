@@ -1,10 +1,10 @@
 {
   "folders": [
     {
-      "path": "./",
-    },
+      "path": "./"
+    }
   ],
   "settings": {
-    "java.configuration.updateBuildConfiguration": "disabled",
-  },
+    "java.configuration.updateBuildConfiguration": "disabled"
+  }
 }
