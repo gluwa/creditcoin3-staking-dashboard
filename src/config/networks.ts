@@ -14,6 +14,7 @@ type NetworkConfig = {
   endpoints: Network['endpoints'];
   namespace?: string;
   subscanEndpoint: string;
+  subscanUrl: string;
 };
 
 const makeCreditcoinNetwork = ({
@@ -21,12 +22,14 @@ const makeCreditcoinNetwork = ({
   endpoints,
   namespace,
   subscanEndpoint,
+  subscanUrl,
 }: NetworkConfig): Network => {
   return {
     name,
     endpoints,
     namespace: namespace ?? '09573a3526818a8ecd6eb92f60f1175d',
     subscanEndpoint,
+    subscanUrl,
 
     api: {
       unit: 'CTC',
@@ -90,6 +93,7 @@ const makeNetworkList = () => {
       },
       namespace: 'creditcoin-mainnet',
       subscanEndpoint: 'http://127.0.0.1:4399',
+      subscanUrl: 'https://creditcoin.subscan.io/',
     });
   }
   networks.creditcoinTest = makeCreditcoinNetwork({
@@ -103,6 +107,7 @@ const makeNetworkList = () => {
     },
     namespace: '09573a3526818a8ecd6eb92f60f1175d',
     subscanEndpoint: 'http://127.0.0.1:4399',
+    subscanUrl: 'https://creditcoin-testnet.subscan.io/',
   });
 
   if (import.meta.env.VITE_NETWORK !== 'testnet') {
@@ -117,6 +122,7 @@ const makeNetworkList = () => {
       },
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
       subscanEndpoint: 'http://127.0.0.1:4399',
+      subscanUrl: 'https://creditcoin-testnet.subscan.io/',
     });
   }
   if (import.meta.env.DEV) {
@@ -130,6 +136,7 @@ const makeNetworkList = () => {
         },
       },
       subscanEndpoint: 'http://127.0.0.1:4399',
+      subscanUrl: 'https://creditcoin-testnet.subscan.io/',
     });
   }
 
