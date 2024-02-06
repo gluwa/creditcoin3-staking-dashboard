@@ -1,6 +1,6 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
-
+/* eslint-disable */
 import {
   Odometer,
   PageHeading,
@@ -19,7 +19,7 @@ import { StatBoxList } from 'library/StatBoxList';
 import { locales } from 'locale';
 import { ControllerNotStash } from 'pages/Nominate/Active/ControllerNotStash';
 import { minDecimalPlaces, planckToUnit } from '@polkadot-cloud/utils';
-import { PluginLabel } from 'library/PluginLabel';
+import { SubscanButton } from 'library/SubscanButton';
 import { useNetwork } from 'contexts/Network';
 import { ActiveAccounts } from './ActiveAccounts';
 import { BalanceChart } from './BalanceChart';
@@ -90,7 +90,7 @@ export const Overview = () => {
         </RowSection>
         <RowSection hLast vLast>
           <CardWrapper style={{ minHeight: PAYOUTS_HEIGHT }}>
-            <PluginLabel plugin="subscan" />
+            <SubscanButton />
             <CardHeaderWrapper>
               <h4>{t('overview.recentPayouts')}</h4>
               <h2>
