@@ -107,7 +107,7 @@ export const ValidatorMetrics = () => {
         className="body"
         style={{ position: 'relative', marginTop: '0.5rem' }}
       >
-        <SubscanButton />
+        <SubscanButton validatorAddress={address} />
         <CardWrapper
           className="transparent"
           style={{
