@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 interface OdometerProps {
-  value?: string;
+  value?: string | number;
   spaceBefore?: string;
   spaceAfter?: string;
   zeroDecimals?: number;
@@ -18,10 +18,15 @@ export const Odometer = ({
   decimalColor = 'var(--text-color-tertiary)',
 }: OdometerProps) => {
   const formattedValue = useMemo(() => {
-    let [whole, decimal] = value.split('.');
+    let [whole, decimal] = String(value).split('.');
     whole = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     if (decimal) {
-      decimal = parseFloat(`0.${decimal}`).toFixed(zeroDecimals).substring(2);
+      const factor = 10 ** zeroDecimals;
+      let result: number | string =
+        Math.floor(parseFloat(`0.${decimal}`) * factor) / factor;
+
+      result = result.toString().split('.')[1] || '';
+      decimal = result;
     }
     return { whole, decimal };
   }, [value, zeroDecimals]);
