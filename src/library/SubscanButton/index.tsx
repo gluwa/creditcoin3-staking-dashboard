@@ -8,19 +8,21 @@ import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useNetwork } from 'contexts/Network';
 import { Wrapper } from './Wrapper';
 
-export const SubscanButton = () => {
+export const SubscanButton = ({ validatorAddress = '' }) => {
   const { plugins } = usePlugins();
   const { activeAccount } = useActiveAccounts();
   const { networkData } = useNetwork();
 
   const isSubscanActive = activeAccount !== null && plugins.includes('subscan');
+  const subscanTypeName = validatorAddress ? 'validator' : 'account';
+  const address = validatorAddress || activeAccount;
   return (
     <>
       <Wrapper $active={isSubscanActive}>
         <FontAwesomeIcon icon={faProjectDiagram} transform="shrink-4" />
         {isSubscanActive ? (
           <a
-            href={`${networkData.subscanUrl}/account/${activeAccount}`}
+            href={`${networkData.subscanUrl}/${subscanTypeName}/${address}`}
             target="_blank"
             rel="nofollow noopener noreferrer"
           >
