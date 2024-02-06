@@ -8,8 +8,8 @@ import {
   ButtonPrimary,
   ButtonSecondary,
   Polkicon,
-  Odometer,
 } from '@polkadot-cloud/react';
+import { Odometer } from 'component/Odometer';
 import { applyWidthAsPadding, minDecimalPlaces } from '@polkadot-cloud/utils';
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useHelp } from 'contexts/Help';
