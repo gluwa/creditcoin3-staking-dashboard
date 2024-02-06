@@ -125,6 +125,7 @@ const makeNetworkList = () => {
       subscanUrl: 'https://creditcoin3-testnet.subscan.io/',
     });
   }
+
   if (import.meta.env.DEV) {
     networks.creditcoinLocal = makeCreditcoinNetwork({
       name: 'creditcoinLocal',
@@ -139,7 +140,6 @@ const makeNetworkList = () => {
       subscanUrl: 'https://creditcoin3-testnet.subscan.io/',
     });
   }
-
   return networks;
 };
 

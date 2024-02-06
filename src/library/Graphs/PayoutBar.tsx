@@ -2,12 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import BigNumber from 'bignumber.js';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
   BarElement,
   CategoryScale,
   Chart as ChartJS,
-  ChartOptions,
   Legend,
   LinearScale,
   LineElement,
@@ -125,12 +123,11 @@ export const PayoutBar = ({ days, height }: PayoutBarProps) => {
     ],
   };
 
-  const options: ChartOptions<'bar'> = {
+  const options = {
     responsive: true,
     maintainAspectRatio: false,
-    interaction: {
-      mode: 'nearest',
-    },
+    barPercentage: 0.4,
+    maxBarThickness: 13,
     scales: {
       x: {
         stacked: true,
@@ -172,7 +169,7 @@ export const PayoutBar = ({ days, height }: PayoutBarProps) => {
         titleColor: graphColors.label[mode],
         bodyColor: graphColors.label[mode],
         bodyFont: {
-          weight: 'bold',
+          weight: '600',
         },
         callbacks: {
           title: () => [],
