@@ -19,7 +19,7 @@ import { useSize } from 'library/Hooks/useSize';
 import { StatBoxList } from 'library/StatBoxList';
 import { StatusLabel } from 'library/StatusLabel';
 import type { AnySubscan, PageProps } from 'types';
-import { PluginLabel } from 'library/PluginLabel';
+import { SubscanButton } from 'library/SubscanButton';
 import { PayoutList } from './PayoutList';
 import { LastEraPayoutStat } from './Stats/LastEraPayout';
 
@@ -53,7 +53,7 @@ export const Payouts = ({ page }: PageProps) => {
       </StatBoxList>
       <PageRow>
         <CardWrapper>
-          <PluginLabel plugin="subscan" />
+          <SubscanButton />
           <CardHeaderWrapper>
             <h4>
               {t('payouts.payoutHistory', { ns: 'pages' })}
