@@ -19,7 +19,7 @@ import { Title } from 'library/Modal/Title';
 import { StatWrapper, StatsWrapper } from 'library/Modal/Wrappers';
 import { StatusLabel } from 'library/StatusLabel';
 import { useOverlay } from '@polkadot-cloud/react/hooks';
-import { PluginLabel } from 'library/PluginLabel';
+import { SubscanButton } from 'library/SubscanButton';
 import { useNetwork } from 'contexts/Network';
 
 export const ValidatorMetrics = () => {
@@ -107,7 +107,7 @@ export const ValidatorMetrics = () => {
         className="body"
         style={{ position: 'relative', marginTop: '0.5rem' }}
       >
-        <PluginLabel plugin="subscan" />
+        <SubscanButton />
         <CardWrapper
           className="transparent"
           style={{
