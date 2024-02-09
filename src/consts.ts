@@ -11,7 +11,12 @@ import type { Plugin } from 'types';
 export const AppVersion = '1.0.8';
 export const DappName = 'Creditcoin Staking Dashboard';
 export const CreditcoinUrl = 'https://creditcoin.org';
-export const DefaultNetwork = 'creditcoin';
+export const DefaultNetwork =
+  import.meta.env.VITE_ENVIRONMENT === 'test'
+    ? 'creditcoinDev'
+    : import.meta.env.VITE_ENVIRONMENT === 'staging'
+      ? 'creditcoinTest'
+      : 'creditcoin';
 export const ManualSigners = ['ledger', 'vault'];
 /*
  * Data Structure Helpers

@@ -81,19 +81,19 @@ const makeCreditcoinNetwork = ({
 
 const makeNetworkList = () => {
   const networks: Networks = {};
-  if (import.meta.env.VITE_NETWORK !== 'testnet') {
-    networks.creditcoin = makeCreditcoinNetwork({
-      name: 'creditcoin',
+  if (import.meta.env.VITE_ENVIRONMENT === 'test') {
+    networks.creditcoinDev = makeCreditcoinNetwork({
+      name: 'creditcoinDev',
       endpoints: {
         lightClient: null,
         defaultRpcEndpoint: 'Gluwa',
         rpcEndpoints: {
-          Gluwa: 'wss://rpc.cc3-mainnet.creditcoin.network/ws',
+          Gluwa: 'wss://rpc.cc3-devnet.creditcoin.network/ws',
         },
       },
-      namespace: 'creditcoin-mainnet',
+      namespace: '09573a3526818a8ecd6eb92f60f1175d',
       subscanEndpoint: 'http://127.0.0.1:4399',
-      subscanUrl: 'https://creditcoin3.subscan.io/',
+      subscanUrl: 'https://creditcoin3-testnet.subscan.io/',
     });
   }
   networks.creditcoinTest = makeCreditcoinNetwork({
@@ -109,23 +109,19 @@ const makeNetworkList = () => {
     subscanEndpoint: 'http://127.0.0.1:4399',
     subscanUrl: 'https://creditcoin3-testnet.subscan.io/',
   });
-
-  if (import.meta.env.VITE_NETWORK !== 'testnet') {
-    networks.creditcoinDev = makeCreditcoinNetwork({
-      name: 'creditcoinDev',
-      endpoints: {
-        lightClient: null,
-        defaultRpcEndpoint: 'Gluwa',
-        rpcEndpoints: {
-          Gluwa: 'wss://rpc.cc3-devnet.creditcoin.network/ws',
-        },
+  networks.creditcoin = makeCreditcoinNetwork({
+    name: 'creditcoin',
+    endpoints: {
+      lightClient: null,
+      defaultRpcEndpoint: 'Gluwa',
+      rpcEndpoints: {
+        Gluwa: 'wss://rpc.cc3-mainnet.creditcoin.network/ws',
       },
-      namespace: '09573a3526818a8ecd6eb92f60f1175d',
-      subscanEndpoint: 'http://127.0.0.1:4399',
-      subscanUrl: 'https://creditcoin3-testnet.subscan.io/',
-    });
-  }
-
+    },
+    namespace: 'creditcoin-mainnet',
+    subscanEndpoint: 'http://127.0.0.1:4399',
+    subscanUrl: 'https://creditcoin3.subscan.io/',
+  });
   if (import.meta.env.DEV) {
     networks.creditcoinLocal = makeCreditcoinNetwork({
       name: 'creditcoinLocal',
