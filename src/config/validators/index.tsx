@@ -15,6 +15,10 @@ export const ValidatorCommunity = [
         '5EpmD1q1P3qY38YqkM6UXt56Gfrz8vXTu1cVgG2WSibrxphQ',
         '5CLvDXfB4vpz7knm3Me6C42aFKzz5H6UDg92aRFCuyABdJpZ',
       ],
+      creditcoinDev: [
+        '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY',
+        '5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty',
+      ],
     },
   },
 ];
