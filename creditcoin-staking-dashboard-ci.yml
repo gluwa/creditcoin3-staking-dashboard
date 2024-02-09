@@ -46,8 +46,7 @@ jobs:
           repository: 'gluwa/cc3-staking-dashboard'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
-          arguments:
-            - --build-arg TARGET_NETWORK=prod'
+          arguments: '--build-arg TARGET_NETWORK=prod'
           tags: |
             $(Build.BuildId)
             latest
