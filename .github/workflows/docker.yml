@@ -41,7 +41,7 @@ jobs:
       - name: Build test docker image
         run: |
           docker build --build-arg TARGET_NETWORK=test -t gluwa/creditcoin3-staking-dashboard .
-      
+
       - name: Build prod docker image
         run: |
           docker build --build-arg TARGET_NETWORK=prod -t gluwa/creditcoin3-staking-dashboard .
