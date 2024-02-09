@@ -95,8 +95,8 @@ const makeNetworkList = () => {
         },
       },
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
-      subscanEndpoint: 'http://127.0.0.1:4399',
-      subscanUrl: 'https://creditcoin3-testnet.subscan.io/',
+      subscanEndpoint: 'https://creditcoin3-dev.api.subscan.io',
+      subscanUrl: 'https://subscan-cc3-devnet.creditcoin.network',
     });
   }
   networks.creditcoinTest = makeCreditcoinNetwork({
@@ -109,8 +109,8 @@ const makeNetworkList = () => {
       },
     },
     namespace: '09573a3526818a8ecd6eb92f60f1175d',
-    subscanEndpoint: 'http://127.0.0.1:4399',
-    subscanUrl: 'https://creditcoin3-testnet.subscan.io/',
+    subscanEndpoint: 'http://creditcoin3-testnet.api.subscan.io',
+    subscanUrl: 'https://subscan-cc3-testnet.creditcoin.network',
   });
   networks.creditcoin = makeCreditcoinNetwork({
     name: 'creditcoin',
@@ -123,7 +123,7 @@ const makeNetworkList = () => {
     },
     namespace: 'creditcoin-mainnet',
     subscanEndpoint: 'http://127.0.0.1:4399',
-    subscanUrl: 'https://creditcoin3.subscan.io/',
+    subscanUrl: 'https://creditcoin3.subscan.io',
   });
   if (import.meta.env.DEV) {
     networks.creditcoinLocal = makeCreditcoinNetwork({
@@ -136,7 +136,7 @@ const makeNetworkList = () => {
         },
       },
       subscanEndpoint: 'http://127.0.0.1:4399',
-      subscanUrl: 'https://creditcoin3-testnet.subscan.io/',
+      subscanUrl: 'https://creditcoin3-testnet.subscan.io',
     });
   }
   return networks;
