@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc && vite build --base '/'",
     "build:test": "tsc && VITE_ENVIRONMENT='test' vite build --base '/'",
-    "build:staging": "tsc && VITE_ENVIRONMENT='staging' vite build --base '/'",
+    "build:prod": "tsc && VITE_ENVIRONMENT='staging' vite build --base '/'",
     "build:pages": "tsc && vite build --base '/polkadot-staking-dashboard/'",
     "clear": "rm -rf node_modules build tsconfig.tsbuildinfo",
     "deploy:pages": "yarn build:pages && gh-pages -d build",
