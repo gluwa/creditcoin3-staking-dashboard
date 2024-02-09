@@ -34,7 +34,7 @@ jobs:
           containerRegistry: 'substrate-relayer'
           repository: 'gluwa/cc3-staking-dashboard'
           command: 'buildAndPush'
-          Dockerfile: '**/Dockerfile-Test'
+          Dockerfile: '**/Dockerfile'
           arguments: '--build-arg TARGET_NETWORK=test'
           tags: |
             test-$(Build.BuildId)
