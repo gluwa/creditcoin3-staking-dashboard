@@ -4,7 +4,7 @@
 import { rmCommas, shuffle } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import React, { useEffect, useRef, useState } from 'react';
-import { ValidatorCommunity } from '@polkadot-cloud/assets/validators';
+import { ValidatorCommunity } from 'config/validators/index';
 import type { AnyApi, AnyJson, BondFor, Fn, Sync } from 'types';
 import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
 import { useBonded } from 'contexts/Bonded';
