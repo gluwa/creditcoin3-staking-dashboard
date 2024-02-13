@@ -10,7 +10,7 @@ COPY . .
 RUN yarn policies set-version '3.3.1'
 
 RUN yarn install \
-&& VITE_ENVIRONMENT=${TARGET_NETWORK} yarn run build
+&& VITE_ENVIRONMENT=${TARGET_NETWORK} yarn build
 
 # production environment
 FROM nginx:1.25.3-alpine
