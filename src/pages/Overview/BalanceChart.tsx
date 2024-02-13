@@ -11,14 +11,14 @@ import {
 import BigNumber from 'bignumber.js';
 import { useTranslation } from 'react-i18next';
 import { useBalances } from 'contexts/Balances';
-import { usePlugins } from 'contexts/Plugins';
+// import { usePlugins } from 'contexts/Plugins';
 import { useTransferOptions } from 'contexts/TransferOptions';
 import { useUi } from 'contexts/UI';
 import { BarSegment } from 'library/BarChart/BarSegment';
 import { LegendItem } from 'library/BarChart/LegendItem';
 import { Bar, BarChartWrapper, Legend } from 'library/BarChart/Wrappers';
 import { CardHeaderWrapper } from 'library/Card/Wrappers';
-import { usePrices } from 'library/Hooks/usePrices';
+// import { usePrices } from 'library/Hooks/usePrices';
 import { useOverlay } from '@polkadot-cloud/react/hooks';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
@@ -33,9 +33,9 @@ export const BalanceChart = () => {
       brand: { token: Token },
     },
   } = useNetwork();
-  const prices = usePrices();
+  // const prices = usePrices();
   // const { consts } = useApi();
-  const { plugins } = usePlugins();
+  // const { plugins } = usePlugins();
   const { isNetworkSyncing } = useUi();
   const { openModal } = useOverlay().modal;
   const { getBalance, getLocks } = useBalances();
@@ -57,9 +57,9 @@ export const BalanceChart = () => {
     units
   );
   // convert balance to fiat value
-  const freeFiat = totalBalance.multipliedBy(
-    new BigNumber(prices.lastPrice).decimalPlaces(2)
-  );
+  // const freeFiat = totalBalance.multipliedBy(
+  //   new BigNumber(prices.lastPrice).decimalPlaces(2)
+  // );
 
   // total funds nominating
   const nominating = planckToUnit(
@@ -137,10 +137,10 @@ export const BalanceChart = () => {
   }
 
   // formatter for price feed.
-  const usdFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+  // const usdFormatter = new Intl.NumberFormat('en-US', {
+  //   style: 'currency',
+  //   currency: 'USD',
+  // });
 
   const isNominating = greaterThanZero(nominating);
   const isInPool = greaterThanZero(
@@ -159,11 +159,11 @@ export const BalanceChart = () => {
             value={minDecimalPlaces(totalBalance.toFormat(), 2)}
             zeroDecimals={2}
           />
-          <span className="note">
+          {/* <span className="note">
             {plugins.includes('binance_spot') ? (
               <>&nbsp;{usdFormatter.format(freeFiat.toNumber())}</>
             ) : null}
-          </span>
+          </span> */}
         </h2>
       </CardHeaderWrapper>
 
