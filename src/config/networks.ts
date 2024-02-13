@@ -81,7 +81,10 @@ const makeCreditcoinNetwork = ({
 
 const makeNetworkList = () => {
   const networks: Networks = {};
-  if (import.meta.env.VITE_ENVIRONMENT === 'test') {
+  if (
+    import.meta.env.VITE_ENVIRONMENT === 'test' ||
+    import.meta.env.VITE_ENVIRONMENT === undefined
+  ) {
     networks.creditcoinDev = makeCreditcoinNetwork({
       name: 'creditcoinDev',
       endpoints: {
