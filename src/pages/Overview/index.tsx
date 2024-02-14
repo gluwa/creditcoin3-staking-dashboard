@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import {
-  Odometer,
   PageHeading,
   PageRow,
   PageTitle,
   RowSection,
 } from '@polkadot-cloud/react';
+import { Odometer } from 'component/Odometer';
 import BigNumber from 'bignumber.js';
 import { formatDistance, fromUnixTime, getUnixTime } from 'date-fns';
 import { useTranslation } from 'react-i18next';
