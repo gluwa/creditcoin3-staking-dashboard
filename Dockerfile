@@ -3,13 +3,14 @@
 
 # build environment
 FROM node:21 as build
+ARG TARGET_NETWORK=""
 
 WORKDIR /app
 COPY . .
 RUN yarn policies set-version '3.3.1'
 
 RUN yarn install \
-&& yarn run build
+&& VITE_ENVIRONMENT=${TARGET_NETWORK} yarn build
 
 # production environment
 FROM nginx:1.25.3-alpine

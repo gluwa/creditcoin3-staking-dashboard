@@ -33,8 +33,9 @@ jobs:
         inputs:
           containerRegistry: 'substrate-relayer'
           repository: 'gluwa/cc3-staking-dashboard'
-          command: 'buildAndPush'
-          Dockerfile: '**/Dockerfile-Test'
+          command: 'build'
+          Dockerfile: '**/Dockerfile'
+          arguments: '--build-arg="TARGET_NETWORK=test"'
           tags: |
             test-$(Build.BuildId)
 
@@ -43,8 +44,29 @@ jobs:
         inputs:
           containerRegistry: 'substrate-relayer'
           repository: 'gluwa/cc3-staking-dashboard'
-          command: 'buildAndPush'
+          command: 'build'
           Dockerfile: '**/Dockerfile'
+          arguments: '--build-arg="TARGET_NETWORK=prod"'
+          tags: |
+            $(Build.BuildId)
+            latest
+            $(releaseTag)
+
+      - task: Docker@2
+        displayName: 'Build Test Docker Image'
+        inputs:
+          containerRegistry: 'substrate-relayer'
+          repository: 'gluwa/cc3-staking-dashboard'
+          command: 'push'
+          tags: |
+            test-$(Build.BuildId)
+
+      - task: Docker@2
+        displayName: 'Build Docker Image'
+        inputs:
+          containerRegistry: 'substrate-relayer'
+          repository: 'gluwa/cc3-staking-dashboard'
+          command: 'push'
           tags: |
             $(Build.BuildId)
             latest
