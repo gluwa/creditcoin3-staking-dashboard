@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faCheck, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
-import { ButtonTertiary, Odometer } from '@polkadot-cloud/react';
+import { ButtonTertiary } from '@polkadot-cloud/react';
+import { Odometer } from 'component/Odometer';
 import {
   greaterThanZero,
   minDecimalPlaces,
