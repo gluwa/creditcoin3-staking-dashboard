@@ -38,11 +38,8 @@ export const NetworkProvider = ({
     const localNetworkValid = !!Object.values(NetworkList).find(
       (n) => n.name === localNetwork
     );
-    return localNetworkValid
-      ? localNetwork
-      : Object.keys(NetworkList).length > 0
-        ? (Object.keys(NetworkList)[0] as NetworkName)
-        : DefaultNetwork;
+
+    return localNetworkValid ? localNetwork : DefaultNetwork;
   };
 
   // handle network switching
