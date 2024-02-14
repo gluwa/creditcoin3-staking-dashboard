@@ -89,9 +89,9 @@ export const NetworkBar = () => {
                     {prices.change}%
                   </span>
                 </div>
-                <div className="stat">
+                {/* <div className="stat">
                   1 {networkData.api.unit} / {prices.lastPrice} USD
-                </div>
+                </div> */}
               </>
             )}
           </div>
