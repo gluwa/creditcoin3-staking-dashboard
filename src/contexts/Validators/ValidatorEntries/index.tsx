@@ -4,7 +4,7 @@
 import { rmCommas, shuffle } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import React, { useEffect, useRef, useState } from 'react';
-import { ValidatorCommunity } from '@polkadot-cloud/assets/validators';
+import { ValidatorCommunity } from 'config/validators/index';
 import type { AnyApi, AnyJson, BondFor, Fn, Sync } from 'types';
 import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
 import { useBonded } from 'contexts/Bonded';
@@ -134,7 +134,7 @@ export const ValidatorsProvider = ({
   // Fetches era reward points for eligible eras.
   const fetchErasRewardPoints = async () => {
     if (
-      activeEra.index.isZero() ||
+      activeEra.isPlaceholder ||
       !api ||
       erasRewardPointsFetched !== 'unsynced'
     )
@@ -506,7 +506,7 @@ export const ValidatorsProvider = ({
 
   // Fetch validators and era reward points when fetched status changes.
   useEffect(() => {
-    if (isReady && activeEra.index.isGreaterThan(0)) {
+    if (isReady && !activeEra.isPlaceholder) {
       fetchValidators();
       fetchErasRewardPoints();
     }
@@ -514,7 +514,7 @@ export const ValidatorsProvider = ({
 
   // Mark unsynced and fetch session validators when activeEra changes.
   useEffectIgnoreInitial(() => {
-    if (isReady && activeEra.index.isGreaterThan(0)) {
+    if (isReady && !activeEra.isPlaceholder) {
       if (erasRewardPointsFetched === 'synced')
         setErasRewawrdPointsFetched('unsynced');
 

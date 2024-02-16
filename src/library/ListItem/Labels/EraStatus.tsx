@@ -1,13 +1,14 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { capitalizeFirstLetter, planckToUnit } from '@polkadot-cloud/utils';
+import { planckToUnit } from '@polkadot-cloud/utils';
 import { useTranslation } from 'react-i18next';
 import { useStaking } from 'contexts/Staking';
 import { useUi } from 'contexts/UI';
 import { ValidatorStatusWrapper } from 'library/ListItem/Wrappers';
 import { useNetwork } from 'contexts/Network';
 import type { EraStatusProps } from '../types';
+import BigNumber from 'bignumber.js';
 
 export const EraStatus = ({ noMargin, status, totalStake }: EraStatusProps) => {
   const { t } = useTranslation('library');
@@ -23,11 +24,11 @@ export const EraStatus = ({ noMargin, status, totalStake }: EraStatusProps) => {
       <h5>
         {isSyncing || erasStakersSyncing
           ? t('syncing')
-          : validatorStatus !== 'waiting'
-            ? `${t('listItemActive')} / ${planckToUnit(totalStake, units)
+          : status === 'waiting' && totalStake.comparedTo(BigNumber(0)) === 0
+            ? t('waiting')
+            : `${t('listItemActive')} / ${planckToUnit(totalStake, units)
                 .integerValue()
-                .toFormat()} ${unit}`
-            : capitalizeFirstLetter(t(`${validatorStatus}`) ?? '')}
+                .toFormat()} ${unit}`}
       </h5>
     </ValidatorStatusWrapper>
   );

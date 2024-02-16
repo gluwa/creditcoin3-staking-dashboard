@@ -12,7 +12,7 @@ import {
   ModalPadding,
   ModalSection,
 } from '@polkadot-cloud/react';
-import { ExtensionsArray } from '@polkadot-cloud/assets/extensions';
+import { ExtensionsArray as OriginExtensionsArray } from '@polkadot-cloud/assets/extensions';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -30,10 +30,69 @@ import { ReadOnly } from './ReadOnly';
 import { Vault } from './Vault';
 import { ExtensionsWrapper } from './Wrappers';
 
+// some Extensions removed by SS-463
+const desiredOrder = [
+  'subwallet-js',
+  // 'metamask-polkadot-snap',
+  'talisman',
+  // 'enkrypt',
+  // 'polkagate',
+  // 'fearless-wallet',
+  'polkadot-js',
+];
+
+interface ExtensionItem {
+  title: string;
+  website: string | [string, string];
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  features: '*' | import('@polkadot-cloud/assets/types').ExtensionFeature[];
+  id: string;
+}
+
 export const Connect = () => {
   const { t } = useTranslation('modals');
   const { extensionsStatus } = useExtensions();
   const { replaceModal, setModalHeight, modalMaxHeight } = useOverlay().modal;
+
+  const sortOutExtensions = (
+    dataArray: ExtensionItem[],
+    orderArray: string[]
+  ) => {
+    const resultArray: ExtensionItem[] = [];
+
+    dataArray.forEach((item) => {
+      orderArray.forEach((key) => {
+        if (item.id === key) {
+          resultArray.push(item);
+        }
+      });
+    });
+
+    return resultArray;
+  };
+
+  const sortByDesiredOrder = (
+    dataArray: ExtensionItem[],
+    orderArray: string[]
+  ) => {
+    const orderMap = new Map<string, number>();
+    orderArray.forEach((id, index) => {
+      orderMap.set(id, index);
+    });
+
+    return dataArray.slice().sort((a, b) => {
+      const orderA = orderMap.get(a.id);
+      const orderB = orderMap.get(b.id);
+
+      if (orderA === undefined) return 1;
+      if (orderB === undefined) return -1;
+
+      return orderA - orderB;
+    });
+  };
+
+  let ExtensionsArray = sortOutExtensions(OriginExtensionsArray, desiredOrder);
+  ExtensionsArray = sortByDesiredOrder(ExtensionsArray, desiredOrder);
 
   const inNova = !!window?.walletExtension?.isNovaWallet || false;
 
@@ -87,6 +146,7 @@ export const Connect = () => {
   }, []);
 
   // Hardware connect options JSX.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const ConnectHardwareJSX = (
     <>
       <ActionItem text={t('hardware')} />
@@ -118,13 +178,13 @@ export const Connect = () => {
   // If in Nova Wallet, display extensions before hardware.
   const ConnectCombinedJSX = !inNova ? (
     <>
-      {ConnectHardwareJSX}
+      {/* {ConnectHardwareJSX} */}
       {ConnectExtensionsJSX}
     </>
   ) : (
     <>
       {ConnectExtensionsJSX}
-      {ConnectHardwareJSX}
+      {/* {ConnectHardwareJSX} */}
     </>
   );
 

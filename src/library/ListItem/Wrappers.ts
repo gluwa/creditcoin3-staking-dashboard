@@ -39,7 +39,7 @@ export const Wrapper = styled.div`
       border: none;
     }
 
-    border-radius: 1rem;
+    border-radius: 1.2rem;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -50,6 +50,7 @@ export const Wrapper = styled.div`
     left: 0px;
     width: 100%;
     height: 100%;
+    box-shadow: 0 1.25px 0 1.75px rgba(0, 0, 0, 0.1);
 
     .row {
       flex: 1 0 100%;
@@ -118,8 +119,8 @@ export const Labels = styled.div`
   }
 
   &.canvas button {
-    background: none;
-    border: 1px solid var(--border-secondary-color);
+    background: --grid-color-primary: #ebebeb;
+    // border: 1px solid var(--border-secondary-color);
   }
 
   .label {

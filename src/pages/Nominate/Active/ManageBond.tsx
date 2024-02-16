@@ -2,12 +2,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
-import {
-  ButtonHelp,
-  ButtonPrimary,
-  ButtonRow,
-  Odometer,
-} from '@polkadot-cloud/react';
+import { ButtonHelp, ButtonPrimary, ButtonRow } from '@polkadot-cloud/react';
+import { Odometer } from 'component/Odometer';
 import { minDecimalPlaces, planckToUnit } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import { useTranslation } from 'react-i18next';
@@ -61,7 +57,7 @@ export const ManageBond = () => {
           <ButtonHelp marginLeft onClick={() => openHelp('Bonding')} />
         </h4>
         <h2>
-          <Token className="networkIcon" />
+          <Token className="networkIcon" style={{ display: 'none' }} />
           <Odometer
             value={minDecimalPlaces(planckToUnit(active, units).toFormat(), 2)}
             zeroDecimals={2}
