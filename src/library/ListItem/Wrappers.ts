@@ -35,7 +35,6 @@ export const Wrapper = styled.div`
     }
     &.modal,
     &.canvas {
-      box-shadow: none;
       border: none;
     }
 
@@ -237,7 +236,9 @@ export const ValidatorStatusWrapper = styled.div<{
 
   h5 {
     color: ${(props) =>
-      props.$status === 'active' ? '#9CFFAA' : 'var(--text-color-secondary)'};
+      props.$status === 'active'
+        ? 'var(--accent-color-primary)'
+        : 'var(--text-color-secondary)'};
     opacity: ${(props) => (props.$status === 'active' ? 0.8 : 0.5)};
     display: flex;
     overflow: hidden;
@@ -269,7 +270,7 @@ export const SelectWrapper = styled.button`
     justify-content: center;
   }
   svg {
-    color: var(--text-color-primary);
+    color: var(--highlight-input);
     width: 1rem;
     height: 1rem;
   }

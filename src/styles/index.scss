@@ -31,6 +31,7 @@ html * {
   --network-color-pending-light: rgba(156, 255, 170, 0.5);
   --network-color-pending-dark: rgba(156, 255, 170, 0.5);
   --network-color-pending: var(--network-color-pending-dark);
+  --status-success-color: #3dc77a;
   --accent-color-primary: #3dc77a;
   --accent-color-stroke: #3dc77a;
   --accent-color-secondary: #5b6edd;
@@ -50,6 +51,10 @@ html * {
   --button-hover-background: #3dc77a;
 
   --custom-side-button-border: #222426;
+  --background-modal-card: #fff;
+  --background-input: #ebebeb;
+  --highlight-input: #777;
+  --text-color-invert: #fff;
 
   .btn-primary {
     color: #fff;
@@ -114,7 +119,7 @@ html {
 
 .core-entry h5 {
   opacity: 1 !important;
-  color: var(--accent-color-primary) !important;
+  color: var(--accent-color-primary);
 }
 
 // Patch
