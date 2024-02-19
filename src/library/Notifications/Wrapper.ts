@@ -28,14 +28,14 @@ export const Wrapper = styled.ul`
 
     h3 {
       color: var(--accent-color-primary);
-      font-family: InterSemiBold, sans-serif;
+      font-family: SF-Pro-M, InterSemiBold, sans-serif;
       font-size: 1.2rem;
       margin: 0.15rem 0 0.4rem;
       flex: 1;
     }
     h4 {
-      font-family: InterSemiBold, sans-serif;
-      font-size: 1.05rem;
+      font-family: SF-Pro-M, InterSemiBold, sans-serif;
+      font-size: 0.94rem;
       line-height: 1.45rem;
     }
   }
