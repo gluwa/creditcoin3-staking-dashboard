@@ -5,6 +5,7 @@ import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import {
   faEnvelope,
   faExternalLink,
+  faGlobe,
   faServer,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -153,6 +154,7 @@ export const Item = ({ item, actionable }: ItemProps) => {
                   window.open(website, '_blank');
                 }}
               >
+                <FontAwesomeIcon icon={faGlobe} className="icon-left" />
                 <h4>{t('community.website')}</h4>
                 <FontAwesomeIcon
                   icon={faExternalLink}
