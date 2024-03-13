@@ -34,8 +34,16 @@ export const Bond = ({ section }: SetupStepProps) => {
   const [bondValid, setBondValid]: any = useState(false);
 
   // handler for updating bond
-  const handleSetupUpdate = (value: any) => {
-    setActiveAccountSetup('nominator', value);
+  const handleSetBond = (value: { bond: BigNumber }) => {
+    // set this form's bond value.
+    setBond({
+      bond: value.bond.toString() || '0',
+    });
+    // set nominator progress bond value.
+    setActiveAccountSetup('nominator', {
+      ...progress,
+      bond: value.bond.toString(),
+    });
   };
 
   // update bond on account change
@@ -72,16 +80,7 @@ export const Bond = ({ section }: SetupStepProps) => {
           inSetup
           listenIsValid={(valid) => setBondValid(valid)}
           defaultBond={initialBondValue}
-          setters={[
-            {
-              set: handleSetupUpdate,
-              current: progress,
-            },
-            {
-              set: setBond,
-              current: bond,
-            },
-          ]}
+          setters={[handleSetBond]}
           txFees={txFees}
           maxWidth
         />
