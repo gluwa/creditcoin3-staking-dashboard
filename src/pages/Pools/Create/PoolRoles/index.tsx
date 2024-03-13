@@ -14,8 +14,8 @@ import { Roles } from '../../Roles';
 export const PoolRoles = ({ section }: SetupStepProps) => {
   const { t } = useTranslation('pages');
   const { activeAccount } = useActiveAccounts();
-  const { getSetupProgress, setActiveAccountSetup } = useSetup();
-  const setup = getSetupProgress('pool', activeAccount);
+  const { getPoolSetup, setActiveAccountSetup } = useSetup();
+  const setup = getPoolSetup(activeAccount);
   const { progress } = setup;
 
   // if no roles in setup already, inject `activeAccount` to be

@@ -65,7 +65,7 @@ export const useStatusButtons = () => {
       isReadOnlyAccount(activeAccount) ||
       !activeAccount ||
       !bondedPools.length,
-    onClick: () => setActiveTab(2),
+    onClick: () => setActiveTab(1),
   };
 
   if (!membership) {

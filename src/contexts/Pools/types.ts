@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import type BigNumber from 'bignumber.js';
+import type { Nominations } from 'contexts/Bonded/types';
 import type { AnyApi, AnyJson, AnyMetaBatch, MaybeAddress, Sync } from 'types';
 
 // PoolsConfig types
@@ -91,12 +92,7 @@ export interface BondedPool {
   id: number;
   memberCounter: string;
   points: string;
-  roles: {
-    depositor: string;
-    nominator: string;
-    root: string;
-    bouncer: string;
-  };
+  roles: PoolRoles;
   state: PoolState;
   commission?: {
     current?: AnyJson | null;
@@ -132,7 +128,7 @@ export interface ActivePoolsContextState {
   setSelectedPoolId: (p: string) => void;
   selectedActivePool: ActivePool | null;
   targets: any;
-  poolNominations: any;
+  poolNominations: Nominations;
   synced: Sync;
   selectedPoolMemberCount: number;
 }
@@ -140,12 +136,12 @@ export interface ActivePoolsContextState {
 // PoolMembers types
 export interface PoolMemberContext {
   fetchPoolMembersMetaBatch: (k: string, v: AnyMetaBatch[], r: boolean) => void;
-  queryPoolMember: (w: MaybeAddress) => any;
-  getMembersOfPoolFromNode: (p: number) => any;
-  addToPoolMembers: (m: any) => void;
+  queryPoolMember: (who: MaybeAddress) => Promise<PoolMember | null>;
+  getMembersOfPoolFromNode: (poolId: number) => PoolMember[] | null;
+  addToPoolMembers: (member: PoolMember) => void;
   removePoolMember: (w: MaybeAddress) => void;
   getPoolMemberCount: (p: number) => number;
-  poolMembersNode: any;
+  poolMembersNode: PoolMember[];
   meta: AnyMetaBatch;
   poolMembersApi: PoolMember[];
   setPoolMembersApi: (p: PoolMember[]) => void;
@@ -155,10 +151,10 @@ export interface PoolMemberContext {
 
 // Misc types
 export interface PoolRoles {
-  depositor: string;
-  nominator: string;
-  root: string;
-  bouncer: string;
+  depositor?: MaybeAddress;
+  nominator?: MaybeAddress;
+  root?: MaybeAddress;
+  bouncer?: MaybeAddress;
 }
 
 export interface PoolAddresses {

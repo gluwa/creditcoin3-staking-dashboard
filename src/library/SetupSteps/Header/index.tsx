@@ -17,10 +17,15 @@ export const Header = ({
   bondFor,
 }: HeaderProps) => {
   const { t } = useTranslation('library');
-  const { activeAccount } = useActiveAccounts();
-  const { getSetupProgress, setActiveAccountSetupSection } = useSetup();
-  const setup = getSetupProgress(bondFor, activeAccount);
   const { openHelp } = useHelp();
+  const { activeAccount } = useActiveAccounts();
+  const { getPoolSetup, getNominatorSetup, setActiveAccountSetupSection } =
+    useSetup();
+
+  const setup =
+    bondFor === 'nominator'
+      ? getNominatorSetup(activeAccount)
+      : getPoolSetup(activeAccount);
 
   return (
     <Wrapper>

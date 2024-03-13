@@ -19,7 +19,7 @@ import type {
   StakingMetrics,
   StakingTargets,
 } from 'contexts/Staking/types';
-import type { AnyApi, AnyJson, MaybeAddress } from 'types';
+import type { AnyApi, MaybeAddress } from 'types';
 import Worker from 'workers/stakers?worker';
 import type { ResponseInitialiseExposures } from 'workers/types';
 import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
@@ -40,6 +40,7 @@ import {
   getLocalEraExposures,
   formatRawExposures,
 } from './Utils';
+import type { NominationStatus } from 'library/ValidatorList/ValidatorItem/types';
 
 const worker = new Worker();
 
@@ -241,7 +242,7 @@ export const StakingProvider = ({
   };
 
   // Sets an account's stored target validators.
-  const setTargets = (value: StakingTargets) => {
+  const setTargets = (value: StakingTargets): void => {
     localStorage.setItem(`${activeAccount}_targets`, JSON.stringify(value));
     setTargetsState(value);
   };
@@ -249,9 +250,9 @@ export const StakingProvider = ({
   // Gets the nomination statuses of passed in nominations.
   const getNominationsStatusFromTargets = (
     who: MaybeAddress,
-    fromTargets: AnyJson[]
+    fromTargets: string[]
   ) => {
-    const statuses: Record<string, string> = {};
+    const statuses: Record<string, NominationStatus> = {};
 
     if (!fromTargets.length) {
       return statuses;
