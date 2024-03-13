@@ -72,10 +72,10 @@ export interface UnbondFeedbackProps {
 export interface UnbondInputProps {
   active: BigNumber;
   unbondToMin: BigNumber;
-  defaultValue: number | string;
+  defaultValue: string;
   disabled: boolean;
   setters: any;
-  value: any;
+  value: string;
 }
 
 export interface NominateStatusBarProps {
