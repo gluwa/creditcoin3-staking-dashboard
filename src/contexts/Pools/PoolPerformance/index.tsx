@@ -13,7 +13,7 @@ import { useApi } from 'contexts/Api';
 import type { Sync } from '@polkadot-cloud/react/types';
 import BigNumber from 'bignumber.js';
 import { formatRawExposures } from 'contexts/Staking/Utils';
-import { mergeDeep } from '@polkadot-cloud/utils';
+import { mergeDeep } from '@w3ux/utils';
 import type { PoolPerformanceContextInterface } from './types';
 import { defaultPoolPerformanceContext } from './defaults';
 

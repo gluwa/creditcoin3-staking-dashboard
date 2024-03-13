@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { ButtonSubmit } from '@polkadot-cloud/react';
-import { planckToUnit } from '@polkadot-cloud/utils';
+import { planckToUnit } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import { fromUnixTime } from 'date-fns';
 import { useEffect } from 'react';

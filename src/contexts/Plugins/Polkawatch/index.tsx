@@ -3,7 +3,7 @@
 
 import { Configuration, PolkawatchApi } from '@polkawatch/ddp-client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { localStorageOrDefault } from '@polkadot-cloud/utils';
+import { localStorageOrDefault } from '@w3ux/utils';
 import { useNetwork } from 'contexts/Network';
 import type { NetworkName } from '../../../types';
 import type { PolkawatchState } from './types';

@@ -8,7 +8,7 @@ import {
   ModalPadding,
   ModalWarnings,
 } from '@polkadot-cloud/react';
-import { planckToUnit, rmCommas } from '@polkadot-cloud/utils';
+import { planckToUnit, rmCommas } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import { forwardRef, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

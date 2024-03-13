@@ -14,7 +14,7 @@ import {
   ModalConnectItem,
   ModalHardwareItem,
 } from '@polkadot-cloud/react';
-import { inChrome } from '@polkadot-cloud/utils';
+import { inChrome } from '@w3ux/utils';
 import React from 'react';
 import { useHelp } from 'contexts/Help';
 import LedgerLogoSVG from '@polkadot-cloud/assets/extensions/svg/ledger.svg?react';

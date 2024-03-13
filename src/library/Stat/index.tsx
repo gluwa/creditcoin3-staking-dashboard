@@ -10,7 +10,7 @@ import {
   Polkicon,
 } from '@polkadot-cloud/react';
 import { Odometer } from 'component/Odometer';
-import { applyWidthAsPadding, minDecimalPlaces } from '@polkadot-cloud/utils';
+import { applyWidthAsPadding, minDecimalPlaces } from '@w3ux/utils';
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useHelp } from 'contexts/Help';
 import { useNotifications } from 'contexts/Notifications';

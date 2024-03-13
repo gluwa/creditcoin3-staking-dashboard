@@ -8,11 +8,7 @@ import {
   ModalPadding,
   ModalWarnings,
 } from '@polkadot-cloud/react';
-import {
-  greaterThanZero,
-  planckToUnit,
-  unitToPlanck,
-} from '@polkadot-cloud/utils';
+import { greaterThanZero, planckToUnit, unitToPlanck } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import { getUnixTime } from 'date-fns';
 import { useEffect, useState } from 'react';

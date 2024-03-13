@@ -1,7 +1,7 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ellipsisFn, setStateWithRef } from '@polkadot-cloud/utils';
+import { ellipsisFn, setStateWithRef } from '@w3ux/utils';
 import React, { useEffect, useRef, useState } from 'react';
 import type { VaultAccount } from '@polkadot-cloud/react/types';
 import { useNetwork } from 'contexts/Network';

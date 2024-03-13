@@ -8,7 +8,7 @@ import {
   PageRow,
   PageTitle,
 } from '@polkadot-cloud/react';
-import { extractUrlValue, removeVarFromUrlHash } from '@polkadot-cloud/utils';
+import { extractUrlValue, removeVarFromUrlHash } from '@w3ux/utils';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Element } from 'react-scroll';

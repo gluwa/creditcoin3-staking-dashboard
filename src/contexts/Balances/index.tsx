@@ -8,7 +8,7 @@ import {
   removedFrom,
   rmCommas,
   setStateWithRef,
-} from '@polkadot-cloud/utils';
+} from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import React, { useRef, useState } from 'react';
 import { useApi } from 'contexts/Api';

@@ -7,7 +7,7 @@ import {
   planckToUnit,
   rmCommas,
   unitToPlanck,
-} from '@polkadot-cloud/utils';
+} from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import { getUnixTime } from 'date-fns';
 import { useEffect, useState } from 'react';

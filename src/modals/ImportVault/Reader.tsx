@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { ButtonSecondary } from '@polkadot-cloud/react';
-import { isValidAddress } from '@polkadot-cloud/utils';
+import { isValidAddress } from '@w3ux/utils';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useVaultHardware } from 'contexts/Hardware/Vault';

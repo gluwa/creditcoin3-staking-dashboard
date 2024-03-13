@@ -1,7 +1,7 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { rmCommas, shuffle } from '@polkadot-cloud/utils';
+import { rmCommas, shuffle } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import React, { useEffect, useRef, useState } from 'react';
 import { ValidatorCommunity } from 'config/validators/index';

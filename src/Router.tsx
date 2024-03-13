@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { Body, Main, Page, Side } from '@polkadot-cloud/react';
-import { extractUrlValue } from '@polkadot-cloud/utils';
+import { extractUrlValue } from '@w3ux/utils';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';

@@ -5,7 +5,7 @@ import {
   greaterThanZero,
   localStorageOrDefault,
   unitToPlanck,
-} from '@polkadot-cloud/utils';
+} from '@w3ux/utils';
 import React, { useState } from 'react';
 import { usePoolMemberships } from 'contexts/Pools/PoolMemberships';
 import type { BondFor, MaybeAddress } from 'types';

@@ -3,7 +3,7 @@
 
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { ScProvider } from '@polkadot/rpc-provider/substrate-connect';
-import { makeCancelable, rmCommas } from '@polkadot-cloud/utils';
+import { makeCancelable, rmCommas } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { NetworkList } from 'config/networks';

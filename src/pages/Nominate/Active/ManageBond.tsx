@@ -4,7 +4,7 @@
 import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { ButtonHelp, ButtonPrimary, ButtonRow } from '@polkadot-cloud/react';
 import { Odometer } from 'component/Odometer';
-import { minDecimalPlaces, planckToUnit } from '@polkadot-cloud/utils';
+import { minDecimalPlaces, planckToUnit } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import { useTranslation } from 'react-i18next';
 import { useBalances } from 'contexts/Balances';

@@ -6,7 +6,7 @@ import {
   greaterThanZero,
   localStorageOrDefault,
   setStateWithRef,
-} from '@polkadot-cloud/utils';
+} from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import React, { useRef, useState } from 'react';
 import { useBalances } from 'contexts/Balances';

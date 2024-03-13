@@ -9,7 +9,7 @@ import {
   ModalPadding,
   ModalWarnings,
 } from '@polkadot-cloud/react';
-import { rmCommas } from '@polkadot-cloud/utils';
+import { rmCommas } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import { intervalToDuration } from 'date-fns';
 import Slider from 'rc-slider';

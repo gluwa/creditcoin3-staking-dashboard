@@ -1,7 +1,7 @@
 // Copyright 2022 @paritytech/polkadot-native authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ellipsisFn, setStateWithRef } from '@polkadot-cloud/utils';
+import { ellipsisFn, setStateWithRef } from '@w3ux/utils';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useLedgerHardware } from 'contexts/Hardware/Ledger/LedgerHardware';

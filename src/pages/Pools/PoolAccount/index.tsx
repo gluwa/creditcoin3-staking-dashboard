@@ -3,7 +3,7 @@
 
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ellipsisFn, remToUnit } from '@polkadot-cloud/utils';
+import { ellipsisFn, remToUnit } from '@w3ux/utils';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useIdentities } from 'contexts/Identities';

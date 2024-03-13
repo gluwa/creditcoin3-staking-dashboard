@@ -18,7 +18,7 @@ import { formatRewardsForGraphs } from 'library/Graphs/Utils';
 import { StatBoxList } from 'library/StatBoxList';
 import { locales } from 'locale';
 import { ControllerNotStash } from 'pages/Nominate/Active/ControllerNotStash';
-import { minDecimalPlaces, planckToUnit } from '@polkadot-cloud/utils';
+import { minDecimalPlaces, planckToUnit } from '@w3ux/utils';
 import { SubscanButton } from 'library/SubscanButton';
 import { useNetwork } from 'contexts/Network';
 import { ActiveAccounts } from './ActiveAccounts';

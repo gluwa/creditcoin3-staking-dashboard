@@ -8,7 +8,7 @@ import {
   ButtonPrimaryInvert,
   ModalPadding,
 } from '@polkadot-cloud/react';
-import { planckToUnit, unitToPlanck } from '@polkadot-cloud/utils';
+import { planckToUnit, unitToPlanck } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import Slider from 'rc-slider';
 import { useState } from 'react';

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { ActionItem, ModalPadding, ModalWarnings } from '@polkadot-cloud/react';
-import { isNotZero, planckToUnit, rmCommas } from '@polkadot-cloud/utils';
+import { isNotZero, planckToUnit, rmCommas } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
