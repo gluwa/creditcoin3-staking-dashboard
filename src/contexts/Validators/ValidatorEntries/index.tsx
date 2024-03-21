@@ -310,11 +310,9 @@ export const ValidatorsProvider = ({
     if (localEraValidators) {
       validatorEntries = localEraValidators.entries;
       avg = localEraValidators.avgCommission;
-      console.log(localEraValidators);
     } else {
       const { entries, notFullCommissionCount, totalNonAllCommission } =
         await getValidatorEntries();
-      console.log(totalNonAllCommission.toString(), notFullCommissionCount);
 
       validatorEntries = entries;
       avg = notFullCommissionCount
