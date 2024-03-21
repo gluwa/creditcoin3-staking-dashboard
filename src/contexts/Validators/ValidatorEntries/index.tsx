@@ -15,6 +15,7 @@ import { useApi } from 'contexts/Api';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { MaxEraRewardPointsEras } from 'consts';
 import { useStaking } from 'contexts/Staking';
+import { useErasPerDay } from 'library/Hooks/useErasPerDay';
 import type {
   EraPointsBoundaries,
   ErasRewardPoints,
@@ -27,6 +28,7 @@ import type {
   ValidatorEraPointHistory,
 } from '../types';
 import {
+  defaultAverageEraValidatorReward,
   defaultValidatorsData,
   defaultValidatorsContext,
   defaultEraPointsBoundaries,
@@ -39,7 +41,12 @@ export const ValidatorsProvider = ({
   children: React.ReactNode;
 }) => {
   const { network } = useNetwork();
-  const { isReady, api } = useApi();
+  const {
+    isReady,
+    api,
+    consts: { historyDepth },
+  } = useApi();
+  const { erasPerDay, maxSupportedDays } = useErasPerDay();
   const { stakers } = useStaking().eraStakers;
   const { poolNominations } = useActivePools();
   const { activeAccount } = useActiveAccounts();
@@ -102,6 +109,12 @@ export const ValidatorsProvider = ({
   // Store era point high and low for `MaxEraPointsEras` eras.
   const [eraPointsBoundaries, setEraPointsBoundaries] =
     useState<EraPointsBoundaries>(defaultEraPointsBoundaries);
+
+  // Average rerward rate.
+  const [averageEraValidatorReward, setAverageEraValidatorReward] = useState<{
+    days: number;
+    reward: BigNumber;
+  }>(defaultAverageEraValidatorReward);
 
   // Processes reward points for a given era.
   const processEraRewardPoints = (result: AnyJson, era: BigNumber) => {
@@ -297,9 +310,11 @@ export const ValidatorsProvider = ({
     if (localEraValidators) {
       validatorEntries = localEraValidators.entries;
       avg = localEraValidators.avgCommission;
+      console.log(localEraValidators);
     } else {
       const { entries, notFullCommissionCount, totalNonAllCommission } =
         await getValidatorEntries();
+      console.log(totalNonAllCommission.toString(), notFullCommissionCount);
 
       validatorEntries = entries;
       avg = notFullCommissionCount
@@ -489,6 +504,50 @@ export const ValidatorsProvider = ({
     return injected;
   };
 
+  // Gets average validator reward for provided number of days.
+  const getAverageEraValidatorReward = async () => {
+    if (!api || !isReady || activeEra.index.isZero()) {
+      setAverageEraValidatorReward({
+        days: 0,
+        reward: new BigNumber(0),
+      });
+      return;
+    }
+
+    // If max supported days is less than 30, use 15 day average instead.
+    const days = maxSupportedDays > 30 ? 30 : 15;
+
+    // Calculates the number of eras required to calculate required `days`, not surpassing
+    // historyDepth.
+    const endEra = BigNumber.max(
+      activeEra.index.minus(erasPerDay.multipliedBy(days)),
+      BigNumber.max(0, activeEra.index.minus(historyDepth))
+    );
+
+    const eras: string[] = [];
+    let thisEra = activeEra.index.minus(1);
+    do {
+      eras.push(thisEra.toString());
+      thisEra = thisEra.minus(1);
+    } while (thisEra.gte(endEra));
+
+    const validatorEraRewards =
+      await api.query.staking.erasValidatorReward.multi(eras);
+
+    const reward = validatorEraRewards
+      .map((v) => {
+        const value = new BigNumber(v.toString() === '' ? 0 : v.toString());
+        if (value.isNaN()) {
+          return new BigNumber(0);
+        }
+        return value;
+      })
+      .reduce((prev, current) => prev.plus(current), new BigNumber(0))
+      .div(eras.length);
+
+    setAverageEraValidatorReward({ days, reward });
+  };
+
   // Reset validator state data on network change.
   useEffectIgnoreInitial(() => {
     setValidatorsFetched('unsynced');
@@ -502,6 +561,7 @@ export const ValidatorsProvider = ({
     setErasRewardPoints({});
     setEraPointsBoundaries(null);
     setValidatorEraPointsHistory({});
+    setAverageEraValidatorReward(defaultAverageEraValidatorReward);
   }, [network]);
 
   // Fetch validators and era reward points when fetched status changes.
@@ -512,7 +572,7 @@ export const ValidatorsProvider = ({
     }
   }, [validatorsFetched, erasRewardPointsFetched, isReady, activeEra]);
 
-  // Mark unsynced and fetch session validators when activeEra changes.
+  // Mark unsynced and fetch session validators and average reward when activeEra changes.
   useEffectIgnoreInitial(() => {
     if (isReady && !activeEra.isPlaceholder) {
       if (erasRewardPointsFetched === 'synced')
@@ -520,6 +580,7 @@ export const ValidatorsProvider = ({
 
       if (validatorsFetched === 'synced') setValidatorsFetched('unsynced');
       fetchSessionValidators();
+      getAverageEraValidatorReward();
     }
   }, [isReady, activeEra]);
 
@@ -571,6 +632,7 @@ export const ValidatorsProvider = ({
         eraPointsBoundaries,
         validatorEraPointsHistory,
         erasRewardPointsFetched,
+        averageEraValidatorReward,
       }}
     >
       {children}
