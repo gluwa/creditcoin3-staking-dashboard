@@ -56,6 +56,10 @@ export const PoolList = ({
   const excludes = getFilters('exclude', 'pools');
   const searchTerm = getSearchTerm('pools');
 
+  useEffect(() => {
+    setSearchTerm('pools', '');
+  }, []);
+
   // current page
   const [page, setPage] = useState<number>(1);
 
@@ -170,10 +174,10 @@ export const PoolList = ({
   // Set default filters.
   useEffect(() => {
     if (defaultFilters?.includes?.length) {
-      setMultiFilters('include', 'pools', defaultFilters?.includes, false);
+      setMultiFilters('include', 'pools', defaultFilters?.includes, true);
     }
     if (defaultFilters?.excludes?.length) {
-      setMultiFilters('exclude', 'pools', defaultFilters?.excludes, false);
+      setMultiFilters('exclude', 'pools', defaultFilters?.excludes, true);
     }
   }, []);
 
