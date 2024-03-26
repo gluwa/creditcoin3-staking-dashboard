@@ -94,6 +94,10 @@ export const ValidatorListInner = ({
   const actionsAll = [...actions].filter((action) => !action.onSelected);
   const actionsSelected = [...actions].filter((action) => action.onSelected);
 
+  useEffect(() => {
+    setSearchTerm('validators', '');
+  }, []);
+
   // Determine the nominator of the validator list. Fallback to activeAccount if not provided.
   const nominator = initialNominator || activeAccount;
 
@@ -254,7 +258,7 @@ export const ValidatorListInner = ({
           'include',
           'validators',
           defaultFilters?.includes,
-          false
+          true
         );
       }
       if (defaultFilters?.excludes?.length) {
@@ -262,7 +266,7 @@ export const ValidatorListInner = ({
           'exclude',
           'validators',
           defaultFilters?.excludes,
-          false
+          true
         );
       }
 
