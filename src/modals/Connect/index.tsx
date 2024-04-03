@@ -15,6 +15,7 @@ import {
 import { ExtensionsArray as OriginExtensionsArray } from '@polkadot-cloud/assets/extensions';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mobileCheck } from './Utils';
 import {
   useExtensions,
   useEffectIgnoreInitial,
@@ -53,6 +54,8 @@ export const Connect = () => {
   const { t } = useTranslation('modals');
   const { extensionsStatus } = useExtensions();
   const { replaceModal, setModalHeight, modalMaxHeight } = useOverlay().modal;
+
+  const isMobile = mobileCheck();
 
   const sortOutExtensions = (
     dataArray: ExtensionItem[],
@@ -95,12 +98,17 @@ export const Connect = () => {
   ExtensionsArray = sortByDesiredOrder(ExtensionsArray, desiredOrder);
 
   const inNova = !!window?.walletExtension?.isNovaWallet || false;
+  // const inNova = false;
+  const inSubWallet = !!window.injectedWeb3?.['subwallet-js'] && isMobile;
+
+  // Whether the app is running on of mobile wallets.
+  const inMobileWallet = inNova || inSubWallet;
 
   // If in Nova Wallet, only display it in extension options, otherwise, remove developer tool extensions from web options.
-  const developerTools = ['polkadot-js'];
-  const web = !inNova
-    ? ExtensionsArray.filter((a) => !developerTools.includes(a.id))
-    : ExtensionsArray.filter((a) => a.id === 'polkadot-js');
+  // const developerTools = ['polkadot-js'];
+  const web = inSubWallet
+    ? ExtensionsArray.filter((a) => a.id === 'subwallet-js')
+    : ExtensionsArray.filter((a) => a.id !== 'polkadot-js');
 
   const installed = web.filter((a) =>
     Object.keys(extensionsStatus).find((key) => key === a.id)
@@ -176,7 +184,8 @@ export const Connect = () => {
 
   // Display hardware before extensions.
   // If in Nova Wallet, display extensions before hardware.
-  const ConnectCombinedJSX = !inNova ? (
+  // const ConnectCombinedJSX = !inNova ? (
+  const ConnectCombinedJSX = !inMobileWallet ? (
     <>
       {/* {ConnectHardwareJSX} */}
       {ConnectExtensionsJSX}
@@ -251,7 +260,7 @@ export const Connect = () => {
           <div className="section">
             <ModalPadding horizontalOnly ref={homeRef}>
               {ConnectCombinedJSX}
-              {!inNova && (
+              {!inMobileWallet && (
                 <>
                   <ActionItem text={t('developerTools')} />
                   <ExtensionsWrapper>
