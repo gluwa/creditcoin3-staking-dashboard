@@ -10,51 +10,92 @@ html * {
   --network-color-secondary-dark: #9cffaa;
   --network-color-stroke: #9cffaa;
   --network-color-stroke-dark: #9cffaa;
-  --text-color-primary: #ffffff;
+  --text-color-primary: #000;
   --text-color-secondary: #777777;
+  --button-tab-background: #cccdcd;
   --button-tertiary-background: #242628;
-  --background-default: #0d0f10;
-  --background-primary: #181a1c;
+  --background-default: #ebebeb !important;
+  --background-primary: #f5f5f5;
+  --button-tertiary-background: #e8e9e9;
+  --button-secondary-background: #e8e9e9;
+  --button-primary-background: #e8e9e9;
+  --border-primary-color: #cccdcd !important;
+  --gradient-background: #ebebeb !important;
   --gradient-highlight-primary: linear-gradient(90deg, #181a1c, #181a1c);
   --gradient-side-menu: linear-gradient(180deg, #0d0f10, #0d0f10);
   --border-primary-color: #2a2c2e;
   --border-secondary-color: #222426;
+  --highlight-primary: #262a2d;
   --status-success-color-transparent: #446d4c;
   --status-success-color: #a5fba5;
   --network-color-pending-light: rgba(156, 255, 170, 0.5);
   --network-color-pending-dark: rgba(156, 255, 170, 0.5);
   --network-color-pending: var(--network-color-pending-dark);
+  --status-success-color: #3dc77a;
+  --accent-color-primary: #3dc77a;
+  --accent-color-stroke: #3dc77a;
+  --accent-color-secondary: #5b6edd;
+  --card-shadow-secondary: transparent !important;
+  --background-floating-card: #fff !important;
+  --modal-background-color: rgba(235, 235, 235, 0.7);
+  --background-modal: #fff;
+  --background-modal-footer: #fff;
+  --background-list-item: #fff;
+  --background-canvas-card: #fff;
+  --shimmer-foreground: #f0f0f0;
+  --grid-color-primary: #ebebeb;
+  --grid-color-secondary: #ebebeb;
+  --background-warning: #f5f5f5;
+  --overlay-background-color: rgba(235, 235, 235, 0.3);
+  // backdrop-filter: blur(1.4rem);
+  --button-hover-background: #3dc77a;
 
-  .core-entry {
-    background: #0a0c0e;
-  }
+  --custom-side-button-border: #222426;
+  --background-modal-card: #fff;
+  --background-input: #ebebeb;
+  --highlight-input: #777;
+  --text-color-invert: #fff;
 
   .btn-primary {
-    color: #0a0c0e;
+    color: #fff;
   }
 
   .btn-submit {
-    color: #0a0c0e;
+    color: #fff;
   }
-}
 
-html,
-body {
-  background-color: #0d0f10;
+  .core-side {
+    background-color: #000;
+  }
+  .core-tx > .inner {
+    background: transparent !important;
+  }
+
+  .btn-secondary:hover {
+    color: #fff;
+  }
 }
 
 html {
   body {
     font-family: 'SF-Pro-M', sans-serif;
+    background-color: #ebebeb !important;
+  }
+
+  .btn-tab {
+    font-family: 'SF-Pro-M';
+    font-weight: normal;
+    color: #777;
+    font-size: 12px;
+    padding: 7.5px 11px;
+  }
+  .btn-tab.active {
+    color: #000;
   }
 
   h1,
   h2 {
     font-family: 'SF-Pro-SB', sans-serif;
-  }
-
-  .btn-primary {
-    color: black;
   }
 
   button {
@@ -76,6 +117,11 @@ html {
   }
 }
 
+.core-entry h5 {
+  opacity: 1 !important;
+  color: var(--accent-color-primary);
+}
+
 // Patch
 .core-page-title {
   margin-bottom: 1rem;
@@ -87,17 +133,53 @@ html {
 
 .core-page-title h1,
 .modal-custom-header > div.first h1 {
-  font-family: 'NeueBit-B' !important;
+  font-family: 'SF-Pro-SB' !important;
+}
+
+.modal-content {
+  padding: 5rem 5px;
+}
+
+.modal-content h1 {
+  font-family: 'SF-Pro-SB' !important;
+  font-size: 30px !important;
 }
 
 .core-page-title h1 {
-  font-size: 40px !important;
+  font-size: 30px !important;
+  line-height: initial;
 }
 
 .modal-custom-header > div.first h1 {
-  font-size: 40px !important;
+  font-size: 30px !important;
 }
 
 .inner > .row:last-child > div > div > div {
   color: var(--text-color-secondary);
+}
+
+.modal-card {
+  box-shadow: 0 1.25px 0 1.75px rgba(0, 0, 0, 0.1);
+  border-radius: 1.2rem;
+}
+
+.modal-card h2.title {
+  font-family: 'SF-Pro-SB' !important;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.modal-scroll {
+  padding: 5px;
+  box-sizing: content-box;
+}
+
+.modal-action-item .toggle {
+  border-color: var(--accent-color-primary);
+  background: #fff;
+  color: var(--accent-color-primary);
+}
+
+.modal-fixed-title.with-style {
+  background: transparent !important;
 }

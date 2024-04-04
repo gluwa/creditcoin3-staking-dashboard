@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.ul`
   position: fixed;
-  top: 0;
+  bottom: 10px;
   right: 0;
   display: flex;
   flex-direction: column;
@@ -23,19 +23,19 @@ export const Wrapper = styled.ul`
     flex-flow: column wrap;
     justify-content: center;
     cursor: pointer;
-    overflow: hidden;
     width: 375px;
+    box-shadow: 0 1.75px 0 1.25px rgba(0, 0, 0, 0.1);
 
     h3 {
       color: var(--accent-color-primary);
-      font-family: InterSemiBold, sans-serif;
+      font-family: SF-Pro-M, InterSemiBold, sans-serif;
       font-size: 1.2rem;
       margin: 0.15rem 0 0.4rem;
       flex: 1;
     }
     h4 {
-      font-family: InterSemiBold, sans-serif;
-      font-size: 1.05rem;
+      font-family: SF-Pro-M, InterSemiBold, sans-serif;
+      font-size: 0.94rem;
       line-height: 1.45rem;
     }
   }

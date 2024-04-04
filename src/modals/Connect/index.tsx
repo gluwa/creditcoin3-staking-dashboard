@@ -12,9 +12,10 @@ import {
   ModalPadding,
   ModalSection,
 } from '@polkadot-cloud/react';
-import { ExtensionsArray } from '@polkadot-cloud/assets/extensions';
+import { ExtensionsArray as OriginExtensionsArray } from '@polkadot-cloud/assets/extensions';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mobileCheck } from './Utils';
 import {
   useExtensions,
   useEffectIgnoreInitial,
@@ -30,18 +31,84 @@ import { ReadOnly } from './ReadOnly';
 import { Vault } from './Vault';
 import { ExtensionsWrapper } from './Wrappers';
 
+// some Extensions removed by SS-463
+const desiredOrder = [
+  'subwallet-js',
+  // 'metamask-polkadot-snap',
+  'talisman',
+  // 'enkrypt',
+  // 'polkagate',
+  // 'fearless-wallet',
+  'polkadot-js',
+];
+
+interface ExtensionItem {
+  title: string;
+  website: string | [string, string];
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  features: '*' | import('@polkadot-cloud/assets/types').ExtensionFeature[];
+  id: string;
+}
+
 export const Connect = () => {
   const { t } = useTranslation('modals');
   const { extensionsStatus } = useExtensions();
   const { replaceModal, setModalHeight, modalMaxHeight } = useOverlay().modal;
 
+  const isMobile = mobileCheck();
+
+  const sortOutExtensions = (
+    dataArray: ExtensionItem[],
+    orderArray: string[]
+  ) => {
+    const resultArray: ExtensionItem[] = [];
+
+    dataArray.forEach((item) => {
+      orderArray.forEach((key) => {
+        if (item.id === key) {
+          resultArray.push(item);
+        }
+      });
+    });
+
+    return resultArray;
+  };
+
+  const sortByDesiredOrder = (
+    dataArray: ExtensionItem[],
+    orderArray: string[]
+  ) => {
+    const orderMap = new Map<string, number>();
+    orderArray.forEach((id, index) => {
+      orderMap.set(id, index);
+    });
+
+    return dataArray.slice().sort((a, b) => {
+      const orderA = orderMap.get(a.id);
+      const orderB = orderMap.get(b.id);
+
+      if (orderA === undefined) return 1;
+      if (orderB === undefined) return -1;
+
+      return orderA - orderB;
+    });
+  };
+
+  let ExtensionsArray = sortOutExtensions(OriginExtensionsArray, desiredOrder);
+  ExtensionsArray = sortByDesiredOrder(ExtensionsArray, desiredOrder);
+
   const inNova = !!window?.walletExtension?.isNovaWallet || false;
+  // const inNova = false;
+  const inSubWallet = !!window.injectedWeb3?.['subwallet-js'] && isMobile;
+
+  // Whether the app is running on of mobile wallets.
+  const inMobileWallet = inNova || inSubWallet;
 
   // If in Nova Wallet, only display it in extension options, otherwise, remove developer tool extensions from web options.
-  const developerTools = ['polkadot-js'];
-  const web = !inNova
-    ? ExtensionsArray.filter((a) => !developerTools.includes(a.id))
-    : ExtensionsArray.filter((a) => a.id === 'polkadot-js');
+  // const developerTools = ['polkadot-js'];
+  const web = inSubWallet
+    ? ExtensionsArray.filter((a) => a.id === 'subwallet-js')
+    : ExtensionsArray.filter((a) => a.id !== 'polkadot-js');
 
   const installed = web.filter((a) =>
     Object.keys(extensionsStatus).find((key) => key === a.id)
@@ -87,6 +154,7 @@ export const Connect = () => {
   }, []);
 
   // Hardware connect options JSX.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const ConnectHardwareJSX = (
     <>
       <ActionItem text={t('hardware')} />
@@ -116,15 +184,16 @@ export const Connect = () => {
 
   // Display hardware before extensions.
   // If in Nova Wallet, display extensions before hardware.
-  const ConnectCombinedJSX = !inNova ? (
+  // const ConnectCombinedJSX = !inNova ? (
+  const ConnectCombinedJSX = !inMobileWallet ? (
     <>
-      {ConnectHardwareJSX}
+      {/* {ConnectHardwareJSX} */}
       {ConnectExtensionsJSX}
     </>
   ) : (
     <>
       {ConnectExtensionsJSX}
-      {ConnectHardwareJSX}
+      {/* {ConnectHardwareJSX} */}
     </>
   );
 
@@ -191,7 +260,7 @@ export const Connect = () => {
           <div className="section">
             <ModalPadding horizontalOnly ref={homeRef}>
               {ConnectCombinedJSX}
-              {!inNova && (
+              {!inMobileWallet && (
                 <>
                   <ActionItem text={t('developerTools')} />
                   <ExtensionsWrapper>

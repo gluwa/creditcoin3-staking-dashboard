@@ -1,10 +1,11 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import {
   faEnvelope,
   faExternalLink,
+  faGlobe,
   faServer,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -136,7 +137,7 @@ export const Item = ({ item, actionable }: ItemProps) => {
                   window.open(`https://twitter.com/${twitter}`, '_blank');
                 }}
               >
-                <FontAwesomeIcon icon={faTwitter} className="icon-left" />
+                <FontAwesomeIcon icon={faXTwitter} className="icon-left" />
                 <h4>{twitter}</h4>
                 <FontAwesomeIcon
                   icon={faExternalLink}
@@ -153,6 +154,7 @@ export const Item = ({ item, actionable }: ItemProps) => {
                   window.open(website, '_blank');
                 }}
               >
+                <FontAwesomeIcon icon={faGlobe} className="icon-left" />
                 <h4>{t('community.website')}</h4>
                 <FontAwesomeIcon
                   icon={faExternalLink}

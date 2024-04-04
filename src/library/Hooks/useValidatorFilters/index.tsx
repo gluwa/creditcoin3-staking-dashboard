@@ -220,11 +220,7 @@ export const useValidatorFilters = () => {
    */
   const applySearch = (list: any, searchTerm: string) => {
     // If we cannot derive data, fallback to include validator in filtered list.
-    if (
-      !searchTerm ||
-      !Object.values(validatorIdentities).length ||
-      !Object.values(validatorSupers).length
-    ) {
+    if (!searchTerm) {
       return list;
     }
 
