@@ -19,7 +19,7 @@ Some example PR titles:
 - `chore(tests): refactor user tests`
 
 The `(scope)` could be anything specifying the place of the commit change. For example, api, app, cli, etc.
-
+<!-- markdown-link-check-disable-next-line -->
 If you would like to know more about the Conventional Commits specification, please visit the [Conventional Commits website](https://www.conventionalcommits.org/).
 
 ## Major Packages Used
