@@ -20,11 +20,7 @@ Some example PR titles:
 
 The `(scope)` could be anything specifying the place of the commit change. For example, api, app, cli, etc.
 
-<!-- markdown-link-check-disable -->
-
 If you would like to know more about the Conventional Commits specification, please visit the [Conventional Commits website](https://www.conventionalcommits.org/).
-
-<!-- markdown-link-check-enable -->
 
 ## Major Packages Used
 
