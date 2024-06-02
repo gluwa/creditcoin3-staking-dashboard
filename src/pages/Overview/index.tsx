@@ -27,7 +27,7 @@ import { NetworkStats } from './NetworkSats';
 import { Payouts } from './Payouts';
 import { StakeStatus } from './StakeStatus';
 import { ActiveEraStat } from './Stats/ActiveEraTimeLeft';
-import { HistoricalRewardsRateStat } from './Stats/HistoricalRewardsRate';
+import { AverageRewardRateStat } from './Stats/AverageRewardsRate';
 import { SupplyStakedStat } from './Stats/SupplyStaked';
 
 export const Overview = () => {
@@ -74,7 +74,7 @@ export const Overview = () => {
         </PageHeading>
       </PageRow>
       <StatBoxList>
-        <HistoricalRewardsRateStat />
+        <AverageRewardRateStat />
         <SupplyStakedStat />
         <ActiveEraStat />
       </StatBoxList>
