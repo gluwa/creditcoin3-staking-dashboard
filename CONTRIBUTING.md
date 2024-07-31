@@ -1,6 +1,6 @@
 # Contribution Guide
 
-This section aims to familiarise developers to the Polkadot Staking Dashboard [[GitHub](https://github.com/gluwa/creditcoin3-staking-dashboard), [Demo](https://paritytech.github.io/polkadot-staking-dashboard/#/overview)] for the purpose of contributing to the project.
+This section aims to familiarise developers to the Polkadot Staking Dashboard [[GitHub](https://github.com/gluwa/creditcoin3-staking-dashboard), [Demo](https://staking.polkadot.cloud/#/overview)] for the purpose of contributing to the project.
 
 ## Submitting Pull Requests
 
@@ -26,7 +26,7 @@ If you would like to know more about the Conventional Commits specification, ple
 
 - React 18
 - Polkadot JS API [[docs](https://polkadot.js.org/docs/api)]
-- React Chart JS 2 for graphing. [[docs](https://www.chartjs.org/docs/latest/), [React docs](https://react-chartjs-2.js.org/)]
+- React Chart JS 2 for graphing. [[docs](https://www.chartjs.org/docs/latest/)]
 - Framer Motion. [[docs](https://www.framer.com/docs/animation/)]
 - [Font Awesome](https://fontawesome.com/v5/search) for the majority of icons. [Ionicons](https://ionic.io/ionicons) for side menu footer icons
 - SCSS for theme configuration and Styled Components [[docs](https://styled-components.com/docs)] for component styling.

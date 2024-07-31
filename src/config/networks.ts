@@ -95,6 +95,19 @@ const makeNetworkList = () => {
       subscanEndpoint: 'https://subscan-cc3-devnet.creditcoin.network',
       subscanUrl: 'https://creditcoin3-dev.subscan.io',
     });
+    networks.dryRun3 = makeCreditcoinNetwork({
+      name: 'dryrun',
+      endpoints: {
+        lightClient: null,
+        defaultRpcEndpoint: 'Gluwa',
+        rpcEndpoints: {
+          Gluwa: 'wss://rpc.cc3-devnet-dryrun.creditcoin.network/ws',
+        },
+      },
+      namespace: '09573a3526818a8ecd6eb92f60f1175d',
+      subscanEndpoint: '',
+      subscanUrl: '',
+    });
   }
   networks.creditcoinTest = makeCreditcoinNetwork({
     name: 'creditcoinTest',
