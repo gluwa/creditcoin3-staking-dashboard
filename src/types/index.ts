@@ -16,8 +16,7 @@ export type NetworkName =
   | 'creditcoin'
   | 'creditcoinDev'
   | 'creditcoinTest'
-  | 'creditcoinLocal'
-  | 'dryrun';
+  | 'creditcoinLocal';
 
 export type Networks = Record<string, Network>;
 
