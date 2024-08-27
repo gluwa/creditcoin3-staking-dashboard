@@ -10,8 +10,8 @@ Validator operators can add their contact information, icon, and which validator
 
 To add an operator, submit a PR with the following changes:
 
-- **Thumbnail:** Add your operator's thumbnail as an SVG Component in [this folder](https://github.com/gluwa/creditcoin3-staking-dashboard/tree/main/src/config/validators/thumbnails).
-- **Operator details:** Add your operator details to the `VALIDATORS_COMMUNITY`JSON object in [this file](https://github.com/gluwa/creditcoin3-staking-dashboard/blob/main/src/config/validators/index.ts).
+- **Thumbnail:** Add your operator's thumbnail as an SVG Component in [this folder](https://github.com/gluwa/creditcoin3-staking-dashboard/tree/dev/src/config/validators/thumbnails).
+- **Operator details:** Add your operator details to the `VALIDATORS_COMMUNITY`JSON object in [this file](https://github.com/gluwa/creditcoin3-staking-dashboard/blob/dev/src/config/validators/index.ts).
 
 ### Operator Structure
 
