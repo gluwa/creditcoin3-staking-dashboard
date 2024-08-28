@@ -109,19 +109,19 @@ const makeNetworkList = () => {
     subscanEndpoint: 'https://subscan-cc3-testnet.creditcoin.network',
     subscanUrl: 'https://creditcoin3-testnet.subscan.io',
   });
-  // networks.creditcoin = makeCreditcoinNetwork({
-  //   name: 'creditcoin',
-  //   endpoints: {
-  //     lightClient: null,
-  //     defaultRpcEndpoint: 'Gluwa',
-  //     rpcEndpoints: {
-  //       Gluwa: 'wss://mainnet3.creditcoin.network',
-  //     },
-  //   },
-  //   namespace: 'creditcoin-mainnet',
-  //   subscanEndpoint: 'https://creditcoin3.api.subscan.io',
-  //   subscanUrl: 'https://creditcoin.subscan.io',
-  // });
+  networks.creditcoin = makeCreditcoinNetwork({
+    name: 'creditcoin',
+    endpoints: {
+      lightClient: null,
+      defaultRpcEndpoint: 'Gluwa',
+      rpcEndpoints: {
+        Gluwa: 'wss://mainnet3.creditcoin.network',
+      },
+    },
+    namespace: 'creditcoin-mainnet',
+    subscanEndpoint: 'https://creditcoin3.api.subscan.io',
+    subscanUrl: 'https://creditcoin.subscan.io',
+  });
   if (import.meta.env.DEV) {
     networks.creditcoinLocal = makeCreditcoinNetwork({
       name: 'creditcoinLocal',
