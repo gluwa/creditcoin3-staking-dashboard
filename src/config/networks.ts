@@ -119,7 +119,7 @@ const makeNetworkList = () => {
       },
     },
     namespace: 'creditcoin-mainnet',
-    subscanEndpoint: 'https://creditcoin3.api.subscan.io',
+    subscanEndpoint: 'https://subscan-cc3-mainnet.creditcoin.network',
     subscanUrl: 'https://creditcoin.subscan.io',
   });
   if (import.meta.env.DEV) {
