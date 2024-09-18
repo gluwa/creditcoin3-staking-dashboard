@@ -85,9 +85,17 @@ export const PayoutBar = ({ days, height }: PayoutBarProps) => {
     ? colors.transparent[mode]
     : colors.secondary[mode];
 
+  const allTimestamps = [
+    ...new Set([
+      ...graphPayouts.map((item: AnySubscan) => item.block_timestamp),
+      ...graphPoolClaims.map((item: AnySubscan) => item.block_timestamp),
+      ...graphUnclaimedPayouts.map((item: AnySubscan) => item.block_timestamp),
+    ]),
+  ].sort();
+
   const data = {
-    labels: graphPayouts.map((item: AnySubscan) => {
-      const dateObj = format(fromUnixTime(item.block_timestamp), 'do MMM', {
+    labels: allTimestamps.map((timestamp) => {
+      const dateObj = format(fromUnixTime(timestamp), 'do MMM', {
         locale: locales[i18n.resolvedLanguage ?? DefaultLocale],
       });
       return `${dateObj}`;
