@@ -7,6 +7,11 @@ export const ValidatorCommunity = [
     twitter: '@gluwa',
     website: 'https://www.gluwa.com/',
     validators: {
+      creditcoin: [
+        '5ES52Q7gs2xrVQTAxS3kkoEkKmF5XzTAgSZbU7xTXnXozzKQ',
+        '5EoDxxJ5ix4rBEhN3wBZTpAdKzRFSkmVgm5wbeAUD8c8NBGj',
+        '5H8YrGkk1zgZAaLxAdTBazqEJyZxGbZYgV5mLPshqqRF8Rwj',
+      ],
       creditcoinTest: [
         '5DcvAgRBWuQfQCGK2zZE5nVw36WgdYrTZhvxD68hZCPW26bZ',
         '5HGskSoTDbRAfiGxDVj4K4BDJBGxLjDaNvb7QLpURDNTrDjA',
