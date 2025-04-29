@@ -1,6 +1,6 @@
 # Creditcoin Staking Dashboard
 
-![ci](https://github.com/gluwa/creditcoin3-staking-dashboard/actions/workflows/ci.yml/badge.svg) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![ci](https://github.com/gluwa/creditcoin3-staking-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/gluwa/creditcoin3-staking-dashboard/actions) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 **Production URL:** <https://cc3-staking.creditcoin.org/>
 
