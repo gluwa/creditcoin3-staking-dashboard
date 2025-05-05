@@ -106,8 +106,8 @@ const makeNetworkList = () => {
       },
     },
     namespace: '09573a3526818a8ecd6eb92f60f1175d',
-    subscanEndpoint: '',
-    subscanUrl: '',
+    subscanEndpoint: 'https://subscan-cc3-testnet.creditcoin.network',
+    subscanUrl: 'https://creditcoin3-testnet.subscan.io',
   });
   networks.creditcoinTest = makeCreditcoinNetwork({
     name: 'creditcoinTest',

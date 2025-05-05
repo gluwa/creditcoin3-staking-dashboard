@@ -58,6 +58,21 @@ export const formatRawExposures = (exposures: AnyApi) =>
     };
   });
 
+// export const formatRawExposuresOverview = (exposures: AnyApi): any[] =>
+//   exposures.map(([k, v]: AnyApi) => {
+//     const keys = k.toHuman(); // p.ej ["250","5FWNf…"]
+//     const { own, total } = v.toHuman(); // p.ej { own: "…", total: "…" }
+
+//     return {
+//       keys: [rmCommas(keys[0]), keys[1]],
+//       val: {
+//         others: [], // vacío porque overview no lo incluye
+//         own: rmCommas(own),
+//         total: rmCommas(total),
+//       },
+//     };
+//   });
+
 // Minify exposures data structure for local storage.
 const minifyExposures = (exposures: Exposure[]) =>
   exposures.map(({ keys, val: { others, own, total } }: AnyApi) => ({
