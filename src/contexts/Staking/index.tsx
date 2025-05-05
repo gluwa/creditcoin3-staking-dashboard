@@ -174,6 +174,12 @@ export const StakingProvider = ({
     const payeeHuman = rawPayee.toHuman();
 
     let payeeFinal: PayeeConfig;
+    if (payeeHuman === null)
+      return {
+        destination: null,
+        account: null,
+      };
+
     if (typeof payeeHuman === 'string') {
       const destination = payeeHuman as PayeeOptions;
       payeeFinal = {
