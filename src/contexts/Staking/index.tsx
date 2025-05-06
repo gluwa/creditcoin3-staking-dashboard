@@ -5,6 +5,7 @@ import type { VoidFn } from '@polkadot/api/types';
 import {
   greaterThanZero,
   localStorageOrDefault,
+  rmCommas,
   setStateWithRef,
 } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
@@ -19,7 +20,7 @@ import type {
   StakingMetrics,
   StakingTargets,
 } from 'contexts/Staking/types';
-import type { AnyJson, MaybeAddress } from 'types';
+import type { AnyApi, AnyJson, MaybeAddress } from 'types';
 import Worker from 'workers/stakers?worker';
 import type { ResponseInitialiseExposures } from 'workers/types';
 import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
@@ -35,11 +36,7 @@ import {
   defaultStakingMetrics,
   defaultTargets,
 } from './defaults';
-import {
-  setLocalEraExposures,
-  getLocalEraExposures,
-  formatRawExposures,
-} from './Utils';
+import { setLocalEraExposures, getLocalEraExposures } from './Utils';
 
 const worker = new Worker();
 
@@ -198,12 +195,6 @@ export const StakingProvider = ({
     return payeeFinal;
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type AnyApi = any;
-
-  const rmCommas = (s: string) => s.replace(/,/g, '');
-
-  // Devuelve un array de exposiciones ya formateadas
   const fetchAllExposuresPaged = async (
     era: string
   ): Promise<
@@ -218,11 +209,9 @@ export const StakingProvider = ({
   > => {
     if (!isReady || activeEra.isPlaceholder || !api) return [];
 
-    // 1) Trae todas las entradas de overview
     const overviewEntries: [any, any][] =
       await api.query.staking.erasStakersOverview.entries(era);
 
-    // 2) Por cada entrada, obten own/total y todas las páginas de nominadores
     const rawResults = await Promise.all(
       overviewEntries.map(async (entry): Promise<any | null> => {
         const [storageKey, metaOpt] = entry;
@@ -230,18 +219,14 @@ export const StakingProvider = ({
           return null;
         }
 
-        // extrae own/total
         const meta = metaOpt.unwrap();
         const { own, total } = meta.toHuman() as { own: string; total: string };
 
-        // stashId como string
         const stashId = storageKey.args[1].toString();
 
-        // 2a) paginado
         const pages: [any, any][] =
           await api.query.staking.erasStakersPaged.entries(era, stashId);
 
-        // 2b) une todos los nominadores
         const others = pages.flatMap(([, page]) => {
           const { others: o } = page.toHuman() as any;
           return (o as any[]).map(({ who, value }) => ({
@@ -250,7 +235,6 @@ export const StakingProvider = ({
           }));
         });
 
-        // 3) construye el objeto final
         return {
           keys: [era.toString(), stashId],
           val: {
@@ -262,7 +246,6 @@ export const StakingProvider = ({
       })
     );
 
-    // 4) filtra los nulos y devuelve
     return rawResults.filter((x): x is any => x !== null);
   };
 
@@ -280,28 +263,7 @@ export const StakingProvider = ({
     if (localExposures) {
       exposures = localExposures;
     } else {
-      console.log('ENTRO EMMM 2');
-      const result1 = await api.query.staking.erasStakers.entries(era);
-      console.log('result1:', result1);
-      exposures = formatRawExposures(result1);
-      console.log('exposure con result1:', exposures);
-      if (network === 'creditcoindryrun') {
-        // const result2 =
-        //   await api.query.staking.erasStakersOverview.entries(era);
-        // console.log('result2:', result2);
-        // const allRaw = await Promise.all(
-        //   result2.map(async ([storageKey]) => {
-        //     // storageKey.args = [eraIndex, stashId]
-        //     const [eraIndex, stashId] = storageKey.args;
-        //     // Llamada a la función de consulta "callable"
-        //     const exposure = await api.query.staking.erasStakers(eraIndex, stashId);
-        //     // Devolvemos el par [StorageKey, Exposure] tal como lo necesita formatRawExposures
-        //     return [storageKey, exposure];
-        //   })
-        // );
-        exposures = await fetchAllExposuresPaged(era);
-        console.log('exposure con result2:', exposures);
-      }
+      exposures = await fetchAllExposuresPaged(era);
     }
 
     // For resource limitation concerns, only store the current era in local storage.
