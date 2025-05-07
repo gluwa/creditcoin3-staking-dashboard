@@ -27,10 +27,10 @@ export const Ledger = (): React.ReactElement => {
   const { network } = useNetwork();
   const url = 'ledger.com';
 
-  // Only render on Polkadot and Kusama networks.
-  if (!['polkadot', 'kusama'].includes(network)) {
-    return <></>;
-  }
+  // // Only render on Polkadot and Kusama networks.
+  // if (!['polkadot', 'kusama'].includes(network)) {
+  //   return <></>;
+  // }
 
   return (
     <ModalConnectItem>

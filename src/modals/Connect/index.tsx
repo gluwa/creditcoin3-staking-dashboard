@@ -28,7 +28,6 @@ import { Extension } from './Extension';
 import { Ledger } from './Ledger';
 import { Proxies } from './Proxies';
 import { ReadOnly } from './ReadOnly';
-import { Vault } from './Vault';
 import { ExtensionsWrapper } from './Wrappers';
 
 // some Extensions removed by SS-463
@@ -40,6 +39,7 @@ const desiredOrder = [
   // 'polkagate',
   // 'fearless-wallet',
   'polkadot-js',
+  'ledger',
 ];
 
 interface ExtensionItem {
@@ -160,7 +160,7 @@ export const Connect = () => {
       <ActionItem text={t('hardware')} />
       <ExtensionsWrapper>
         <SelectItems layout="two-col">
-          {[Vault, Ledger].map((Item: AnyFunction, i: number) => (
+          {[Ledger].map((Item: AnyFunction, i: number) => (
             <Item key={`hardware_item_${i}`} />
           ))}
         </SelectItems>
@@ -187,13 +187,13 @@ export const Connect = () => {
   // const ConnectCombinedJSX = !inNova ? (
   const ConnectCombinedJSX = !inMobileWallet ? (
     <>
-      {/* {ConnectHardwareJSX} */}
+      {ConnectHardwareJSX}
       {ConnectExtensionsJSX}
     </>
   ) : (
     <>
       {ConnectExtensionsJSX}
-      {/* {ConnectHardwareJSX} */}
+      {ConnectHardwareJSX}
     </>
   );
 
