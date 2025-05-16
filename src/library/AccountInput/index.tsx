@@ -3,11 +3,13 @@
 
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ButtonSecondary, Polkicon } from '@polkadot-cloud/react';
+import { Polkicon } from '@w3ux/react-polkicon';
+import { ButtonSecondary } from 'kits/Buttons/ButtonSecondary';
+
 import { isValidAddress } from '@polkadot-cloud/utils';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { useNetwork } from 'contexts/Network';
 import { formatAccountSs58 } from 'contexts/Connect/Utils';

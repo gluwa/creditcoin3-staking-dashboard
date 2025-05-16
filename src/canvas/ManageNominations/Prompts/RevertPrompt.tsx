@@ -1,4 +1,4 @@
-import { ButtonPrimary } from '@polkadot-cloud/react';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
 import { Title } from 'library/Prompt/Title';
 import { useTranslation } from 'react-i18next';
 import { FooterWrapper } from 'library/Prompt/Wrappers';

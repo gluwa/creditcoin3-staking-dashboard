@@ -11,7 +11,7 @@ import {
 import BigNumber from 'bignumber.js';
 import React, { useRef, useState } from 'react';
 import { useBalances } from 'contexts/Balances';
-import type { ExternalAccount } from '@polkadot-cloud/react/types';
+import type { ExternalAccount } from '@w3ux/react-connect-kit/types';
 import type { PayeeConfig, PayeeOptions } from 'contexts/Setup/types';
 import type {
   EraStakers,
@@ -23,7 +23,7 @@ import type {
 import type { AnyApi, AnyJson, MaybeAddress } from 'types';
 import Worker from 'workers/stakers?worker';
 import type { ResponseInitialiseExposures } from 'workers/types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';

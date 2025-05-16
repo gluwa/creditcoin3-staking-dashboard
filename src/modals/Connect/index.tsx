@@ -2,25 +2,22 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import {
-  ActionItem,
-  ButtonPrimaryInvert,
-  ButtonTab,
-  ModalCustomHeader,
-  ModalFixedTitle,
-  ModalMotionThreeSection,
-  ModalPadding,
-  ModalSection,
-} from '@polkadot-cloud/react';
+import { ActionItem } from 'library/ActionItem';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
+import { ButtonTab } from 'kits/Buttons/ButtonTab';
+import { ModalCustomHeader } from 'kits/Overlay/structure/ModalCustomHeader';
+import { ModalFixedTitle } from 'kits/Overlay/structure/ModalFixedTitle';
+import { ModalMotionThreeSection } from 'kits/Overlay/structure/ModalMotionThreeSection';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
+import { ModalSection } from 'kits/Overlay/structure/ModalSection';
+
 import { ExtensionsArray as OriginExtensionsArray } from '@polkadot-cloud/assets/extensions';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mobileCheck } from './Utils';
-import {
-  useExtensions,
-  useEffectIgnoreInitial,
-  useOverlay,
-} from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
+import { useExtensions } from '@w3ux/react-connect-kit';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { Close } from 'library/Modal/Close';
 import { SelectItems } from 'library/SelectItems';
 import type { AnyFunction } from 'types';

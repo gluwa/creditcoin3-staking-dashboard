@@ -3,12 +3,11 @@
 
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  ButtonHelp,
-  ButtonPrimary,
-  ButtonSecondary,
-  Polkicon,
-} from '@polkadot-cloud/react';
+import { Polkicon } from '@w3ux/react-polkicon';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
+import { ButtonSecondary } from 'kits/Buttons/ButtonSecondary';
+
 import { Odometer } from 'component/Odometer';
 import { applyWidthAsPadding, minDecimalPlaces } from '@polkadot-cloud/utils';
 import React, { useEffect, useLayoutEffect, useRef } from 'react';

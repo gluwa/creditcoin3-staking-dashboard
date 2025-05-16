@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faPlug, faWallet } from '@fortawesome/free-solid-svg-icons';
-import { ButtonText } from '@polkadot-cloud/react';
+import { ButtonText } from 'kits/Buttons/ButtonText';
 import { useTranslation } from 'react-i18next';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { ConnectedAccount, HeadingWrapper } from './Wrappers';
 

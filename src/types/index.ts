@@ -2,12 +2,15 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import type React from 'react';
-import type { FunctionComponent, SVGProps } from 'react';
+import type { FunctionComponent, SVGProps, ReactNode } from 'react';
 import type { Theme } from 'contexts/Themes/types';
-import type { ExtensionInjected } from '@polkadot-cloud/react/types';
+import type { ExtensionInjected } from '@w3ux/react-connect-kit/types';
+
+import type { CSSProperties } from 'styled-components';
 
 declare global {
   interface Window {
+    walletExtension?: AnyJson;
     injectedWeb3?: Record<string, ExtensionInjected>;
   }
 }
@@ -133,3 +136,17 @@ export type AnyMetaBatch = any;
 export type AnySubscan = any;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyPolkawatch = any;
+
+// A generic type to handle React components. We assume the component may have
+// children and styling applied to it.
+export interface ComponentBase {
+  // passing react children.
+  children?: ReactNode;
+  // passing custom styling.
+  style?: CSSProperties;
+}
+
+export type ComponentBaseWithClassName = ComponentBase & {
+  // passing a className string.
+  className?: string;
+};

@@ -1,16 +1,17 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ButtonMono, ButtonMonoInvert } from '@polkadot-cloud/react';
+import { ButtonMono } from 'kits/Buttons/ButtonMono';
+import { ButtonMonoInvert } from 'kits/Buttons/ButtonMonoInvert';
 import { useTranslation } from 'react-i18next';
 import { getLocalLedgerAddresses } from 'contexts/Hardware/Utils';
 import type { LedgerAddress } from 'contexts/Hardware/Ledger/types';
 import { usePrompt } from 'contexts/Prompt';
 import { ConfirmWrapper } from 'library/Import/Wrappers';
 import type { AnyJson } from 'types';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useOtherAccounts } from 'contexts/Connect/OtherAccounts';
-import type { LedgerAccount } from '@polkadot-cloud/react/types';
+import type { LedgerAccount } from '@w3ux/react-connect-kit/types';
 import { useLedgerAccounts } from 'contexts/Hardware/Ledger/LedgerAccounts';
 
 export const Reset = ({ removeLedgerAddress }: AnyJson) => {

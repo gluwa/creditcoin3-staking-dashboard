@@ -3,7 +3,9 @@
 
 import { faCheckCircle, faClock } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ButtonSubmit, ModalNotes, ModalPadding } from '@polkadot-cloud/react';
+import { ButtonSubmit } from 'kits/Buttons/ButtonSubmit';
+import { ModalNotes } from 'kits/Overlay/structure/ModalNotes';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
 import { planckToUnit } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import { getUnixTime } from 'date-fns';

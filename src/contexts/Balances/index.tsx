@@ -13,7 +13,7 @@ import BigNumber from 'bignumber.js';
 import React, { useRef, useState } from 'react';
 import { useApi } from 'contexts/Api';
 import type { AnyApi, MaybeAddress } from 'types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useNetwork } from 'contexts/Network';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { useExternalAccounts } from 'contexts/Connect/ExternalAccounts';

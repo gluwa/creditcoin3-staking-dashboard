@@ -1,7 +1,9 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ButtonHelp, ModalPadding, Polkicon } from '@polkadot-cloud/react';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { Polkicon } from '@w3ux/react-polkicon';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
 import { ellipsisFn, planckToUnit } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import { useEffect, useState, useRef } from 'react';
@@ -18,7 +20,7 @@ import { useSize } from 'library/Hooks/useSize';
 import { Title } from 'library/Modal/Title';
 import { StatWrapper, StatsWrapper } from 'library/Modal/Wrappers';
 import { StatusLabel } from 'library/StatusLabel';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { SubscanButton } from 'library/SubscanButton';
 import { useNetwork } from 'contexts/Network';
 

@@ -1,11 +1,11 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { PageTitle } from '@polkadot-cloud/react';
+import { PageTitle } from 'kits/Structure/PageTitle';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFavoriteValidators } from 'contexts/Validators/FavoriteValidators';
-import type { PageTitleTabProps } from '@polkadot-cloud/react/types';
+import type { PageTitleTabProps } from 'kits/Structure/PageTitleTabs/types';
 import { AllValidators } from './AllValidators';
 import { ValidatorFavorites } from './Favorites';
 import { ValidatorsTabsProvider, useValidatorsTabs } from './context';

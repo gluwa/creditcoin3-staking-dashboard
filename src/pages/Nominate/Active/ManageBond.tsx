@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
-import { ButtonHelp, ButtonPrimary, ButtonRow } from '@polkadot-cloud/react';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonRow } from 'kits/Structure/ButtonRow';
 import { Odometer } from 'component/Odometer';
 import { minDecimalPlaces, planckToUnit } from '@polkadot-cloud/utils';
 import type BigNumber from 'bignumber.js';
@@ -14,7 +16,7 @@ import { useTransferOptions } from 'contexts/TransferOptions';
 import { useUi } from 'contexts/UI';
 import { CardHeaderWrapper } from 'library/Card/Wrappers';
 import { useUnstaking } from 'library/Hooks/useUnstaking';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { BondedChart } from 'library/BarChart/BondedChart';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';

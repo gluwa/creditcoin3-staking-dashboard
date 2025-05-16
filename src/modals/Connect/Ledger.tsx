@@ -7,18 +7,16 @@ import {
   faExternalLinkAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  ButtonHelp,
-  ButtonPrimaryInvert,
-  ButtonText,
-  ModalConnectItem,
-  ModalHardwareItem,
-} from '@polkadot-cloud/react';
+import { ModalHardwareItem } from 'kits/Overlay/structure/ModalHardwareItem';
+import { ModalConnectItem } from 'kits/Overlay/structure/ModalConnectItem';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
+import { ButtonText } from 'kits/Buttons/ButtonText';
 import { inChrome } from '@polkadot-cloud/utils';
 import React from 'react';
 import { useHelp } from 'contexts/Help';
 import LedgerLogoSVG from '@polkadot-cloud/assets/extensions/svg/ledger.svg?react';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 
 export const Ledger = (): React.ReactElement => {

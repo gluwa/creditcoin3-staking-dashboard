@@ -85,3 +85,10 @@ export const DefaultParams = {
  * locale
  */
 export const DefaultLocale = 'en';
+
+/*
+ * Element Thresholds
+ */
+
+export const MaxPageWidth = 1450;
+export const PageWidthMediumThreshold = 1150;

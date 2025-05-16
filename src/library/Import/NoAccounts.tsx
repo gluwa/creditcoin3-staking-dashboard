@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { ButtonSecondary } from '@polkadot-cloud/react';
+import { ButtonSecondary } from 'kits/Buttons/ButtonSecondary';
 import { useTranslation } from 'react-i18next';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { NoAccountsWrapper } from './Wrappers';
 
 export const NoAccounts = ({ children, text, Icon }: any) => {

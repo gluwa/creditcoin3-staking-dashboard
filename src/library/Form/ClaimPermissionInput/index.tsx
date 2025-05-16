@@ -1,7 +1,7 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ActionItem } from '@polkadot-cloud/react';
+import { ActionItem } from 'library/ActionItem';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { usePoolMemberships } from 'contexts/Pools/PoolMemberships';

@@ -18,7 +18,7 @@ import {
   Separator,
   Wrapper,
 } from 'library/ListItem/Wrappers';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { usePlugins } from 'contexts/Plugins';
 import type { AnyJson } from 'types';
 import { Quartile } from 'library/ListItem/Labels/Quartile';

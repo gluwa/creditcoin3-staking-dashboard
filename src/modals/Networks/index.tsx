@@ -3,7 +3,8 @@
 
 import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ButtonTertiary, ModalPadding } from '@polkadot-cloud/react';
+import { ButtonTertiary } from 'kits/Buttons/ButtonTertiary';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
 import { capitalizeFirstLetter } from '@polkadot-cloud/utils';
 import { useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -11,7 +12,7 @@ import { NetworkList } from 'config/networks';
 import { useApi } from 'contexts/Api';
 import { Title } from 'library/Modal/Title';
 import type { NetworkName } from 'types';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useUi } from 'contexts/UI';
 import { usePrompt } from 'contexts/Prompt';

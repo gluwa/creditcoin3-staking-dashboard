@@ -14,7 +14,7 @@ import {
   normaliseEraPoints,
   prefillEraPoints,
 } from 'library/ValidatorList/ValidatorItem/Utils';
-import type { AnyJson } from '@polkadot-cloud/react/types';
+import type { AnyJson } from '@w3ux/react-connect-kit/types';
 import { usePoolPerformance } from 'contexts/Pools/PoolPerformance';
 import { useTranslation } from 'react-i18next';
 import type { RewardProps, RewardsGraphProps } from './types';

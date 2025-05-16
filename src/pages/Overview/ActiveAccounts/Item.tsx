@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useNotifications } from 'contexts/Notifications';
 import type { NotificationText } from 'contexts/Notifications/types';
 import { useProxies } from 'contexts/Proxies';
-import { Polkicon } from '@polkadot-cloud/react';
+import { Polkicon } from '@w3ux/react-polkicon';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { ItemWrapper } from './Wrappers';
 import type { ActiveAccountProps } from './types';

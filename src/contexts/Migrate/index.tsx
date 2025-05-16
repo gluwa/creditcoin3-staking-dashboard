@@ -6,7 +6,7 @@ import { NetworkList } from 'config/networks';
 import { AppVersion } from 'consts';
 import { useApi } from 'contexts/Api';
 import { useUi } from 'contexts/UI';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 
 export const MigrateProvider = ({

@@ -17,7 +17,7 @@ import { useUi } from 'contexts/UI';
 import { useNominationStatus } from 'library/Hooks/useNominationStatus';
 import { useUnstaking } from 'library/Hooks/useUnstaking';
 import { Stat } from 'library/Stat';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 

@@ -1,12 +1,10 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import {
-  PageHeading,
-  PageRow,
-  PageTitle,
-  RowSection,
-} from '@polkadot-cloud/react';
+import { PageHeadingWrapper } from 'kits/Structure/PageHeading/Wrapper';
+import { PageRow } from 'kits/Structure/PageRow';
+import { PageTitle } from 'kits/Structure/PageTitle';
+import { RowSection } from 'kits/Structure/RowSection';
 import { Odometer } from 'component/Odometer';
 import BigNumber from 'bignumber.js';
 import { formatDistance, fromUnixTime, getUnixTime } from 'date-fns';
@@ -69,9 +67,9 @@ export const Overview = () => {
     <>
       <PageTitle title={t('overview.overview')} />
       <PageRow>
-        <PageHeading>
+        <PageHeadingWrapper>
           <ActiveAccounts />
-        </PageHeading>
+        </PageHeadingWrapper>
       </PageRow>
       <StatBoxList>
         <HistoricalRewardsRateStat />

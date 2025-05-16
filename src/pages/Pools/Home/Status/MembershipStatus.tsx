@@ -10,7 +10,7 @@ import { useBondedPools } from 'contexts/Pools/BondedPools';
 import { useTransferOptions } from 'contexts/TransferOptions';
 import { useUi } from 'contexts/UI';
 import { Stat } from 'library/Stat';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { useStatusButtons } from './useStatusButtons';

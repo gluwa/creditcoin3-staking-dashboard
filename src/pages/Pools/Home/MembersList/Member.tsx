@@ -23,7 +23,7 @@ import {
   Separator,
   Wrapper,
 } from 'library/ListItem/Wrappers';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 
 export const Member = ({ who, batchKey, batchIndex }: any) => {
   const { t } = useTranslation('pages');

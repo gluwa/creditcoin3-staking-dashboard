@@ -2,11 +2,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import {
-  ButtonPrimary,
-  ButtonPrimaryInvert,
-  ButtonSecondary,
-} from '@polkadot-cloud/react';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
+import { ButtonSecondary } from 'kits/Buttons/ButtonSecondary';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

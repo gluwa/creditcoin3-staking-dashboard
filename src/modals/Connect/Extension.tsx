@@ -3,13 +3,10 @@
 
 import { faExternalLinkAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ModalConnectItem } from '@polkadot-cloud/react';
+import { ModalConnectItem } from 'kits/Overlay/structure/ModalConnectItem';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useExtensions,
-  useExtensionAccounts,
-} from '@polkadot-cloud/react/hooks';
+import { useExtensionAccounts, useExtensions } from '@w3ux/react-connect-kit';
 import { useNotifications } from 'contexts/Notifications';
 import { getExtensionIcon } from '@polkadot-cloud/assets/extensions';
 import { ExtensionInner } from './Wrappers';

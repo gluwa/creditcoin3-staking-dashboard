@@ -3,8 +3,8 @@
 
 import { faUsb } from '@fortawesome/free-brands-svg-icons';
 import { faSquarePen } from '@fortawesome/free-solid-svg-icons';
-import { ButtonSubmit } from '@polkadot-cloud/react';
-import type { LedgerAccount } from '@polkadot-cloud/react/types';
+import { ButtonSubmit } from 'kits/Buttons/ButtonSubmit';
+import type { LedgerAccount } from '@w3ux/react-connect-kit/types';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { useLedgerHardware } from 'contexts/Hardware/Ledger/LedgerHardware';

@@ -1,17 +1,19 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { PageRow, PageTitle, RowSection } from '@polkadot-cloud/react';
+import { PageRow } from 'kits/Structure/PageRow';
+import { PageTitle } from 'kits/Structure/PageTitle';
+import { RowSection } from 'kits/Structure/RowSection';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { PageTitleTabProps } from '@polkadot-cloud/react/types';
+import type { PageTitleTabProps } from 'kits/Structure/PageTitleTabs/types';
 import { useActivePools } from 'contexts/Pools/ActivePools';
 import { useBondedPools } from 'contexts/Pools/BondedPools';
 import { CardWrapper } from 'library/Card/Wrappers';
 import { PoolList } from 'library/PoolList/Default';
 import { StatBoxList } from 'library/StatBoxList';
 import { usePoolsConfig } from 'contexts/Pools/PoolsConfig';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { PoolListProvider } from 'library/PoolList/context';
 import { Roles } from '../Roles';

@@ -2,22 +2,18 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronLeft, faLinkSlash } from '@fortawesome/free-solid-svg-icons';
-import {
-  ActionItem,
-  ButtonPrimaryInvert,
-  ButtonText,
-  ModalCustomHeader,
-  ModalPadding,
-} from '@polkadot-cloud/react';
+import { ActionItem } from 'library/ActionItem';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
+import { ButtonText } from 'kits/Buttons/ButtonText';
+import { ModalCustomHeader } from 'kits/Overlay/structure/ModalCustomHeader';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBalances } from 'contexts/Balances';
 import { useBonded } from 'contexts/Bonded';
-import {
-  useExtensions,
-  useEffectIgnoreInitial,
-  useOverlay,
-} from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
+import { useExtensions } from '@w3ux/react-connect-kit';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { usePoolMemberships } from 'contexts/Pools/PoolMemberships';
 import { useProxies } from 'contexts/Proxies';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';

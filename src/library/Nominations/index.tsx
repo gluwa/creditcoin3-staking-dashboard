@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faCog, faStopCircle } from '@fortawesome/free-solid-svg-icons';
-import { ButtonHelp, ButtonPrimary } from '@polkadot-cloud/react';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
 import { useTranslation } from 'react-i18next';
 import { useBonded } from 'contexts/Bonded';
 import { useHelp } from 'contexts/Help';
@@ -14,7 +15,7 @@ import { CardHeaderWrapper } from 'library/Card/Wrappers';
 import { useUnstaking } from 'library/Hooks/useUnstaking';
 import { ValidatorList } from 'library/ValidatorList';
 import type { MaybeAddress } from 'types';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { ListStatusHeader } from 'library/List';

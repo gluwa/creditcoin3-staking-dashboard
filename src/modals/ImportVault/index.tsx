@@ -2,13 +2,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faQrcode } from '@fortawesome/free-solid-svg-icons';
-import {
-  ButtonPrimary,
-  ButtonText,
-  HardwareAddress,
-  HardwareStatusBar,
-  Polkicon,
-} from '@polkadot-cloud/react';
+import { HardwareAddress } from 'library/Hardware/HardwareAddress';
+import { HardwareStatusBar } from 'library/Hardware/HardwareStatusBar';
+import { Polkicon } from '@w3ux/react-polkicon';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
+import { ButtonText } from 'kits/Buttons/ButtonText';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useVaultHardware } from 'contexts/Hardware/Vault';
@@ -20,7 +18,7 @@ import { NoAccounts } from 'library/Import/NoAccounts';
 import { Remove } from 'library/Import/Remove';
 import { AddressesWrapper } from 'library/Import/Wrappers';
 import type { AnyJson } from 'types';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useOtherAccounts } from 'contexts/Connect/OtherAccounts';
 import { Reader } from './Reader';
 

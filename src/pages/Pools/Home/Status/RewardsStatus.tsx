@@ -9,7 +9,7 @@ import { useApi } from 'contexts/Api';
 import { useActivePools } from 'contexts/Pools/ActivePools';
 import { useUi } from 'contexts/UI';
 import { Stat } from 'library/Stat';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';

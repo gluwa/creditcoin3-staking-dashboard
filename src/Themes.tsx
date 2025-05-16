@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { ThemeProvider } from 'styled-components';
-import { Entry } from '@polkadot-cloud/react';
+import { Entry } from 'kits/Structure/Entry';
 import { Router } from 'Router';
 import { useTheme } from 'contexts/Themes';
 

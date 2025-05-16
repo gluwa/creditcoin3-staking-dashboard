@@ -1,7 +1,8 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ButtonHelp, Chart } from '@polkadot-cloud/react';
+import { SimplePie } from 'library/SimplePie';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
 import { Odometer } from 'component/Odometer';
 import { useEffect, useState } from 'react';
 import { useHelp } from 'contexts/Help';
@@ -30,7 +31,7 @@ export const Pie = ({ label, stat, graph, tooltip, helpKey }: PieProps) => {
     <StatBox>
       <div className="content chart">
         <div className="chart">
-          <Chart
+          <SimplePie
             items={[
               {
                 value: graph?.value1,

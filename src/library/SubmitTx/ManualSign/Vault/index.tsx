@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faSquarePen } from '@fortawesome/free-solid-svg-icons';
-import { ButtonSubmit } from '@polkadot-cloud/react';
+import { ButtonSubmit } from 'kits/Buttons/ButtonSubmit';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { usePrompt } from 'contexts/Prompt';

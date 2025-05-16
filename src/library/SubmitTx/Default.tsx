@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faArrowAltCircleUp } from '@fortawesome/free-regular-svg-icons';
-import { ButtonSubmit } from '@polkadot-cloud/react';
+import { ButtonSubmit } from 'kits/Buttons/ButtonSubmit';
 import React from 'react';
 import { useTxMeta } from 'contexts/TxMeta';
 import { EstimatedTxFee } from 'library/EstimatedTxFee';

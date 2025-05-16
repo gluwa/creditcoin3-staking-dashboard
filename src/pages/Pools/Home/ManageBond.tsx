@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
-import { ButtonHelp, ButtonPrimary, ButtonRow } from '@polkadot-cloud/react';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
+import { ButtonRow } from 'kits/Structure/ButtonRow';
 import { minDecimalPlaces, planckToUnit } from '@polkadot-cloud/utils';
 import { useTranslation } from 'react-i18next';
 import { useHelp } from 'contexts/Help';
@@ -11,7 +13,7 @@ import { useTransferOptions } from 'contexts/TransferOptions';
 import { useUi } from 'contexts/UI';
 import { BondedChart } from 'library/BarChart/BondedChart';
 import { CardHeaderWrapper } from 'library/Card/Wrappers';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';

@@ -3,14 +3,14 @@
 
 import React, { useState } from 'react';
 import { MaxEraRewardPointsEras } from 'consts';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import Worker from 'workers/poolPerformance?worker';
 import { useNetwork } from 'contexts/Network';
 import { useValidators } from 'contexts/Validators/ValidatorEntries';
 import { useBondedPools } from 'contexts/Pools/BondedPools';
 import { useNetworkMetrics } from 'contexts/NetworkMetrics';
 import { useApi } from 'contexts/Api';
-import type { Sync } from '@polkadot-cloud/react/types';
+import type { Sync } from '@w3ux/react-connect-kit/types';
 import BigNumber from 'bignumber.js';
 import { formatRawExposures } from 'contexts/Staking/Utils';
 import { mergeDeep } from '@polkadot-cloud/utils';

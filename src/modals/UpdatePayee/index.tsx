@@ -1,7 +1,8 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ModalPadding, ModalWarnings } from '@polkadot-cloud/react';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
+import { ModalWarnings } from 'kits/Overlay/structure/ModalWarnings';
 import { isValidAddress } from '@polkadot-cloud/utils';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +21,7 @@ import { SelectItem } from 'library/SelectItems/Item';
 import { SubmitTx } from 'library/SubmitTx';
 import type { MaybeAddress } from 'types';
 import { useTxMeta } from 'contexts/TxMeta';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 
 export const UpdatePayee = () => {

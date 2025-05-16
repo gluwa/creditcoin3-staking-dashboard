@@ -3,11 +3,9 @@
 
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  ButtonHelp,
-  ButtonPrimaryInvert,
-  ModalPadding,
-} from '@polkadot-cloud/react';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
 import { planckToUnit, unitToPlanck } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import Slider from 'rc-slider';
@@ -20,7 +18,7 @@ import { Close } from 'library/Modal/Close';
 import { Title } from 'library/Modal/Title';
 import { SliderWrapper } from 'modals/ManagePool/Wrappers';
 import 'rc-slider/assets/index.css';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';

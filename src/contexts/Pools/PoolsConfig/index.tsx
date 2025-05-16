@@ -12,7 +12,7 @@ import type {
   PoolsConfigContextState,
 } from 'contexts/Pools/types';
 import type { AnyApi } from 'types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useNetwork } from 'contexts/Network';
 import { useApi } from '../../Api';
 import * as defaults from './defaults';

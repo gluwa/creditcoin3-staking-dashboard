@@ -2,13 +2,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import {
-  ActionItem,
-  ButtonHelp,
-  ButtonSubmitInvert,
-  ModalPadding,
-  ModalWarnings,
-} from '@polkadot-cloud/react';
+import { ActionItem } from 'library/ActionItem';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonSubmitInvert } from 'kits/Buttons/ButtonSubmitInvert';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
+import { ModalWarnings } from 'kits/Overlay/structure/ModalWarnings';
 import { rmCommas } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import { intervalToDuration } from 'date-fns';
@@ -29,7 +27,7 @@ import { useSubmitExtrinsic } from 'library/Hooks/useSubmitExtrinsic';
 import { SubmitTx } from 'library/SubmitTx';
 import 'rc-slider/assets/index.css';
 import type { MaybeAddress } from 'types';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { SliderWrapper } from '../Wrappers';
 import type { ChangeRateInput } from './types';

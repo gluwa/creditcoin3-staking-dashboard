@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { ButtonText, HardwareAddress, Polkicon } from '@polkadot-cloud/react';
+import { Polkicon } from '@w3ux/react-polkicon';
+import { HardwareAddress } from 'library/Hardware/HardwareAddress';
+import { ButtonText } from 'kits/Buttons/ButtonText';
 import { ellipsisFn, unescape } from '@polkadot-cloud/utils';
 import { useTranslation } from 'react-i18next';
 import { useLedgerHardware } from 'contexts/Hardware/Ledger/LedgerHardware';

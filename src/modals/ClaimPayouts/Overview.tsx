@@ -1,7 +1,8 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ModalNotes, ModalPadding } from '@polkadot-cloud/react';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
+import { ModalNotes } from 'kits/Overlay/structure/ModalNotes';
 import type { Ref } from 'react';
 import { Fragment, forwardRef } from 'react';
 import { usePayouts } from 'contexts/Payouts';

@@ -5,7 +5,8 @@ import {
   faArrowDownWideShort,
   faFilterCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import { ButtonPrimaryInvert, ButtonSecondary } from '@polkadot-cloud/react';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
+import { ButtonSecondary } from 'kits/Buttons/ButtonSecondary';
 import { useTranslation } from 'react-i18next';
 import { useFilters } from 'contexts/Filters';
 import { usePrompt } from 'contexts/Prompt';

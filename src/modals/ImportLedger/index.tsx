@@ -11,10 +11,8 @@ import type {
   LedgerResponse,
 } from 'contexts/Hardware/Ledger/types';
 import type { AnyJson } from 'types';
-import {
-  useEffectIgnoreInitial,
-  useOverlay,
-} from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useNetwork } from 'contexts/Network';
 import { useNotifications } from 'contexts/Notifications';
 import { useTranslation } from 'react-i18next';

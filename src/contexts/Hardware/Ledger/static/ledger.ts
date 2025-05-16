@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import TransportWebHID from '@ledgerhq/hw-transport-webhid';
-import type { AnyJson } from '@polkadot-cloud/react/types';
+import type { AnyJson } from '@w3ux/react-connect-kit/types';
 import { newSubstrateApp, type SubstrateApp } from '@zondax/ledger-substrate';
 import type { AnyFunction } from 'types';
 import { u8aToBuffer } from '@polkadot/util';

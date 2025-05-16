@@ -2,14 +2,16 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { ButtonOption, ModalPadding, Polkicon } from '@polkadot-cloud/react';
+import { Polkicon } from '@w3ux/react-polkicon';
+import { ButtonOption } from 'kits/Buttons/ButtonOption';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
 import { useTranslation } from 'react-i18next';
 import { useActivePools } from 'contexts/Pools/ActivePools';
 import { useBondedPools } from 'contexts/Pools/BondedPools';
 import { usePoolMemberships } from 'contexts/Pools/PoolMemberships';
 import { Title } from 'library/Modal/Title';
 import { useStatusButtons } from 'pages/Pools/Home/Status/useStatusButtons';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { ContentWrapper } from './Wrappers';
 
 export const AccountPoolRoles = () => {

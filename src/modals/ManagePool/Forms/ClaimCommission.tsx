@@ -2,13 +2,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import {
-  ActionItem,
-  ButtonSubmitInvert,
-  ModalNotes,
-  ModalPadding,
-  ModalWarnings,
-} from '@polkadot-cloud/react';
+import { ActionItem } from 'library/ActionItem';
+import { ButtonSubmitInvert } from 'kits/Buttons/ButtonSubmitInvert';
+import { ModalNotes } from 'kits/Overlay/structure/ModalNotes';
+import { ModalWarnings } from 'kits/Overlay/structure/ModalWarnings';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
 import { greaterThanZero, planckToUnit, rmCommas } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
@@ -19,7 +17,7 @@ import { Warning } from 'library/Form/Warning';
 import { useSignerWarnings } from 'library/Hooks/useSignerWarnings';
 import { useSubmitExtrinsic } from 'library/Hooks/useSubmitExtrinsic';
 import { SubmitTx } from 'library/SubmitTx';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 

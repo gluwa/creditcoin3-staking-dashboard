@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ellipsisFn, remToUnit } from '@polkadot-cloud/utils';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Polkicon } from '@polkadot-cloud/react';
+import { Polkicon } from '@w3ux/react-polkicon';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { Wrapper } from './Wrapper';
 import type { AccountProps } from './types';

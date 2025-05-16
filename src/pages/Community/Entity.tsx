@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { ButtonSecondary, PageHeading, PageRow } from '@polkadot-cloud/react';
+import { PageHeadingWrapper } from 'kits/Structure/PageHeading/Wrapper';
+import { PageRow } from 'kits/Structure/PageRow';
+
+import { ButtonSecondary } from 'kits/Buttons/ButtonSecondary';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApi } from 'contexts/Api';
@@ -53,14 +56,14 @@ export const Entity = () => {
 
   return (
     <PageRow>
-      <PageHeading>
+      <PageHeadingWrapper>
         <ButtonSecondary
           text={t('community.goBack')}
           iconLeft={faChevronLeft}
           iconTransform="shrink-3"
           onClick={() => setActiveSection(0)}
         />
-      </PageHeading>
+      </PageHeadingWrapper>
       <ItemsWrapper variants={container} initial="hidden" animate="show">
         <Item item={activeItem} actionable={false} />
       </ItemsWrapper>

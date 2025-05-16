@@ -4,9 +4,9 @@
 import type { ReactNode } from 'react';
 import { createContext, useContext } from 'react';
 import type { MaybeAddress } from 'types';
-import type { ExternalAccount } from '@polkadot-cloud/react/types';
+import type { ExternalAccount } from '@w3ux/react-connect-kit/types';
 import { ManualSigners } from 'consts';
-import { useExtensionAccounts } from '@polkadot-cloud/react/hooks';
+import { useExtensionAccounts } from '@w3ux/react-connect-kit';
 import { defaultImportedAccountsContext } from './defaults';
 import type { ImportedAccountsContextInterface } from './types';
 import { useOtherAccounts } from '../OtherAccounts';

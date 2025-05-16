@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faCheck, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
-import { ButtonTertiary } from '@polkadot-cloud/react';
+import { ButtonTertiary } from 'kits/Buttons/ButtonTertiary';
 import { Odometer } from 'component/Odometer';
 import {
   greaterThanZero,
@@ -20,7 +20,7 @@ import { LegendItem } from 'library/BarChart/LegendItem';
 import { Bar, BarChartWrapper, Legend } from 'library/BarChart/Wrappers';
 import { CardHeaderWrapper } from 'library/Card/Wrappers';
 // import { usePrices } from 'library/Hooks/usePrices';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';

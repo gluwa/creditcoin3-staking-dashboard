@@ -1,11 +1,9 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import {
-  ModalPadding,
-  ModalSeparator,
-  ModalWarnings,
-} from '@polkadot-cloud/react';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
+import { ModalSeparator } from 'kits/Overlay/structure/ModalSeparator';
+import { ModalWarnings } from 'kits/Overlay/structure/ModalWarnings';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApi } from 'contexts/Api';
@@ -17,7 +15,7 @@ import { useSubmitExtrinsic } from 'library/Hooks/useSubmitExtrinsic';
 import { Close } from 'library/Modal/Close';
 import { SubmitTx } from 'library/SubmitTx';
 import { useTxMeta } from 'contexts/TxMeta';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 
 export const ChangeNominations = () => {

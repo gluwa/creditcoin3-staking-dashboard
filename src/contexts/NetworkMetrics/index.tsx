@@ -1,11 +1,11 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { setStateWithRef } from '@polkadot-cloud/utils';
+import { setStateWithRef } from '@w3ux/utils';
 import BigNumber from 'bignumber.js';
 import React, { useRef, useState } from 'react';
 import type { AnyApi, AnyJson } from 'types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useNetwork } from 'contexts/Network';
 import { useApi } from '../Api';
 import * as defaults from './defaults';

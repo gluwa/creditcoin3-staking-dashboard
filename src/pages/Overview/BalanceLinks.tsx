@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { ButtonPrimaryInvert, Separator } from '@polkadot-cloud/react';
+import { Separator } from 'kits/Structure/Separator';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
 import { useTranslation } from 'react-i18next';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';

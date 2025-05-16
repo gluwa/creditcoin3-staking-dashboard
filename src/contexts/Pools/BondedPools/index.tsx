@@ -13,10 +13,10 @@ import type {
 } from 'contexts/Pools/types';
 import { useStaking } from 'contexts/Staking';
 import type { AnyApi, MaybeAddress, Sync } from 'types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useNetwork } from 'contexts/Network';
 import { useNetworkMetrics } from 'contexts/NetworkMetrics';
-import type { AnyJson } from '@polkadot-cloud/react/types';
+import type { AnyJson } from '@w3ux/react-connect-kit/types';
 import { useApi } from '../../Api';
 import { usePoolsConfig } from '../PoolsConfig';
 import { defaultBondedPoolsContext } from './defaults';

@@ -11,7 +11,7 @@ import type {
 } from 'contexts/Pools/types';
 import { useStaking } from 'contexts/Staking';
 import type { AnyApi, AnyJson, Sync } from 'types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useSubscan } from 'contexts/Plugins/Subscan';
 import { usePlugins } from 'contexts/Plugins';
 import { useNetwork } from 'contexts/Network';

@@ -1,11 +1,12 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ButtonSubmit, ModalPadding } from '@polkadot-cloud/react';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
+import { ButtonSubmit } from 'kits/Buttons/ButtonSubmit';
 import { useTranslation } from 'react-i18next';
 import { usePlugins } from 'contexts/Plugins';
 import { Title } from 'library/Modal/Title';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 
 export const DismissTips = () => {
   const { t } = useTranslation('tips');

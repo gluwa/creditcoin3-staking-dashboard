@@ -1,7 +1,7 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { HardwareStatusBar } from '@polkadot-cloud/react';
+import { HardwareStatusBar } from 'library/Hardware/HardwareStatusBar';
 import { useTranslation } from 'react-i18next';
 import { useLedgerHardware } from 'contexts/Hardware/Ledger/LedgerHardware';
 import { getLedgerApp } from 'contexts/Hardware/Utils';
@@ -10,7 +10,7 @@ import { usePrompt } from 'contexts/Prompt';
 import LedgerSVG from '@polkadot-cloud/assets/extensions/svg/ledgersquare.svg?react';
 import { Heading } from 'library/Import/Heading';
 import type { AnyJson } from 'types';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { Addresess } from './Addresses';
 import { Reset } from './Reset';

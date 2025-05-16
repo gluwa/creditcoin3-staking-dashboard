@@ -2,12 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import {
-  ButtonSecondary,
-  PageHeading,
-  PageRow,
-  PageTitle,
-} from '@polkadot-cloud/react';
+import { PageHeadingWrapper } from 'kits/Structure/PageHeading/Wrapper';
+import { PageTitle } from 'kits/Structure/PageTitle';
+import { PageRow } from 'kits/Structure/PageRow';
+import { ButtonSecondary } from 'kits/Buttons/ButtonSecondary';
 import { useTranslation } from 'react-i18next';
 import { Element } from 'react-scroll';
 import { useSetup } from 'contexts/Setup';
@@ -28,7 +26,7 @@ export const Create = () => {
     <>
       <PageTitle title={t('pools.createAPool')} />
       <PageRow>
-        <PageHeading>
+        <PageHeadingWrapper>
           <span>
             <ButtonSecondary
               text={t('pools.back')}
@@ -47,7 +45,7 @@ export const Create = () => {
             />
           </span>
           <div className="right" />
-        </PageHeading>
+        </PageHeadingWrapper>
       </PageRow>
       <PageRow>
         <CardWrapper>

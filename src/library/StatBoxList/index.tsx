@@ -1,7 +1,7 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { StatBoxRow } from '@polkadot-cloud/react';
+import { StatBoxRow } from 'kits/Structure/StatBoxRow';
 import React from 'react';
 import { ListWrapper } from './Wrapper';
 

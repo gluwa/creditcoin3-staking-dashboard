@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
-import { ButtonPrimary, ButtonRow, PageRow } from '@polkadot-cloud/react';
+import { PageRow } from 'kits/Structure/PageRow';
+import { ButtonRow } from 'kits/Structure/ButtonRow';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
 import { useTranslation } from 'react-i18next';
 import { useActivePools } from 'contexts/Pools/ActivePools';
 import { usePoolMemberships } from 'contexts/Pools/PoolMemberships';
@@ -10,7 +12,7 @@ import { useTheme } from 'contexts/Themes';
 import { useTransferOptions } from 'contexts/TransferOptions';
 import { useUi } from 'contexts/UI';
 import { CardWrapper } from 'library/Card/Wrappers';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 

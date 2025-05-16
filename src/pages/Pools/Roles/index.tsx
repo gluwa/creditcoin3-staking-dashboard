@@ -6,11 +6,9 @@ import {
   faEdit,
   faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  ButtonHelp,
-  ButtonPrimary,
-  ButtonPrimaryInvert,
-} from '@polkadot-cloud/react';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApi } from 'contexts/Api';
@@ -19,7 +17,7 @@ import { useIdentities } from 'contexts/Identities';
 import { useActivePools } from 'contexts/Pools/ActivePools';
 import { useUi } from 'contexts/UI';
 import { CardHeaderWrapper } from 'library/Card/Wrappers';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';

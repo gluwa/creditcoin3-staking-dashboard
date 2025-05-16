@@ -2,12 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import {
-  ButtonPrimaryInvert,
-  CanvasContainer,
-  ModalContent,
-  CanvasScroll,
-} from '@polkadot-cloud/react';
+import { ModalContent } from 'kits/Overlay/structure/ModalContent';
+import { CanvasScroll } from 'kits/Overlay/structure/CanvasScroll';
+import { CanvasContainer } from 'kits/Overlay/structure/CanvasContainer';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
 import { camelize } from '@polkadot-cloud/utils';
 import { useAnimation } from 'framer-motion';
 import { useCallback, useEffect } from 'react';

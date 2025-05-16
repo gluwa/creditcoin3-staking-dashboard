@@ -1,12 +1,10 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import {
-  ButtonHelp,
-  ButtonPrimary,
-  ButtonPrimaryInvert,
-} from '@polkadot-cloud/react';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonPrimaryInvert } from 'kits/Buttons/ButtonPrimaryInvert';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { GenerateNominations } from 'library/GenerateNominations';
 import { useEffect, useState } from 'react';
 import { Subheading } from 'pages/Nominate/Wrappers';

@@ -3,7 +3,7 @@
 
 import { useTranslation } from 'react-i18next';
 import { useUnstaking } from 'library/Hooks/useUnstaking';
-import { ButtonMonoInvert } from '@polkadot-cloud/react';
+import { ButtonMonoInvert } from 'kits/Buttons/ButtonMonoInvert';
 import { SelectableWrapper } from '.';
 import { useList } from './context';
 import type { SelectableProps } from './types';

@@ -1,6 +1,6 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ButtonPrimary } from '@polkadot-cloud/react';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
 import { useApi } from 'contexts/Api';
 import { useNotifications } from 'contexts/Notifications';
 import { useFavoriteValidators } from 'contexts/Validators/FavoriteValidators';

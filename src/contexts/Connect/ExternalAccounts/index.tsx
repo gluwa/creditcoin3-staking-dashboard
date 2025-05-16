@@ -8,7 +8,7 @@ import { ellipsisFn } from '@polkadot-cloud/utils';
 import type {
   ExternalAccount,
   ExternalAccountAddedBy,
-} from '@polkadot-cloud/react/types';
+} from '@w3ux/react-connect-kit/types';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import type {
   AddExternalAccountResult,

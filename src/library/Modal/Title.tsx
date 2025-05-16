@@ -3,12 +3,12 @@
 
 import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ButtonHelp } from '@polkadot-cloud/react';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
 import type { FunctionComponent } from 'react';
 import React from 'react';
 import { useHelp } from 'contexts/Help';
 import CrossSVG from 'img/cross.svg?react';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { TitleWrapper } from './Wrappers';
 
 interface TitleProps {

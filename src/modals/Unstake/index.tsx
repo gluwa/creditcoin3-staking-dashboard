@@ -1,7 +1,9 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ActionItem, ModalPadding, ModalWarnings } from '@polkadot-cloud/react';
+import { ActionItem } from 'library/ActionItem';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
+import { ModalWarnings } from 'kits/Overlay/structure/ModalWarnings';
 import {
   greaterThanZero,
   planckToUnit,
@@ -23,7 +25,7 @@ import { Close } from 'library/Modal/Close';
 import { SubmitTx } from 'library/SubmitTx';
 import { StaticNote } from 'modals/Utils/StaticNote';
 import { useTxMeta } from 'contexts/TxMeta';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 

@@ -1,7 +1,8 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ButtonHelp, Chart } from '@polkadot-cloud/react';
+import { SimplePie } from 'library/SimplePie';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
 import { useHelp } from 'contexts/Help';
 import { Countdown } from 'library/Countdown';
 import { StatBox } from './Item';
@@ -22,7 +23,7 @@ export const Timeleft = ({
     <StatBox>
       <div className="content chart">
         <div className="chart">
-          <Chart
+          <SimplePie
             items={[
               {
                 value: graph?.value1,

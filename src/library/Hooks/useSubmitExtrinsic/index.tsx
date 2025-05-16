@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DappName, ManualSigners } from 'consts';
 import { useApi } from 'contexts/Api';
-import { useExtensions } from '@polkadot-cloud/react/hooks';
+import { useExtensions } from '@w3ux/react-connect-kit';
 import { useExtrinsics } from 'contexts/Extrinsics';
 import { useLedgerHardware } from 'contexts/Hardware/Ledger/LedgerHardware';
 import { useNotifications } from 'contexts/Notifications';

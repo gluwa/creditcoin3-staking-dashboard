@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import type { MaybeString } from 'types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import * as defaults from './defaults';
 import type {
   HelpContextInterface,

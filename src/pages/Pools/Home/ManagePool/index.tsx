@@ -2,14 +2,16 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { ButtonHelp, ButtonPrimary, PageRow } from '@polkadot-cloud/react';
+import { PageRow } from 'kits/Structure/PageRow';
+import { ButtonHelp } from 'kits/Buttons/ButtonHelp';
+import { ButtonPrimary } from 'kits/Buttons/ButtonPrimary';
 import { useTranslation } from 'react-i18next';
 import { useHelp } from 'contexts/Help';
 import { useActivePools } from 'contexts/Pools/ActivePools';
 import { useUi } from 'contexts/UI';
 import { CardHeaderWrapper, CardWrapper } from 'library/Card/Wrappers';
 import { Nominations } from 'library/Nominations';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useValidators } from 'contexts/Validators/ValidatorEntries';
 

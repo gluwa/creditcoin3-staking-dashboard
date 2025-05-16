@@ -3,7 +3,7 @@
 
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { PageRow } from '@polkadot-cloud/react';
+import { PageRow } from 'kits/Structure/PageRow';
 import { useTranslation } from 'react-i18next';
 import { usePlugins } from 'contexts/Plugins';
 import { useActivePools } from 'contexts/Pools/ActivePools';

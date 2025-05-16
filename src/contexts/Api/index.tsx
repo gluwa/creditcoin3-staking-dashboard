@@ -24,7 +24,7 @@ import type {
   ApiStatus,
 } from 'contexts/Api/types';
 import type { AnyApi } from 'types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import {
   defaultApiContext,
   defaultChainState,

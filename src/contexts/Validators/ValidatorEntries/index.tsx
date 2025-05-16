@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js';
 import React, { useEffect, useRef, useState } from 'react';
 import { ValidatorCommunity } from 'config/validators/index';
 import type { AnyApi, AnyJson, BondFor, Fn, Sync } from 'types';
-import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
+import { useEffectIgnoreInitial } from '@w3ux/hooks';
 import { useBonded } from 'contexts/Bonded';
 import { useNetworkMetrics } from 'contexts/NetworkMetrics';
 import { useActivePools } from 'contexts/Pools/ActivePools';

@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNetwork } from 'contexts/Network';
 import { ellipsisFn, setStateWithRef } from '@polkadot-cloud/utils';
-import type { LedgerAccount } from '@polkadot-cloud/react/types';
+import type { LedgerAccount } from '@w3ux/react-connect-kit/types';
 import { useNotifications } from 'contexts/Notifications';
 import { useTranslation } from 'react-i18next';
 import type { LedgerAccountsContextInterface } from './types';

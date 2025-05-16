@@ -1,7 +1,9 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ButtonMono, ButtonMonoInvert, Polkicon } from '@polkadot-cloud/react';
+import { Polkicon } from '@w3ux/react-polkicon';
+import { ButtonMono } from 'kits/Buttons/ButtonMono';
+import { ButtonMonoInvert } from 'kits/Buttons/ButtonMonoInvert';
 import { useTranslation } from 'react-i18next';
 import { usePrompt } from 'contexts/Prompt';
 

@@ -3,11 +3,9 @@
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { u8aToString, u8aUnwrapBytes } from '@polkadot/util';
-import {
-  ButtonSubmitInvert,
-  ModalPadding,
-  ModalWarnings,
-} from '@polkadot-cloud/react';
+import { ButtonSubmitInvert } from 'kits/Buttons/ButtonSubmitInvert';
+import { ModalWarnings } from 'kits/Overlay/structure/ModalWarnings';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApi } from 'contexts/Api';
@@ -17,7 +15,7 @@ import { Warning } from 'library/Form/Warning';
 import { useSignerWarnings } from 'library/Hooks/useSignerWarnings';
 import { useSubmitExtrinsic } from 'library/Hooks/useSubmitExtrinsic';
 import { SubmitTx } from 'library/SubmitTx';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 
 export const SetMetadata = ({ setSection, section }: any) => {

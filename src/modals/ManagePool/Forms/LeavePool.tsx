@@ -2,12 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import {
-  ActionItem,
-  ButtonSubmitInvert,
-  ModalPadding,
-  ModalWarnings,
-} from '@polkadot-cloud/react';
+import { ActionItem } from 'library/ActionItem';
+import { ButtonSubmitInvert } from 'kits/Buttons/ButtonSubmitInvert';
+import { ModalPadding } from 'kits/Overlay/structure/ModalPadding';
+import { ModalWarnings } from 'kits/Overlay/structure/ModalWarnings';
 import {
   greaterThanZero,
   planckToUnit,
@@ -27,7 +25,7 @@ import { useSubmitExtrinsic } from 'library/Hooks/useSubmitExtrinsic';
 import { timeleftAsString } from 'library/Hooks/useTimeLeft/utils';
 import { SubmitTx } from 'library/SubmitTx';
 import { StaticNote } from 'modals/Utils/StaticNote';
-import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useOverlay } from 'kits/Overlay/Provider';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 

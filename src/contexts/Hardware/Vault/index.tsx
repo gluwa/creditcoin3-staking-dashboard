@@ -3,7 +3,7 @@
 
 import { ellipsisFn, setStateWithRef } from '@polkadot-cloud/utils';
 import React, { useEffect, useRef, useState } from 'react';
-import type { VaultAccount } from '@polkadot-cloud/react/types';
+import type { VaultAccount } from '@w3ux/react-connect-kit/types';
 import { useNetwork } from 'contexts/Network';
 import { getLocalVaultAccounts, isLocalNetworkAddress } from '../Utils';
 import type { VaultHardwareContextInterface } from './types';
