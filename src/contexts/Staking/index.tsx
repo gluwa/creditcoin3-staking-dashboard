@@ -36,7 +36,12 @@ import {
   defaultStakingMetrics,
   defaultTargets,
 } from './defaults';
-import { setLocalEraExposures, getLocalEraExposures } from './Utils';
+import {
+  setLocalEraExposures,
+  getLocalEraExposures,
+  formatRawExposures,
+} from './Utils';
+import { UpgradedNetworks } from 'consts';
 
 const worker = new Worker();
 
@@ -171,11 +176,13 @@ export const StakingProvider = ({
     const payeeHuman = rawPayee.toHuman();
 
     let payeeFinal: PayeeConfig;
-    if (payeeHuman === null)
+    if (UpgradedNetworks.includes(network)){
+      if (payeeHuman === null)
       return {
         destination: null,
         account: null,
       };
+    }
 
     if (typeof payeeHuman === 'string') {
       const destination = payeeHuman as PayeeOptions;
@@ -263,7 +270,13 @@ export const StakingProvider = ({
     if (localExposures) {
       exposures = localExposures;
     } else {
-      exposures = await fetchAllExposuresPaged(era);
+      if (UpgradedNetworks.includes(network)){
+        exposures = await fetchAllExposuresPaged(era);
+      }else{
+        exposures = formatRawExposures(
+          await api.query.staking.erasStakers.entries(era)
+        );
+      }
     }
 
     // For resource limitation concerns, only store the current era in local storage.
