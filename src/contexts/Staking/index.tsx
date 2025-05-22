@@ -176,12 +176,12 @@ export const StakingProvider = ({
     const payeeHuman = rawPayee.toHuman();
 
     let payeeFinal: PayeeConfig;
-    if (UpgradedNetworks.includes(network)){
+    if (UpgradedNetworks.includes(network)) {
       if (payeeHuman === null)
-      return {
-        destination: null,
-        account: null,
-      };
+        return {
+          destination: null,
+          account: null,
+        };
     }
 
     if (typeof payeeHuman === 'string') {
@@ -269,14 +269,12 @@ export const StakingProvider = ({
 
     if (localExposures) {
       exposures = localExposures;
+    } else if (UpgradedNetworks.includes(network)) {
+      exposures = await fetchAllExposuresPaged(era);
     } else {
-      if (UpgradedNetworks.includes(network)){
-        exposures = await fetchAllExposuresPaged(era);
-      }else{
-        exposures = formatRawExposures(
-          await api.query.staking.erasStakers.entries(era)
-        );
-      }
+      exposures = formatRawExposures(
+        await api.query.staking.erasStakers.entries(era)
+      );
     }
 
     // For resource limitation concerns, only store the current era in local storage.

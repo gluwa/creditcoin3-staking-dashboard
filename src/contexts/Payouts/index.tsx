@@ -183,11 +183,11 @@ export const PayoutsProvider = ({
     for (const ledgerResult of ledgerResults) {
       const ledger = ledgerResult.unwrapOr(null)?.toHuman();
       if (ledger) {
-        let rewards: any
-        if (UpgradedNetworks.includes(network)){
-          rewards = ledger.legacyClaimedRewards
-        }else{
-          rewards = ledger.claimedRewards
+        let rewards: any;
+        if (UpgradedNetworks.includes(network)) {
+          rewards = ledger.legacyClaimedRewards;
+        } else {
+          rewards = ledger.claimedRewards;
         }
         // get claimed eras within `erasToCheck`.
         const erasClaimed = rewards
