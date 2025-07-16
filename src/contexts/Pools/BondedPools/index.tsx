@@ -176,10 +176,8 @@ export const BondedPoolsProvider = ({
     addresses: createAccounts(id),
   });
 
-  const getBondedPool = (poolId: MaybePool) => {
-    if (poolId === null) return null;
-    return bondedPools.find((p) => Number(p.id) === Number(poolId)) ?? null;
-  };
+  const getBondedPool = (poolId: MaybePool) =>
+    bondedPools.find((p) => p.id === poolId) ?? null;
 
   /*
    * poolSearchFilter Iterates through the supplied list and refers to the meta batch of the list to
