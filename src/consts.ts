@@ -13,7 +13,7 @@ export const DappName = 'Creditcoin Staking Dashboard';
 export const CreditcoinUrl = 'https://creditcoin.org';
 export const DefaultNetwork = 'creditcoin';
 export const ManualSigners = ['ledger', 'vault'];
-export const UpgradedNetworks = ['creditcoindryrun', 'creditcoinDev'];
+export const UpgradedNetworks = ['creditcoindryrun', 'creditcoinDev', 'creditcoinTest'];
 /*
  * Data Structure Helpers
  */
