@@ -202,18 +202,7 @@ export const StakingProvider = ({
     return payeeFinal;
   };
 
-  const fetchAllExposuresPaged = async (
-    era: string
-  ): Promise<
-    Array<{
-      keys: [string, string];
-      val: {
-        own: string;
-        total: string;
-        others: Array<{ who: string; value: string }>;
-      };
-    }>
-  > => {
+  const fetchAllExposuresPaged = async (era: string): Promise<Exposure[]> => {
     if (!isReady || activeEra.isPlaceholder || !api) return [];
 
     const overviewEntries: [any, any][] =
