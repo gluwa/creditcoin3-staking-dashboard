@@ -316,7 +316,7 @@ export const SubscanProvider = ({
             });
           }
           // removes last zero item and returns
-          return list.reverse().splice(0, list.length - 1);
+          return list.reverse();
         }
       }
       return [];
