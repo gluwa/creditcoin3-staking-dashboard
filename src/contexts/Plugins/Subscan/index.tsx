@@ -315,7 +315,6 @@ export const SubscanProvider = ({
               poolId: item.pool_id,
             });
           }
-          // removes last zero item and returns
           return list.reverse();
         }
       }
