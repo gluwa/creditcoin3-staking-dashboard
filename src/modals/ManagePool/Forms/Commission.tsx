@@ -58,9 +58,14 @@ export const Commission = ({ setSection, incrementCalculateHeight }: any) => {
   const initialPayee = bondedPool?.commission?.current?.[1] || null;
 
   const maxCommissionSet = !!bondedPool?.commission?.max;
-  const initialMaxCommission = Number(
-    (bondedPool?.commission?.max || '100%').slice(0, -1)
-  );
+  const initialMaxCommission = (() => {
+    const maxCommissionValue =
+      bondedPool?.commission?.max || globalMaxCommission;
+    if (typeof maxCommissionValue === 'string') {
+      return Number(maxCommissionValue.slice(0, -1));
+    }
+    return Number(maxCommissionValue);
+  })();
 
   const changeRateSet = !!bondedPool?.commission?.changeRate;
   const initialChangeRate = (() => {
