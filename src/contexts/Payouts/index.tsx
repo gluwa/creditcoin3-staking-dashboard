@@ -23,7 +23,7 @@ import {
   setLocalEraExposure,
   setLocalUnclaimedPayouts,
 } from './Utils';
-import { UpgradedNetworks } from 'consts';
+import { isNetworkUpgraded } from 'contexts/Staking/Utils';
 
 const worker = new Worker();
 
@@ -184,7 +184,7 @@ export const PayoutsProvider = ({
       const ledger = ledgerResult.unwrapOr(null)?.toHuman();
       if (ledger) {
         let rewards: any;
-        if (UpgradedNetworks.includes(network)) {
+        if (isNetworkUpgraded(network, activeEra.index.toString())) {
           rewards = ledger.legacyClaimedRewards;
         } else {
           rewards = ledger.claimedRewards;
