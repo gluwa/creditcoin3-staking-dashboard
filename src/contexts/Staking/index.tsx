@@ -40,6 +40,7 @@ import {
   setLocalEraExposures,
   getLocalEraExposures,
   formatRawExposures,
+  isNetworkUpgraded,
 } from './Utils';
 import { UpgradedNetworks } from 'consts';
 
@@ -258,7 +259,7 @@ export const StakingProvider = ({
 
     if (localExposures) {
       exposures = localExposures;
-    } else if (UpgradedNetworks.includes(network)) {
+    } else if (isNetworkUpgraded(network, era)) {
       exposures = await fetchAllExposuresPaged(era);
     } else {
       exposures = formatRawExposures(
