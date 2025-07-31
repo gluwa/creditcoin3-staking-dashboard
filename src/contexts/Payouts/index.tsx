@@ -181,7 +181,10 @@ export const PayoutsProvider = ({
     );
     const unclaimedRewards: Record<string, string[]> = {};
 
-    if (isNetworkUpgraded(network, activeEra.index.toString())) {
+    if (
+      activeEra?.index &&
+      isNetworkUpgraded(network, activeEra.index.toString())
+    ) {
       // For upgraded networks, we need to check claimedRewards for each era and validator
 
       // First, collect all the multicall parameters for claimedRewards
