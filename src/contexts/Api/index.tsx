@@ -15,6 +15,7 @@ import {
   FallbackMaxNominations,
   FallbackNominatorRewardedPerValidator,
   FallbackSessionsPerEra,
+  UpgradedNetworks,
 } from 'consts';
 import type {
   APIChainState,
@@ -175,6 +176,7 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
       newApi.consts.staking.historyDepth,
       newApi.consts.fastUnstake.deposit,
       newApi.consts.nominationPools.palletId,
+      newApi.consts.staking.maxExposurePageSize,
     ]);
 
     // format constants.
@@ -190,9 +192,13 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
       ? new BigNumber(rmCommas(result[2].toString()))
       : FallbackSessionsPerEra;
 
-    const maxNominatorRewardedPerValidator = result[3]
-      ? new BigNumber(rmCommas(result[3].toString()))
-      : FallbackNominatorRewardedPerValidator;
+    const maxNominatorRewardedPerValidator = UpgradedNetworks.includes(network)
+      ? result[11]
+        ? new BigNumber(rmCommas(result[11].toString()))
+        : FallbackNominatorRewardedPerValidator
+      : result[3]
+        ? new BigNumber(rmCommas(result[3].toString()))
+        : FallbackNominatorRewardedPerValidator;
 
     const maxElectingVoters = result[4]
       ? new BigNumber(rmCommas(result[4].toString()))

@@ -12,10 +12,12 @@ import { useNetworkMetrics } from 'contexts/NetworkMetrics';
 import { useApi } from 'contexts/Api';
 import type { Sync } from '@polkadot-cloud/react/types';
 import BigNumber from 'bignumber.js';
-import { formatRawExposures } from 'contexts/Staking/Utils';
 import { mergeDeep } from '@polkadot-cloud/utils';
 import type { PoolPerformanceContextInterface } from './types';
 import { defaultPoolPerformanceContext } from './defaults';
+import { useStaking } from 'contexts/Staking';
+import { formatRawExposures, isNetworkUpgraded } from 'contexts/Staking/Utils';
+import type { Exposure } from 'contexts/Staking/types';
 
 const worker = new Worker();
 
@@ -29,7 +31,7 @@ export const PoolPerformanceProvider = ({
   const { bondedPools } = useBondedPools();
   const { activeEra } = useNetworkMetrics();
   const { erasRewardPointsFetched, erasRewardPoints } = useValidators();
-
+  const { fetchEraStakers } = useStaking();
   // Store whether pool performance data is being fetched.
   const [poolRewardPointsFetched, setPoolRewardPointsFetched] =
     useState<Sync>('unsynced');
@@ -79,10 +81,16 @@ export const PoolPerformanceProvider = ({
   const processEra = async (era: BigNumber) => {
     if (!api) return;
     setCurrentEra(era);
-    const result = await api.query.staking.erasStakersClipped.entries(
-      era.toString()
-    );
-    const exposures = formatRawExposures(result);
+
+    let exposures: Exposure[] = [];
+    if (isNetworkUpgraded(network, era.toString())) {
+      exposures = await fetchEraStakers(era.toString());
+    } else {
+      const result = await api.query.staking.erasStakersClipped.entries(
+        era.toString()
+      );
+      exposures = formatRawExposures(result);
+    }
     worker.postMessage({
       task: 'processNominationPoolsRewardData',
       era: era.toString(),
