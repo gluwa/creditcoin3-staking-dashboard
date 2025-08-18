@@ -15,7 +15,7 @@ type NetworkConfig = {
   namespace?: string;
   subscanEndpoint: string;
   subscanUrl: string;
-  activeEraWhenUpgraded?: number;
+  currentEraWhenUpgraded?: number;
 };
 
 const makeCreditcoinNetwork = ({
@@ -24,7 +24,7 @@ const makeCreditcoinNetwork = ({
   namespace,
   subscanEndpoint,
   subscanUrl,
-  activeEraWhenUpgraded,
+  currentEraWhenUpgraded,
 }: NetworkConfig): Network => {
   return {
     name,
@@ -32,7 +32,7 @@ const makeCreditcoinNetwork = ({
     namespace: namespace ?? '09573a3526818a8ecd6eb92f60f1175d',
     subscanEndpoint,
     subscanUrl,
-    activeEraWhenUpgraded,
+    currentEraWhenUpgraded,
 
     api: {
       unit: 'CTC',
@@ -110,7 +110,7 @@ const makeNetworkList = () => {
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
       subscanEndpoint: 'https://subscan-cc3-testnet.creditcoin.network',
       subscanUrl: 'https://creditcoin3-testnet.subscan.io',
-      activeEraWhenUpgraded: 7,
+      currentEraWhenUpgraded: 7,
     });
   }
   networks.creditcoinTest = makeCreditcoinNetwork({
@@ -125,7 +125,7 @@ const makeNetworkList = () => {
     namespace: '09573a3526818a8ecd6eb92f60f1175d',
     subscanEndpoint: 'https://subscan-cc3-testnet.creditcoin.network',
     subscanUrl: 'https://creditcoin3-testnet.subscan.io',
-    activeEraWhenUpgraded: 557,
+    currentEraWhenUpgraded: 557,
   });
   networks.creditcoin = makeCreditcoinNetwork({
     name: 'creditcoin',
