@@ -68,7 +68,7 @@ export interface Network {
   };
   params: Record<string, number>;
   defaultFeeReserve: number;
-  activeEraWhenUpgraded?: number;
+  currentEraWhenUpgraded?: number;
 }
 
 export interface PageCategory {

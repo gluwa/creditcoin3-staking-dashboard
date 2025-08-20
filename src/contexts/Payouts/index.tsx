@@ -180,10 +180,14 @@ export const PayoutsProvider = ({
       Object.values(validatorControllers)
     );
     const unclaimedRewards: Record<string, string[]> = {};
+    const lastRuntimeUpgrade = await api!.query.system.lastRuntimeUpgrade();
+    const runtimeUpgradeData = lastRuntimeUpgrade.toHuman() as any;
+    const specVersion = Number(runtimeUpgradeData?.specVersion);
 
     if (
       activeEra?.index &&
-      isNetworkUpgraded(network, activeEra.index.toString())
+      (isNetworkUpgraded(network, activeEra.index.toString()) ||
+        specVersion > 39)
     ) {
       // For upgraded networks, we need to check claimedRewards for each era and validator
 

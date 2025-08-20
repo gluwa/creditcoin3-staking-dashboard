@@ -17,9 +17,11 @@ export const isNetworkUpgraded = (
   if (!UpgradedNetworks.includes(network)) {
     return false;
   }
-  // If network has activeEraWhenUpgraded configuration, check era threshold
-  if (networkConfig?.activeEraWhenUpgraded !== undefined) {
-    return Number(era) > networkConfig.activeEraWhenUpgraded;
+  // If network has currentEraWhenUpgraded configuration, check era threshold
+  // Old storage items work for eras <= currentEraWhenUpgraded
+  // New storage items work for eras > currentEraWhenUpgraded
+  if (networkConfig?.currentEraWhenUpgraded !== undefined) {
+    return Number(era) > networkConfig.currentEraWhenUpgraded;
   }
   // If no era threshold configured, network is considered upgraded
   return true;
