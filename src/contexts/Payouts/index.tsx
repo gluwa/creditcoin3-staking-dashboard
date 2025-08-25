@@ -23,7 +23,7 @@ import {
   setLocalEraExposure,
   setLocalUnclaimedPayouts,
 } from './Utils';
-import { isNetworkUpgraded } from 'contexts/Staking/Utils';
+import { UpgradedNetworks } from 'consts';
 
 const worker = new Worker();
 
@@ -180,15 +180,8 @@ export const PayoutsProvider = ({
       Object.values(validatorControllers)
     );
     const unclaimedRewards: Record<string, string[]> = {};
-    const lastRuntimeUpgrade = await api!.query.system.lastRuntimeUpgrade();
-    const runtimeUpgradeData = lastRuntimeUpgrade.toHuman() as any;
-    const specVersion = Number(runtimeUpgradeData?.specVersion);
 
-    if (
-      activeEra?.index &&
-      (isNetworkUpgraded(network, activeEra.index.toString()) ||
-        specVersion > 39)
-    ) {
+    if (UpgradedNetworks.includes(network)) {
       // For upgraded networks, we need to check claimedRewards for each era and validator
 
       // First, collect all the multicall parameters for claimedRewards
