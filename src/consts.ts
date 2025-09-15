@@ -17,6 +17,7 @@ export const UpgradedNetworks = [
   'creditcoindryrun',
   'creditcoinDev',
   'creditcoinTest',
+  'creditcoin',
 ];
 /*
  * Data Structure Helpers
