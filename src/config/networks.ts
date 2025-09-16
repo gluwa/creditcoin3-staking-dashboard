@@ -139,6 +139,7 @@ const makeNetworkList = () => {
     namespace: 'creditcoin-mainnet',
     subscanEndpoint: 'https://subscan-cc3-mainnet.creditcoin.network',
     subscanUrl: 'https://creditcoin.subscan.io',
+    currentEraWhenUpgraded: 384,
   });
   if (import.meta.env.DEV) {
     networks.creditcoinLocal = makeCreditcoinNetwork({
