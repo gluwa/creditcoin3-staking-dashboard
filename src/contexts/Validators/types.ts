@@ -35,11 +35,14 @@ export interface FavoriteValidatorsContextInterface {
   favoritesList: Validator[] | null;
 }
 
-export interface Identity {
+export interface IdentityItem {
   deposit: string;
   info: AnyJson;
   judgements: AnyJson[];
 }
+
+// New structure: Identity is now an array where [0] contains the identity object
+export type Identity = [IdentityItem | null, null] | null;
 
 export interface ValidatorSuper {
   identity: Identity;
