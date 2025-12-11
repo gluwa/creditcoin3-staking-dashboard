@@ -34,6 +34,8 @@ import { useOtherAccounts } from 'contexts/Connect/OtherAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { SideMenuMaximisedWidth } from 'consts';
 import { useTheme } from 'styled-components';
+import { useOverlay } from '@polkadot-cloud/react/hooks';
+import { useDomainNotice } from 'library/Hooks/useDomainNotice';
 
 export const RouterInner = () => {
   const { t } = useTranslation();
@@ -45,6 +47,8 @@ export const RouterInner = () => {
   const { accountsInitialised } = useOtherAccounts();
   const { activeAccount, setActiveAccount } = useActiveAccounts();
   const { sideMenuOpen, sideMenuMinimised, setContainerRefs } = useUi();
+  const { openModal } = useOverlay().modal;
+  const { shouldShowNotice, dismissNotice } = useDomainNotice();
 
   // Scroll to top of the window on every page change or network change.
   useEffect(() => {
@@ -85,6 +89,17 @@ export const RouterInner = () => {
       }
     }
   }, [accountsInitialised]);
+
+  // Open domain change notice modal on initial load
+  useEffect(() => {
+    if (shouldShowNotice) {
+      openModal({
+        key: 'DomainChangeNotice',
+        options: { onDismiss: dismissNotice },
+        size: 'sm',
+      });
+    }
+  }, [shouldShowNotice]);
 
   // References to outer containers
   const mainInterfaceRef = useRef<HTMLDivElement>(null);
