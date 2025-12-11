@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1.5rem;
+  padding: 20px;
 `;
 
 export const CloseButton = styled.button`
@@ -13,7 +13,7 @@ export const CloseButton = styled.button`
   height: 20px;
   display: block;
   align-self: flex-end;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   padding: 0;
   background: none;
   border: none;
@@ -175,7 +175,6 @@ export const SubmitButton = styled.button`
   cursor: pointer;
   color: #fff;
   text-align: center;
-  font-variant-numeric: lining-nums proportional-nums;
   font-family: Inter-R;
   font-size: 16px;
   font-style: normal;
