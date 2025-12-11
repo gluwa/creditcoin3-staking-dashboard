@@ -1,17 +1,23 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import {
-  ButtonSubmit,
-  ModalPadding,
-  ModalSeparator,
-} from '@polkadot-cloud/react';
+import { useState } from 'react';
 import { useOverlay } from '@polkadot-cloud/react/hooks';
-import { useTranslation } from 'react-i18next';
-import { Title } from 'library/Modal/Title';
+import {
+  CheckIcon,
+  CheckMask,
+  CheckboxLabel,
+  CheckboxText,
+  CloseButton,
+  HiddenCheckbox,
+  Notice,
+  NoticeTitle,
+  StyledCheckbox,
+  SubmitButton,
+  Wrapper,
+} from './Wrapper';
 
 export const DomainChangeNotice = () => {
-  const { t } = useTranslation('modals');
   const {
     setModalStatus,
     config: { options },
@@ -19,66 +25,68 @@ export const DomainChangeNotice = () => {
 
   const { onDismiss } = options || {};
 
-  const handleDismiss = () => {
-    if (onDismiss) {
+  const [doNotShowAgain, setDoNotShowAgain] = useState<boolean>(false);
+
+  const handleCheckboxChange = () => {
+    const newValue = !doNotShowAgain;
+    setDoNotShowAgain(newValue);
+
+    if (newValue && onDismiss) {
       onDismiss();
+      setModalStatus('closing');
     }
-    setModalStatus('closing');
   };
 
   const handleClose = () => {
     setModalStatus('closing');
   };
 
+  const handleAcknowledge = () => {
+    setModalStatus('closing');
+  };
+
   return (
-    <>
-      <Title
-        title={t('domainChangeNotice', {
-          defaultValue: 'Domain Change Notice',
-        })}
-      />
-      <ModalPadding>
-        <h3 style={{ marginBottom: '1rem' }}>
-          {t('domainChangeTitle', {
-            defaultValue: 'Important: Staking Domain Has Changed',
-          })}
-        </h3>
-        <ModalSeparator />
-        <p style={{ marginBottom: '1rem' }}>
-          {t('domainChangeMessage1', {
-            defaultValue:
-              'The Creditcoin staking service domain has been updated. Please note the following changes:',
-          })}
+    <Wrapper>
+      <CloseButton type="button" onClick={handleClose} />
+
+      <NoticeTitle>NOTICE: UPDATES TO CTC STAKING URLS</NoticeTitle>
+
+      <Notice>
+        <p>
+          This is the updated dashboard URL for{' '}
+          <strong>Native CTC Staking</strong>.
         </p>
-        <ul style={{ marginBottom: '1rem', paddingLeft: '1.5rem' }}>
-          <li>
-            <strong>staking.creditcoin.org</strong> now serves{' '}
-            <strong>CC3 Staking</strong>
-          </li>
-          <li>
-            <strong>cc-enterprise-staking.creditcoin.org</strong> serves{' '}
-            <strong>CC2 Staking</strong>
-          </li>
-        </ul>
-        <p style={{ marginBottom: '1.5rem' }}>
-          {t('domainChangeMessage2', {
-            defaultValue: 'Please update your bookmarks accordingly.',
-          })}
+        <p>
+          Read about the announcement by{' '}
+          <a
+            href="https://cc-enterprise-staking.creditcoin.org"
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+          >
+            clicking here
+          </a>
+          .
         </p>
-        <div
-          style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}
-        >
-          <ButtonSubmit
-            text={t('dontShowAgain', { defaultValue: "Don't show again" })}
-            onClick={handleDismiss}
-            marginRight
-          />
-          <ButtonSubmit
-            text={t('close', { defaultValue: 'Close' })}
-            onClick={handleClose}
-          />
-        </div>
-      </ModalPadding>
-    </>
+      </Notice>
+
+      <CheckboxLabel htmlFor="domain-notice-checkbox">
+        <HiddenCheckbox
+          id="domain-notice-checkbox"
+          checked={doNotShowAgain}
+          onChange={handleCheckboxChange}
+        />
+        <StyledCheckbox checked={doNotShowAgain}>
+          <CheckMask checked={doNotShowAgain} />
+          <CheckIcon checked={doNotShowAgain} viewBox="0 0 13 9">
+            <path d="M0.888897 3.96834L4.80371 7.88315L11.798 0.888869" />
+          </CheckIcon>
+        </StyledCheckbox>
+        <CheckboxText>Do not show again</CheckboxText>
+      </CheckboxLabel>
+
+      <SubmitButton type="button" onClick={handleAcknowledge}>
+        I acknowledge
+      </SubmitButton>
+    </Wrapper>
   );
 };
