@@ -21,7 +21,7 @@ export const AccountWrapper = styled.div`
   > div {
     background: var(--button-primary-background);
     color: var(--text-color-primary);
-    font-family: 'SF-Pro-SB', sans-serif;
+    font-family: 'Inter-SB', sans-serif;
     border: 1px solid transparent;
     display: flex;
     align-items: flex-start;

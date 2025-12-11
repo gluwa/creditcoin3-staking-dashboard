@@ -113,7 +113,7 @@ export const QRViewerWrapper = styled.div`
 
   .title {
     color: var(--accent-color-primary);
-    font-family: 'SF-Pro-R';
+    font-family: 'Inter-R';
     margin-bottom: 1rem;
   }
 
