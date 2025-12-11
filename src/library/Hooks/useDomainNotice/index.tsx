@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react';
 
-const STORAGE_KEY = 'staking_domain_notice_dismissed';
+const STORAGE_KEY = 'domain_notice_dismissed';
 const SIX_MONTHS_MS = 6 * 30 * 24 * 60 * 60 * 1000;
 
 export const useDomainNotice = () => {
