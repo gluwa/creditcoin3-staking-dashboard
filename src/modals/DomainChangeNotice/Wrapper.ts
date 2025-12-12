@@ -107,7 +107,6 @@ export const StyledCheckbox = styled.div<{ checked: boolean }>`
   border: 1px solid #dadcdd;
   border-radius: 4px;
   position: relative;
-  transition: all 0.2s ease;
   flex-shrink: 0;
   overflow: hidden;
 
@@ -125,12 +124,6 @@ export const CheckMask = styled.div<{ checked: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #18c792;
-  clip-path: ${({ checked }) =>
-    checked
-      ? 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
-      : 'polygon(0 0, 0 0, 0 100%, 0 100%)'};
-  transition: clip-path 0.3s ease;
 `;
 
 export const CheckIcon = styled.svg<{ checked: boolean }>`
@@ -150,7 +143,6 @@ export const CheckIcon = styled.svg<{ checked: boolean }>`
     fill: none;
     stroke-dasharray: 18;
     stroke-dashoffset: ${({ checked }) => (checked ? '0' : '18')};
-    transition: stroke-dashoffset 0.3s ease 0.1s;
   }
 `;
 
