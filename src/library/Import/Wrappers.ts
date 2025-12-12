@@ -18,7 +18,7 @@ export const HeadingWrapper = styled.div`
       display: flex;
       flex-grow: 1;
       > h4 {
-        font-family: InterSemiBold, sans-serif;
+        font-family: Inter-SB, sans-serif;
         padding: 0;
         display: flex;
         align-items: center;

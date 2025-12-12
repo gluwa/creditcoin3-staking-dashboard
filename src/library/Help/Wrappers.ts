@@ -74,7 +74,7 @@ export const DefinitionWrapper = styled(motion.div)`
     }
 
     h4 {
-      font-family: InterSemiBold, sans-serif;
+      font-family: Inter-SB, sans-serif;
       margin-bottom: 1.15rem;
     }
 

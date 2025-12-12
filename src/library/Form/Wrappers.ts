@@ -78,7 +78,7 @@ export const InputWrapper = styled.div`
             }
 
             p {
-              font-family: InterSemiBold, sans-serif;
+              font-family: Inter-SB, sans-serif;
               position: absolute;
               top: 0;
               left: 0;

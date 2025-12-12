@@ -70,7 +70,7 @@ export const AccountWrapper = styled.div`
           overflow: hidden;
           .name {
             transition: color var(--transition-duration);
-            font-family: InterSemiBold, sans-serif;
+            font-family: Inter-SB, sans-serif;
             max-width: 100%;
             margin: 0 0.5rem;
             overflow: hidden;
