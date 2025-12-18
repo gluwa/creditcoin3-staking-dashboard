@@ -22,6 +22,7 @@ import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { useOtherAccounts } from 'contexts/Connect/OtherAccounts';
 import { useExternalAccounts } from 'contexts/Connect/ExternalAccounts';
+import { removeLocalStorageItem } from 'utils/storage';
 import * as defaults from './defaults';
 import type {
   Delegates,
@@ -212,7 +213,7 @@ export const ProxiesProvider = ({
         }
       } catch (e) {
         // Corrupt local active proxy record. Remove it.
-        localStorage.removeItem(`${network}_active_proxy`);
+        removeLocalStorageItem(`${network}_active_proxy`);
       }
     }
   }, [accounts, activeAccount, proxiesRef.current, network]);
