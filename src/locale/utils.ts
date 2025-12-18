@@ -5,6 +5,7 @@ import { extractUrlValue, varToUrlHash } from '@polkadot-cloud/utils';
 import { DefaultLocale } from 'consts';
 import type { AnyApi, AnyJson } from 'types';
 import { availableLanguages, fallbackResources, lngNamespaces } from '.';
+import { getLocalStorageItem, setLocalStorageItem } from 'utils/storage';
 
 // Gets the active language
 //
@@ -15,17 +16,17 @@ export const getInitialLanguage = () => {
   // get language from url if present
   const urlLng = extractUrlValue('l');
   if (availableLanguages.find((n: any) => n[0] === urlLng) && urlLng) {
-    localStorage.setItem('lng', urlLng);
+    setLocalStorageItem('lng', urlLng);
     return urlLng;
   }
 
   // fall back to localStorage if present.
-  const localLng = localStorage.getItem('lng');
+  const localLng = getLocalStorageItem('lng');
   if (availableLanguages.find((n: any) => n[0] === localLng) && localLng) {
     return localLng;
   }
 
-  localStorage.setItem('lng', DefaultLocale);
+  setLocalStorageItem('lng', DefaultLocale);
   return DefaultLocale;
 };
 
@@ -43,14 +44,14 @@ export const getResources = (lng: string) => {
     resources = {
       en: fallbackResources,
     };
-    localStorage.setItem(
+    setLocalStorageItem(
       'lng_resources',
       JSON.stringify({ l: DefaultLocale, r: fallbackResources })
     );
   } else {
     // not the default locale, check if local resources exist
     let localValid = false;
-    const localResources = localStorage.getItem('lng_resources');
+    const localResources = getLocalStorageItem('lng_resources');
     if (localResources !== null) {
       const { l, r } = JSON.parse(localResources);
 
@@ -85,12 +86,12 @@ export const changeLanguage = async (lng: string, i18next: AnyApi) => {
   // check whether resources exist and need to by dynamically loaded.
   const { resources, dynamicLoad } = getResources(lng);
 
-  localStorage.setItem('lng', lng);
+  setLocalStorageItem('lng', lng);
   // dynamically load default language resources if needed.
   if (dynamicLoad) {
     await doDynamicImport(lng, i18next);
   } else {
-    localStorage.setItem(
+    setLocalStorageItem(
       'lng_resources',
       JSON.stringify({ l: lng, r: resources })
     );
@@ -128,7 +129,7 @@ export const loadLngAsync = async (l: string) => {
 // Finally, the active langauge is changed to the imported language.
 export const doDynamicImport = async (lng: string, i18next: AnyApi) => {
   const { l, r } = await loadLngAsync(lng);
-  localStorage.setItem('lng_resources', JSON.stringify({ l: lng, r }));
+  setLocalStorageItem('lng_resources', JSON.stringify({ l: lng, r }));
 
   Object.entries(r).forEach(([ns, inner]: [string, AnyJson]) => {
     i18next.addResourceBundle(l, ns, inner);

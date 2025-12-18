@@ -9,13 +9,14 @@ import { i18next } from 'locale';
 import { Providers } from 'Providers';
 import { NetworkProvider } from 'contexts/Network';
 import { ActiveAccountsProvider } from 'contexts/ActiveAccounts';
+import { getLocalStorageItem, setLocalStorageItem } from 'utils/storage';
 
 export const App: React.FC = () => {
-  let network = localStorage.getItem('network');
+  let network = getLocalStorageItem('network');
 
   if (network === null) {
     network = DefaultNetwork;
-    localStorage.setItem('network', network);
+    setLocalStorageItem('network', network);
   }
 
   return (

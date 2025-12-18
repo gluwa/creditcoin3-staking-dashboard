@@ -1,5 +1,10 @@
-// Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
+// Copyright 2023 @polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
+
+// IMPORTANT: This MUST be the first import!
+// It monkey-patches localStorage before @polkadot/api loads,
+// ensuring all @polkadot/api caching uses our cc3_ prefix.
+import 'utils/polkadotStorageSetup';
 
 // Network themes.
 import '@polkadot-cloud/core/accent/polkadot-relay.css';

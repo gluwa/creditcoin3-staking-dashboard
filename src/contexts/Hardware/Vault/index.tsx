@@ -8,6 +8,7 @@ import { useNetwork } from 'contexts/Network';
 import { getLocalVaultAccounts, isLocalNetworkAddress } from '../Utils';
 import type { VaultHardwareContextInterface } from './types';
 import { defaultVaultHardwareContext } from './defaults';
+import { setLocalStorageItem, removeLocalStorageItem } from 'utils/storage';
 
 export const VaultHardwareContext =
   React.createContext<VaultHardwareContextInterface>(
@@ -48,7 +49,7 @@ export const VaultHardwareProvider = ({
       };
 
       newVaultAccounts = [...newVaultAccounts].concat(account);
-      localStorage.setItem(
+      setLocalStorageItem(
         'polkadot_vault_accounts',
         JSON.stringify(newVaultAccounts)
       );
@@ -78,9 +79,9 @@ export const VaultHardwareProvider = ({
     });
 
     if (!newVaultAccounts.length) {
-      localStorage.removeItem('polkadot_vault_accounts');
+      removeLocalStorageItem('polkadot_vault_accounts');
     } else {
-      localStorage.setItem(
+      setLocalStorageItem(
         'polkadot_vault_accounts',
         JSON.stringify(newVaultAccounts)
       );
@@ -115,7 +116,7 @@ export const VaultHardwareProvider = ({
           }
         : a
     );
-    localStorage.setItem(
+    setLocalStorageItem(
       'polkadot_vault_accounts',
       JSON.stringify(newVaultAccounts)
     );

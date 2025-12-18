@@ -9,6 +9,7 @@ import type { NetworkName } from 'types';
 import type { NetworkState } from 'contexts/Api/types';
 import type { NetworkContextInterface } from './types';
 import { defaultNetworkContext } from './defaults';
+import { getLocalStorageItem } from 'utils/storage';
 
 export const NetworkProvider = ({
   children,
@@ -32,7 +33,7 @@ export const NetworkProvider = ({
       }
     }
     // fallback to localStorage network if there.
-    const localNetwork: NetworkName = localStorage.getItem(
+    const localNetwork: NetworkName = getLocalStorageItem(
       'network'
     ) as NetworkName;
     const localNetworkValid = !!Object.values(NetworkList).find(

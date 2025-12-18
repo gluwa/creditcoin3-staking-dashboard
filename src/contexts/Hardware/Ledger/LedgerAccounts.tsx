@@ -16,6 +16,7 @@ import {
   isLocalNetworkAddress,
   renameLocalLedgerAddress,
 } from '../Utils';
+import { setLocalStorageItem, removeLocalStorageItem } from 'utils/storage';
 
 export const LedgerAccountsContext =
   React.createContext<LedgerAccountsContextInterface>(
@@ -65,10 +66,7 @@ export const LedgerAccountsProvider = ({
 
       // update the full list of local ledger accounts with new entry.
       newLedgerAccounts = [...newLedgerAccounts].concat(account);
-      localStorage.setItem(
-        'ledger_accounts',
-        JSON.stringify(newLedgerAccounts)
-      );
+      setLocalStorageItem('ledger_accounts', JSON.stringify(newLedgerAccounts));
 
       // store only those accounts on the current network in state.
       setStateWithRef(
@@ -95,12 +93,9 @@ export const LedgerAccountsProvider = ({
       return false;
     });
 
-    if (!newLedgerAccounts.length) localStorage.removeItem('ledger_accounts');
+    if (!newLedgerAccounts.length) removeLocalStorageItem('ledger_accounts');
     else
-      localStorage.setItem(
-        'ledger_accounts',
-        JSON.stringify(newLedgerAccounts)
-      );
+      setLocalStorageItem('ledger_accounts', JSON.stringify(newLedgerAccounts));
 
     setStateWithRef(
       newLedgerAccounts.filter((a) => a.network === network),
@@ -129,7 +124,7 @@ export const LedgerAccountsProvider = ({
         : a
     );
     renameLocalLedgerAddress(address, newName, network);
-    localStorage.setItem('ledger_accounts', JSON.stringify(newLedgerAccounts));
+    setLocalStorageItem('ledger_accounts', JSON.stringify(newLedgerAccounts));
     setStateWithRef(
       newLedgerAccounts.filter((a) => a.network === network),
       setLedgerAccountsState,

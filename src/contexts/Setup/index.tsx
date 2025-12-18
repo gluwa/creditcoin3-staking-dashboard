@@ -14,6 +14,7 @@ import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { useStaking } from '../Staking';
+import { setLocalStorageItem, removeLocalStorageItem } from 'utils/storage';
 import {
   defaultNominatorProgress,
   defaultPoolProgress,
@@ -205,9 +206,9 @@ export const SetupProvider = ({ children }: { children: React.ReactNode }) => {
     const setupsStr = JSON.stringify(setups);
 
     if (setupsStr === '{}') {
-      localStorage.removeItem(key);
+      removeLocalStorageItem(key);
     } else {
-      localStorage.setItem(key, setupsStr);
+      setLocalStorageItem(key, setupsStr);
     }
   };
 

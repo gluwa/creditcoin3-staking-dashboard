@@ -4,12 +4,13 @@
 import React, { useRef } from 'react';
 import { defaultThemeContext } from './defaults';
 import type { Theme, ThemeContextInterface } from './types';
+import { setLocalStorageItem } from 'utils/storage';
 
 export const ThemesProvider = ({ children }: { children: React.ReactNode }) => {
   const initialTheme: Theme = 'dark';
 
   // get the current theme
-  localStorage.setItem('theme', 'dark');
+  setLocalStorageItem('theme', 'dark');
 
   // the theme mode
   const [theme] = React.useState<Theme>(initialTheme);

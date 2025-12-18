@@ -35,6 +35,8 @@ import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
 import { SideMenuMaximisedWidth } from 'consts';
 import { useTheme } from 'styled-components';
 
+import { clearLocalStorage } from 'utils/storage';
+
 export const RouterInner = () => {
   const { t } = useTranslation();
   const { mode } = useTheme();
@@ -90,7 +92,7 @@ export const RouterInner = () => {
   const mainInterfaceRef = useRef<HTMLDivElement>(null);
 
   const reset = () => {
-    localStorage.clear();
+    clearLocalStorage();
     window.location.reload();
   };
 

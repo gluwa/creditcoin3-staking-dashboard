@@ -21,6 +21,8 @@ import { useTranslation } from 'react-i18next';
 import { Manage } from './Manage';
 import { Splash } from './Splash';
 
+import { setLocalStorageItem, removeLocalStorageItem } from 'utils/storage';
+
 export const ImportLedger: FC = () => {
   const { t } = useTranslation('modals');
   const { network } = useNetwork();
@@ -61,9 +63,9 @@ export const ImportLedger: FC = () => {
       return false;
     });
     if (!newLedgerAddresses.length) {
-      localStorage.removeItem('ledger_addresses');
+      removeLocalStorageItem('ledger_addresses');
     } else {
-      localStorage.setItem(
+      setLocalStorageItem(
         'ledger_addresses',
         JSON.stringify(newLedgerAddresses)
       );
@@ -108,7 +110,7 @@ export const ImportLedger: FC = () => {
           return false;
         })
         .concat(newAddress);
-      localStorage.setItem('ledger_addresses', JSON.stringify(newAddresses));
+      setLocalStorageItem('ledger_addresses', JSON.stringify(newAddresses));
 
       // store only those accounts on the current network in state.
       setStateWithRef(

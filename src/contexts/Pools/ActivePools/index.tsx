@@ -23,6 +23,8 @@ import { usePoolsConfig } from '../PoolsConfig';
 import * as defaults from './defaults';
 import { usePoolMembers } from '../PoolMembers';
 
+import { setLocalStorageItem } from 'utils/storage';
+
 export const ActivePoolsProvider = ({
   children,
 }: {
@@ -297,7 +299,7 @@ export const ActivePoolsProvider = ({
 
     const stashAddress = getPoolBondedAccount();
     if (stashAddress) {
-      localStorage.setItem(
+      setLocalStorageItem(
         `${stashAddress}_pool_targets`,
         JSON.stringify(newTargets)
       );

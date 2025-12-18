@@ -6,6 +6,11 @@ import { rmCommas } from '@polkadot-cloud/utils';
 import type { Exposure, LocalExposure, LocalExposuresData } from './types';
 import { UpgradedNetworks } from 'consts';
 import { NetworkList } from 'config/networks';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+  removeLocalStorageItem,
+} from 'utils/storage';
 
 // Validates if a network is upgraded based on network configuration and current era
 export const isNetworkUpgraded = (
@@ -33,12 +38,12 @@ export const getLocalEraExposures = (
   era: string,
   activeEra: string
 ) => {
-  const data = localStorage.getItem(`${network}_exposures`);
+  const data = getLocalStorageItem(`${network}_exposures`);
   const current = data ? (JSON.parse(data) as LocalExposuresData) : null;
   const currentEra = current?.era;
 
   if (currentEra && currentEra !== activeEra)
-    localStorage.removeItem(`${network}_exposures`);
+    removeLocalStorageItem(`${network}_exposures`);
 
   if (currentEra === era && current?.exposures)
     return maxifyExposures(current.exposures) as Exposure[];
@@ -52,7 +57,7 @@ export const setLocalEraExposures = (
   era: string,
   exposures: Exposure[]
 ) => {
-  localStorage.setItem(
+  setLocalStorageItem(
     `${network}_exposures`,
     JSON.stringify({
       era,

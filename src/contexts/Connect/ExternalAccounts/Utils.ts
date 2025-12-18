@@ -4,6 +4,7 @@
 import type { ExternalAccount } from '@polkadot-cloud/react/types';
 import { localStorageOrDefault } from '@polkadot-cloud/utils';
 import type { NetworkName } from 'types';
+import { setLocalStorageItem } from 'utils/storage';
 
 // Check whether an external account exists in local storage.
 export const externalAccountExistsLocal = (
@@ -28,7 +29,7 @@ export const getLocalExternalAccounts = (network?: NetworkName) => {
 
 // Adds a local external account to local storage.
 export const addLocalExternalAccount = (account: ExternalAccount) => {
-  localStorage.setItem(
+  setLocalStorageItem(
     'external_accounts',
     JSON.stringify(getLocalExternalAccounts().concat(account))
   );
@@ -36,7 +37,7 @@ export const addLocalExternalAccount = (account: ExternalAccount) => {
 
 // Updates a local external account with the provided `addedBy` property.
 export const updateLocalExternalAccount = (entry: ExternalAccount) => {
-  localStorage.setItem(
+  setLocalStorageItem(
     'external_accounts',
     JSON.stringify(
       getLocalExternalAccounts().map((a) =>
@@ -58,5 +59,5 @@ export const removeLocalExternalAccounts = (
       accounts.find((b) => b.address === a.address && a.network === network) ===
       undefined
   );
-  localStorage.setItem('external_accounts', JSON.stringify(updatedAccounts));
+  setLocalStorageItem('external_accounts', JSON.stringify(updatedAccounts));
 };

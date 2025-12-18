@@ -27,6 +27,11 @@ import type {
 import type { AnyApi } from 'types';
 import { useEffectIgnoreInitial } from '@polkadot-cloud/react/hooks';
 import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+  removeLocalStorageItem,
+} from 'utils/storage';
+import {
   defaultApiContext,
   defaultChainState,
   defaultConsts,
@@ -44,12 +49,12 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
 
   // Store the active RPC provider.
   const initialRpcEndpoint = () => {
-    const local = localStorage.getItem(`${network}_rpc_endpoint`);
+    const local = getLocalStorageItem(`${network}_rpc_endpoint`);
     if (local)
       if (NetworkList[network].endpoints.rpcEndpoints[local]) {
         return local;
       } else {
-        localStorage.removeItem(`${network}_rpc_endpoint`);
+        removeLocalStorageItem(`${network}_rpc_endpoint`);
       }
 
     return NetworkList[network].endpoints.defaultRpcEndpoint;
@@ -59,7 +64,7 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
 
   // Store whether in light client mode.
   const [isLightClient, setIsLightClient] = useState<boolean>(
-    !!localStorage.getItem('light_client')
+    !!getLocalStorageItem('light_client')
   );
 
   // API instance state.
@@ -74,7 +79,7 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
   // Set RPC provider with local storage and validity checks.
   const setRpcEndpoint = (key: string) => {
     if (!NetworkList[network].endpoints.rpcEndpoints[key]) return;
-    localStorage.setItem(`${network}_rpc_endpoint`, key);
+    setLocalStorageItem(`${network}_rpc_endpoint`, key);
 
     setRpcEndpointState(key);
   };
@@ -106,9 +111,9 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
     }
     // handle local light client flag.
     if (isLightClient) {
-      localStorage.setItem('light_client', isLightClient ? 'true' : '');
+      setLocalStorageItem('light_client', isLightClient ? 'true' : '');
     } else {
-      localStorage.removeItem('light_client');
+      removeLocalStorageItem('light_client');
     }
 
     if (isLightClient) {
@@ -155,7 +160,7 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
 
     // store active network in localStorage.
     // NOTE: this should ideally refer to above `chain` value.
-    localStorage.setItem('network', String(network));
+    setLocalStorageItem('network', String(network));
 
     // Assume chain state is correct and bootstrap network consts.
     connectedCallback(newApi);

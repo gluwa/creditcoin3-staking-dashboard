@@ -24,6 +24,11 @@ import type {
   LocalMeta,
   MetaInterface,
 } from './types';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+  removeLocalStorageItem,
+} from 'utils/storage';
 
 const worker = new Worker();
 
@@ -174,7 +179,7 @@ export const FastUnstakeProvider = ({
 
       if (!metaRef.current.checked.includes(Number(era))) {
         // update localStorage with updated changes.
-        localStorage.setItem(
+        setLocalStorageItem(
           getLocalkey(who),
           JSON.stringify({
             isExposed: exposed,
@@ -291,7 +296,7 @@ export const FastUnstakeProvider = ({
 
   // gets any existing fast unstake metadata for an account.
   const getLocalMeta = (): LocalMeta | null => {
-    const localMeta: AnyJson = localStorage.getItem(getLocalkey(activeAccount));
+    const localMeta: AnyJson = getLocalStorageItem(getLocalkey(activeAccount));
     if (!localMeta) return null;
 
     const localMetaValidated = validateLocalExposure(
@@ -300,11 +305,11 @@ export const FastUnstakeProvider = ({
     );
     if (!localMetaValidated) {
       // remove if not valid.
-      localStorage.removeItem(getLocalkey(activeAccount));
+      removeLocalStorageItem(getLocalkey(activeAccount));
       return null;
     }
     // set validated localStorage.
-    localStorage.setItem(
+    setLocalStorageItem(
       getLocalkey(activeAccount),
       JSON.stringify(localMetaValidated)
     );

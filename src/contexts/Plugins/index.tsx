@@ -8,6 +8,8 @@ import type { Plugin } from 'types';
 import * as defaults from './defaults';
 import type { PluginsContextInterface } from './types';
 
+import { setLocalStorageItem } from 'utils/storage';
+
 export const PluginsProvider = ({
   children,
 }: {
@@ -45,7 +47,7 @@ export const PluginsProvider = ({
       localPlugins.push(key);
     }
 
-    localStorage.setItem('plugins', JSON.stringify(localPlugins));
+    setLocalStorageItem('plugins', JSON.stringify(localPlugins));
     setStateWithRef(localPlugins, setPlugins, pluginsRef);
   };
 

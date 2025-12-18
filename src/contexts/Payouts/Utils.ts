@@ -4,6 +4,7 @@
 import BigNumber from 'bignumber.js';
 import type { AnyJson, NetworkName } from 'types';
 import type { LocalValidatorExposure } from './types';
+import { getLocalStorageItem, setLocalStorageItem } from 'utils/storage';
 
 // Check if local exposure entry exists for an era.
 export const hasLocalEraExposure = (
@@ -12,7 +13,7 @@ export const hasLocalEraExposure = (
   who: string
 ) => {
   const current = JSON.parse(
-    localStorage.getItem(`${network}_era_exposures`) || '{}'
+    getLocalStorageItem(`${network}_era_exposures`) || '{}'
   );
   return !!current?.[who]?.[era];
 };
@@ -24,7 +25,7 @@ export const getLocalEraExposure = (
   who: string
 ) => {
   const current = JSON.parse(
-    localStorage.getItem(`${network}_era_exposures`) || '{}'
+    getLocalStorageItem(`${network}_era_exposures`) || '{}'
   );
   return current?.[who]?.[era] || [];
 };
@@ -38,7 +39,7 @@ export const setLocalEraExposure = (
   endEra: string
 ) => {
   const current = JSON.parse(
-    localStorage.getItem(`${network}_era_exposures`) || '{}'
+    getLocalStorageItem(`${network}_era_exposures`) || '{}'
   );
 
   const whoRemoveStaleEras = Object.fromEntries(
@@ -47,7 +48,7 @@ export const setLocalEraExposure = (
     )
   );
 
-  localStorage.setItem(
+  setLocalStorageItem(
     `${network}_era_exposures`,
     JSON.stringify({
       ...current,
@@ -62,7 +63,7 @@ export const setLocalEraExposure = (
 // Get unclaimed payouts for an account.
 export const getLocalUnclaimedPayouts = (network: NetworkName, who: string) => {
   const current = JSON.parse(
-    localStorage.getItem(`${network}_unclaimed_payouts`) || '{}'
+    getLocalStorageItem(`${network}_unclaimed_payouts`) || '{}'
   );
   return current?.[who] || {};
 };
@@ -76,7 +77,7 @@ export const setLocalUnclaimedPayouts = (
   endEra: string
 ) => {
   const current = JSON.parse(
-    localStorage.getItem(`${network}_unclaimed_payouts`) || '{}'
+    getLocalStorageItem(`${network}_unclaimed_payouts`) || '{}'
   );
 
   const whoRemoveStaleEras = Object.fromEntries(
@@ -85,7 +86,7 @@ export const setLocalUnclaimedPayouts = (
     )
   );
 
-  localStorage.setItem(
+  setLocalStorageItem(
     `${network}_unclaimed_payouts`,
     JSON.stringify({
       ...current,

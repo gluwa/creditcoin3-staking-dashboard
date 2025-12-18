@@ -9,6 +9,7 @@ import type { Validator, FavoriteValidatorsContextInterface } from '../types';
 import { getLocalFavorites } from '../Utils';
 import { defaultFavoriteValidatorsContext } from './defaults';
 import { useValidators } from '../ValidatorEntries';
+import { setLocalStorageItem } from 'utils/storage';
 
 export const FavoriteValidatorsProvider = ({
   children,
@@ -45,7 +46,7 @@ export const FavoriteValidatorsProvider = ({
       newFavorites.push(address);
     }
 
-    localStorage.setItem(`${network}_favorites`, JSON.stringify(newFavorites));
+    setLocalStorageItem(`${network}_favorites`, JSON.stringify(newFavorites));
     setFavorites([...newFavorites]);
   };
 
@@ -54,7 +55,7 @@ export const FavoriteValidatorsProvider = ({
     const newFavorites = Object.assign(favorites).filter(
       (validator: string) => validator !== address
     );
-    localStorage.setItem(`${network}_favorites`, JSON.stringify(newFavorites));
+    setLocalStorageItem(`${network}_favorites`, JSON.stringify(newFavorites));
     setFavorites([...newFavorites]);
   };
 

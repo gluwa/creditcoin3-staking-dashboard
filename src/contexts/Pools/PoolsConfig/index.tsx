@@ -17,6 +17,8 @@ import { useNetwork } from 'contexts/Network';
 import { useApi } from '../../Api';
 import * as defaults from './defaults';
 
+import { getLocalStorageItem, setLocalStorageItem } from 'utils/storage';
+
 export const PoolsConfigProvider = ({
   children,
 }: {
@@ -35,7 +37,7 @@ export const PoolsConfigProvider = ({
 
   // get favorite pools from local storage.
   const getLocalFavorites = () => {
-    const localFavorites = localStorage.getItem(`${network}_favorite_pools`);
+    const localFavorites = getLocalStorageItem(`${network}_favorite_pools`);
     return localFavorites !== null ? JSON.parse(localFavorites) : [];
   };
 
@@ -149,7 +151,7 @@ export const PoolsConfigProvider = ({
     const newFavorites = Object.assign(favorites);
     if (!newFavorites.includes(address)) newFavorites.push(address);
 
-    localStorage.setItem(
+    setLocalStorageItem(
       `${network}_favorite_pools`,
       JSON.stringify(newFavorites)
     );
@@ -164,7 +166,7 @@ export const PoolsConfigProvider = ({
     newFavorites = newFavorites.filter(
       (validator: string) => validator !== address
     );
-    localStorage.setItem(
+    setLocalStorageItem(
       `${network}_favorite_pools`,
       JSON.stringify(newFavorites)
     );

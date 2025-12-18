@@ -44,6 +44,8 @@ import {
 } from './Utils';
 import { UpgradedNetworks } from 'consts';
 
+import { setLocalStorageItem } from 'utils/storage';
+
 const worker = new Worker();
 
 export const StakingProvider = ({
@@ -298,7 +300,7 @@ export const StakingProvider = ({
 
   // Sets an account's stored target validators.
   const setTargets = (value: StakingTargets) => {
-    localStorage.setItem(`${activeAccount}_targets`, JSON.stringify(value));
+    setLocalStorageItem(`${activeAccount}_targets`, JSON.stringify(value));
     setTargetsState(value);
   };
 

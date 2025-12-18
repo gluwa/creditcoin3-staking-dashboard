@@ -17,6 +17,8 @@ import { useStaking } from '../Staking';
 import * as defaults from './defaults';
 import type { UIContextInterface } from './types';
 
+import { setLocalStorageItem } from 'utils/storage';
+
 export const UIProvider = ({ children }: { children: React.ReactNode }) => {
   const { isReady } = useApi();
   const { balances } = useBalances();
@@ -52,7 +54,7 @@ export const UIProvider = ({ children }: { children: React.ReactNode }) => {
   );
   const userSideMenuMinimisedRef = useRef(userSideMenuMinimised);
   const setUserSideMenuMinimised = (v: boolean) => {
-    localStorage.setItem('side_menu_minimised', String(v));
+    setLocalStorageItem('side_menu_minimised', String(v));
     setStateWithRef(v, setUserSideMenuMinimisedState, userSideMenuMinimisedRef);
   };
 

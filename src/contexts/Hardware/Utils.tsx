@@ -6,6 +6,7 @@ import { LedgerApps } from 'config/ledger';
 import type { MaybeString } from 'types';
 import type { LedgerAccount, VaultAccount } from '@polkadot-cloud/react/types';
 import type { LedgerAddress } from './Ledger/types';
+import { setLocalStorageItem } from 'utils/storage';
 
 // Ledger error keyed by type of error.
 const LedgerErrorsByType = {
@@ -87,7 +88,7 @@ export const renameLocalLedgerAddress = (
         }
   );
   if (localLedger) {
-    localStorage.setItem('ledger_addresses', JSON.stringify(localLedger));
+    setLocalStorageItem('ledger_addresses', JSON.stringify(localLedger));
   }
 };
 

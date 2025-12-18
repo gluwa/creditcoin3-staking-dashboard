@@ -6,13 +6,15 @@ import { usePlugins } from 'contexts/Plugins';
 import { useUnitPrice } from 'library/Hooks/useUnitPrice';
 import { useNetwork } from 'contexts/Network';
 
+import { getLocalStorageItem, setLocalStorageItem } from 'utils/storage';
+
 export const usePrices = () => {
   const { network } = useNetwork();
   const { plugins } = usePlugins();
   const fetchUnitPrice = useUnitPrice();
 
   const pricesLocalStorage = () => {
-    const pricesLocal = localStorage.getItem(`${network}_prices`);
+    const pricesLocal = getLocalStorageItem(`${network}_prices`);
     return pricesLocal === null
       ? {
           lastPrice: 0,
@@ -25,7 +27,7 @@ export const usePrices = () => {
   const pricesRef = useRef(prices);
 
   const setPrices = (p: any) => {
-    localStorage.setItem(`${network}_prices`, JSON.stringify(p));
+    setLocalStorageItem(`${network}_prices`, JSON.stringify(p));
     pricesRef.current = {
       ...pricesRef.current,
       ...p,

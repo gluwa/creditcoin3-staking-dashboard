@@ -9,10 +9,15 @@ import type {
   Validator,
 } from 'contexts/Validators/types';
 import type { AnyJson, NetworkName } from 'types';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+  removeLocalStorageItem,
+} from 'utils/storage';
 
 // Get favorite validators from local storage.
 export const getLocalFavorites = (network: NetworkName) => {
-  const localFavourites = localStorage.getItem(`${network}_favorites`);
+  const localFavourites = getLocalStorageItem(`${network}_favorites`);
   return localFavourites !== null
     ? (JSON.parse(localFavourites) as string[])
     : [];
@@ -20,12 +25,12 @@ export const getLocalFavorites = (network: NetworkName) => {
 
 // Get local validator entries data for an era.
 export const getLocalEraValidators = (network: NetworkName, era: string) => {
-  const data = localStorage.getItem(`${network}_validators`);
+  const data = getLocalStorageItem(`${network}_validators`);
   const current = data ? (JSON.parse(data) as LocalValidatorEntriesData) : null;
   const currentEra = current?.era;
 
   if (currentEra && currentEra !== era)
-    localStorage.removeItem(`${network}_validators`);
+    removeLocalStorageItem(`${network}_validators`);
 
   return currentEra === era ? current : null;
 };
@@ -37,7 +42,7 @@ export const setLocalEraValidators = (
   entries: Validator[],
   avgCommission: number
 ) => {
-  localStorage.setItem(
+  setLocalStorageItem(
     `${network}_validators`,
     JSON.stringify({
       era,
@@ -99,7 +104,7 @@ export const validateLocalExposure = (
 // Check if era reward points entry exists for an era.
 export const hasLocalEraRewardPoints = (network: NetworkName, era: string) => {
   const current = JSON.parse(
-    localStorage.getItem(`${network}_era_reward_points`) || '{}'
+    getLocalStorageItem(`${network}_era_reward_points`) || '{}'
   );
   return !!current?.[era];
 };
@@ -107,7 +112,7 @@ export const hasLocalEraRewardPoints = (network: NetworkName, era: string) => {
 // Get local era reward points entry for an era.
 export const getLocalEraRewardPoints = (network: NetworkName, era: string) => {
   const current = JSON.parse(
-    localStorage.getItem(`${network}_era_reward_points`) || '{}'
+    getLocalStorageItem(`${network}_era_reward_points`) || '{}'
   );
   return current?.[era] || {};
 };
@@ -120,7 +125,7 @@ export const setLocalEraRewardPoints = (
   endEra: string
 ) => {
   const current = JSON.parse(
-    localStorage.getItem(`${network}_era_reward_points`) || '{}'
+    getLocalStorageItem(`${network}_era_reward_points`) || '{}'
   );
 
   const removeStaleEras = Object.fromEntries(
@@ -129,7 +134,7 @@ export const setLocalEraRewardPoints = (
     )
   );
 
-  localStorage.setItem(
+  setLocalStorageItem(
     `${network}_era_reward_points`,
     JSON.stringify({
       ...removeStaleEras,

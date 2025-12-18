@@ -14,6 +14,7 @@ import pagesEn from './en/pages.json';
 import tipsEn from './en/tips.json';
 import { doDynamicImport, getInitialLanguage, getResources } from './utils';
 
+import { getLocalStorageItem, removeLocalStorageItem } from 'utils/storage';
 // available locales as key value pairs
 export const locales: Record<string, AnyJson> = {
   en: enGB,
@@ -48,10 +49,10 @@ export const fallbackResources = {
 
 // Refresh local storage resources if in development, or if new app version is present.
 if (
-  localStorage.getItem('app_version') !== AppVersion ||
+  getLocalStorageItem('app_version') !== AppVersion ||
   import.meta.env.MODE === 'development'
 ) {
-  localStorage.removeItem('lng_resources');
+  removeLocalStorageItem('lng_resources');
 }
 
 // get initial language.

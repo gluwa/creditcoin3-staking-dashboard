@@ -8,6 +8,7 @@ import { setStateWithRef } from '@polkadot-cloud/utils';
 import { useNetwork } from 'contexts/Network';
 import type { ActiveAccountsContextInterface, ActiveProxy } from './types';
 import { defaultActiveAccountsContext } from './defaults';
+import { setLocalStorageItem, removeLocalStorageItem } from 'utils/storage';
 
 export const ActiveAccountsContext =
   createContext<ActiveAccountsContextInterface>(defaultActiveAccountsContext);
@@ -31,12 +32,12 @@ export const ActiveAccountsProvider = ({
   const setActiveProxy = (newActiveProxy: ActiveProxy, updateLocal = true) => {
     if (updateLocal)
       if (newActiveProxy) {
-        localStorage.setItem(
+        setLocalStorageItem(
           `${network}_active_proxy`,
           JSON.stringify(newActiveProxy)
         );
       } else {
-        localStorage.removeItem(`${network}_active_proxy`);
+        removeLocalStorageItem(`${network}_active_proxy`);
       }
     setStateWithRef(newActiveProxy, setActiveProxyState, activeProxyRef);
   };
@@ -48,8 +49,8 @@ export const ActiveAccountsProvider = ({
   ) => {
     if (updateLocalStorage)
       if (newActiveAccount === null)
-        localStorage.removeItem(`${network}_active_account`);
-      else localStorage.setItem(`${network}_active_account`, newActiveAccount);
+        removeLocalStorageItem(`${network}_active_account`);
+      else setLocalStorageItem(`${network}_active_account`, newActiveAccount);
 
     setStateWithRef(newActiveAccount, setActiveAccountState, activeAccountRef);
   };
