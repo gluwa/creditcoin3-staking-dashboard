@@ -6,6 +6,11 @@ import { unitToPlanck } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
 import type { BalanceLock, UnlockChunk } from 'contexts/Balances/types';
 import type { NetworkName } from 'types';
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+  removeLocalStorageItem,
+} from 'utils/storage';
 
 // Gets the total unlocking and unlocked amount.
 export const getUnlocking = (chunks: UnlockChunk[], thisEra: BigNumber) => {
@@ -40,7 +45,7 @@ export const getLocalFeeReserve = (
   defaultReserve: number,
   { network, units }: { network: NetworkName; units: number }
 ) => {
-  const reserves = JSON.parse(localStorage.getItem('reserve_balances') ?? '{}');
+  const reserves = JSON.parse(getLocalStorageItem('reserve_balances') ?? '{}');
   return new BigNumber(
     reserves?.[network]?.[address || ''] ??
       unitToPlanck(String(defaultReserve), units)
@@ -56,13 +61,13 @@ export const setLocalFeeReserve = (
   if (!address) return;
   try {
     const newReserves = JSON.parse(
-      localStorage.getItem('reserve_balances') ?? '{}'
+      getLocalStorageItem('reserve_balances') ?? '{}'
     );
     const networkReserves = newReserves?.[network] ?? {};
     networkReserves[address] = amount.toString();
     newReserves[network] = networkReserves;
-    localStorage.setItem('reserve_balances', JSON.stringify(newReserves));
+    setLocalStorageItem('reserve_balances', JSON.stringify(newReserves));
   } catch (e) {
-    localStorage.removeItem('reserve_balances');
+    removeLocalStorageItem('reserve_balances');
   }
 };
