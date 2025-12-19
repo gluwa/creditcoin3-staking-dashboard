@@ -18,11 +18,16 @@ export const MigrateProvider = ({
   const { isNetworkSyncing } = useUi();
   const { accounts } = useImportedAccounts();
 
+  const CC3_MIGRATION_FLAG = '__cc3_migration_completed__';
+
   // The local app version of the current user.
   const localAppVersion = localStorage.getItem('app_version');
 
   // Store whether the migration check has taken place.
-  const [done, setDone] = useState<boolean>(localAppVersion === AppVersion);
+  const [done, setDone] = useState<boolean>(
+    localAppVersion === AppVersion &&
+      localStorage.getItem(CC3_MIGRATION_FLAG) === 'true'
+  );
 
   // Removes the previous nominator setup objects from local storage.
   const removeDeprecatedNominatorSetups = () =>
@@ -46,6 +51,24 @@ export const MigrateProvider = ({
 
   useEffectIgnoreInitial(() => {
     if (isReady && !isNetworkSyncing && !done) {
+      // Check if this is the first time CC3 is running
+      const migrationCompleted = localStorage.getItem(CC3_MIGRATION_FLAG);
+
+      if (!migrationCompleted) {
+        // First time running CC3: Clear ALL localStorage for a fresh start
+        // This removes any CC2 data that might conflict
+        localStorage.clear();
+
+        // Set migration flag so we never do this again
+        localStorage.setItem(CC3_MIGRATION_FLAG, 'true');
+        localStorage.setItem('app_version', AppVersion);
+
+        // Force hard reload to ensure all app state reinitializes with clean localStorage
+        // Without this, React contexts may have stale state from before the clear
+        window.location.reload();
+        return;
+      }
+
       // Carry out migrations if local version is different to current version.
       if (localAppVersion !== AppVersion) {
         // Added in 1.0.2.
