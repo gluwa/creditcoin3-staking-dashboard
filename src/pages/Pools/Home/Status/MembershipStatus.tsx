@@ -71,6 +71,17 @@ export const MembershipStatus = ({
             size: 'sm',
           }),
       });
+      membershipButtons.push({
+        title: 'Initiate Payouts',
+        disabled: false,
+        small: true,
+        onClick: () =>
+          openModal({
+            key: 'InitiatePayout',
+            options: { disableWindowResize: true, disableScroll: true },
+            size: 'sm',
+          }),
+      });
     }
   }
 

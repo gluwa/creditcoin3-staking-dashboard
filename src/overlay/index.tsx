@@ -34,6 +34,7 @@ import { ValidatorMetrics } from '../modals/ValidatorMetrics';
 import { ValidatorGeo } from '../modals/ValidatorGeo';
 import { WithdrawPoolMember } from '../modals/WithdrawPoolMember';
 import { ManageNominations } from '../canvas/ManageNominations';
+import { InitiatePayout } from '../modals/InitiatePayouts';
 
 export const Overlays = () => {
   const { status } = useHelp();
@@ -71,6 +72,7 @@ export const Overlays = () => {
         UpdatePayee,
         UpdateReserve,
         WithdrawPoolMember,
+        InitiatePayout,
       }}
       canvas={{
         ManageNominations,
