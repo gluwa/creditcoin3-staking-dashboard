@@ -47,7 +47,7 @@ export const ItemWrapper = styled(motion.div)`
 
         h4 {
           color: var(--text-color-secondary);
-          font-family: 'SF-Pro-SB', sans-serif;
+          font-family: 'Inter-SB', sans-serif;
           &.claim {
             color: var(--accent-color-secondary);
           }

@@ -34,7 +34,7 @@ export const SliderWrapper = styled.div`
   padding: 0 0.5rem 0 0.5rem;
 
   h5 {
-    font-family: InterSemiBold, sans-serif;
+    font-family: Inter-SB, sans-serif;
     margin: 0;
     margin-left: 0.75rem;
 

@@ -70,7 +70,7 @@ export const NetworkButton = styled.button<{ $connected: boolean }>`
   }
 
   h3 {
-    font-family: InterSemiBold, sans-serif;
+    font-family: Inter-SB, sans-serif;
     margin: 0 0.5rem;
   }
 
@@ -192,7 +192,7 @@ export const ConnectionButton = styled.button<{ $connected: boolean }>`
   }
 
   > h3 {
-    font-family: InterSemiBold, sans-serif;
+    font-family: Inter-SB, sans-serif;
     margin: 0 0.75rem;
   }
   h4 {
