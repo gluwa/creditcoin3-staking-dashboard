@@ -142,7 +142,7 @@ export const Labels = styled.div`
 
       button {
         color: var(--accent-color-secondary);
-        font-family: InterSemiBold, sans-serif;
+        font-family: Inter-SB, sans-serif;
         font-size: 0.95rem;
         display: flex;
         flex-flow: row wrap;
@@ -203,7 +203,7 @@ export const IdentityWrapper = styled(motion.div)`
   }
   h4 {
     color: var(--text-color-secondary);
-    font-family: InterSemiBold, sans-serif;
+    font-family: Inter-SB, sans-serif;
     position: absolute;
     top: 0;
     height: 3.25rem;

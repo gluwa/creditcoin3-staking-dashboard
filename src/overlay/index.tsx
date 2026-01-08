@@ -33,6 +33,7 @@ import { UpdateReserve } from '../modals/UpdateReserve';
 import { ValidatorMetrics } from '../modals/ValidatorMetrics';
 import { ValidatorGeo } from '../modals/ValidatorGeo';
 import { WithdrawPoolMember } from '../modals/WithdrawPoolMember';
+import { DomainChangeNotice } from '../modals/DomainChangeNotice';
 import { ManageNominations } from '../canvas/ManageNominations';
 
 export const Overlays = () => {
@@ -71,6 +72,7 @@ export const Overlays = () => {
         UpdatePayee,
         UpdateReserve,
         WithdrawPoolMember,
+        DomainChangeNotice,
       }}
       canvas={{
         ManageNominations,

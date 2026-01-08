@@ -54,7 +54,7 @@ export const Wrapper = styled.div`
 
       h4 {
         color: var(--text-color-secondary);
-        font-family: InterSemiBold, sans-serif;
+        font-family: Inter-SB, sans-serif;
         display: flex;
         flex-flow: row wrap;
         align-items: center;
