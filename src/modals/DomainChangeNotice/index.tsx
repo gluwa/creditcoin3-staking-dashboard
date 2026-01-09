@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useLayoutEffect, useRef } from 'react';
 import { useOverlay } from '@polkadot-cloud/react/hooks';
 import {
   CheckIcon,
@@ -17,12 +17,29 @@ import {
 export const DomainChangeNotice = () => {
   const {
     setModalStatus,
+    setModalResize,
     config: { options },
   } = useOverlay().modal;
 
   const { onDismiss } = options || {};
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [doNotShowAgain, setDoNotShowAgain] = useState<boolean>(false);
+
+  useLayoutEffect(() => {
+    const currentRef = wrapperRef.current;
+    if (!currentRef) return undefined;
+
+    const resizeObserver = new ResizeObserver(() => {
+      setModalResize();
+    });
+
+    resizeObserver.observe(currentRef);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [setModalResize]);
 
   const handleCheckboxChange = () => {
     const newValue = !doNotShowAgain;
@@ -43,7 +60,7 @@ export const DomainChangeNotice = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       <CloseButton type="button" onClick={handleClose} />
 
       <NoticeTitle>NOTICE: UPDATES TO CTC STAKING URLS</NoticeTitle>
