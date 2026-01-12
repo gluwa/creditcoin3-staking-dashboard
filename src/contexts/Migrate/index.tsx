@@ -49,6 +49,17 @@ export const MigrateProvider = ({
       localStorage.removeItem(`${n.name}_active_proxy`);
     });
 
+  // Clears localStorage while preserving specified keys.
+  const clearLocalStorageExcept = (keysToPreserve: string[]) => {
+    const preserved = keysToPreserve
+      .map((key) => ({ key, value: localStorage.getItem(key) }))
+      .filter(({ value }) => value !== null);
+
+    localStorage.clear();
+
+    preserved.forEach(({ key, value }) => localStorage.setItem(key, value!));
+  };
+
   useEffectIgnoreInitial(() => {
     if (isReady && !isNetworkSyncing && !done) {
       // Check if this is the first time CC3 is running
@@ -57,21 +68,7 @@ export const MigrateProvider = ({
       if (!migrationCompleted) {
         // First time running CC3: Clear ALL localStorage for a fresh start
         // This removes any CC2 data that might conflict
-
-        // Preserve domain notice dismissal state across migration
-        const domainNoticeDismissed = localStorage.getItem(
-          'domain_notice_dismissed'
-        );
-
-        localStorage.clear();
-
-        // Restore preserved values
-        if (domainNoticeDismissed) {
-          localStorage.setItem(
-            'domain_notice_dismissed',
-            domainNoticeDismissed
-          );
-        }
+        clearLocalStorageExcept(['domain_notice_dismissed']);
 
         // Set migration flag so we never do this again
         localStorage.setItem(CC3_MIGRATION_FLAG, 'true');
