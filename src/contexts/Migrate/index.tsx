@@ -57,7 +57,21 @@ export const MigrateProvider = ({
       if (!migrationCompleted) {
         // First time running CC3: Clear ALL localStorage for a fresh start
         // This removes any CC2 data that might conflict
+
+        // Preserve domain notice dismissal state across migration
+        const domainNoticeDismissed = localStorage.getItem(
+          'domain_notice_dismissed'
+        );
+
         localStorage.clear();
+
+        // Restore preserved values
+        if (domainNoticeDismissed) {
+          localStorage.setItem(
+            'domain_notice_dismissed',
+            domainNoticeDismissed
+          );
+        }
 
         // Set migration flag so we never do this again
         localStorage.setItem(CC3_MIGRATION_FLAG, 'true');
