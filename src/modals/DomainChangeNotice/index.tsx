@@ -73,7 +73,7 @@ export const DomainChangeNotice = () => {
         <p>
           Read about the announcement by{' '}
           <a
-            href="https://x.com/Creditcoin/status/2001394962689331545"
+            href="http://creditcoin.org/blog/ctc-staking-url-update"
             target="_blank"
             rel="nofollow noopener noreferrer"
             title="Opens a new tab"
