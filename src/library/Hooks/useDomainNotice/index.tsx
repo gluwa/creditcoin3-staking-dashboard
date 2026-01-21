@@ -7,8 +7,10 @@ export const useDomainNotice = () => {
 
   useEffect(() => {
     const dismissed = localStorage.getItem(STORAGE_KEY);
+    const currentUrl = window.location.href.toLowerCase();
+    const isCC3Staking = currentUrl.includes('cc3-staking');
 
-    if (!dismissed) {
+    if (!dismissed && !isCC3Staking) {
       setShouldShowNotice(true);
     }
   }, []);
