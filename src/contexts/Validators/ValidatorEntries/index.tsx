@@ -261,9 +261,10 @@ export const ValidatorsProvider = ({
       const prefs = p.toHuman();
       const commission = new BigNumber(prefs.commission.replace(/%/g, ''));
 
-      if (!commission.isEqualTo(100))
+      if (!commission.isEqualTo(100)) {
         totalNonAllCommission = totalNonAllCommission.plus(commission);
-      else notFullCommissionCount++;
+        notFullCommissionCount++;
+      }
 
       entries.push({
         address,
