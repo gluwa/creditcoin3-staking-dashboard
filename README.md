@@ -2,7 +2,7 @@
 
 ![ci](https://github.com/gluwa/creditcoin3-staking-dashboard/actions/workflows/ci.yml/badge.svg) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-**Production URL:** <https://cc3-staking.creditcoin.org/>
+**Production URL:** <https://staking.creditcoin.org/>
 
 ## Validator Operator Setup Guide
 
