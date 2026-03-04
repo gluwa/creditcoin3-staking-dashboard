@@ -1,7 +1,7 @@
 // Copyright 2023 @paritytech/polkadot-staking-dashboard authors & contributors
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { format, fromUnixTime } from 'date-fns';
+import { format, fromUnixTime, getUnixTime, subDays } from 'date-fns';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -9,6 +9,7 @@ import {
   ApiSubscanKey,
   DefaultLocale,
   ListItemsPerPage,
+  MaxPayoutDays,
 } from 'consts';
 import { useNetworkMetrics } from 'contexts/NetworkMetrics';
 import { sortNonZeroPayouts } from 'library/Graphs/Utils';
@@ -22,6 +23,8 @@ import { useApi } from '../../Api';
 import { usePlugins } from '..';
 import { defaultSubscanContext } from './defaults';
 import type { SubscanContextInterface } from './types';
+
+const SUBSCAN_PAGE_SIZE = 100;
 
 export const SubscanProvider = ({
   children,
@@ -64,6 +67,39 @@ export const SubscanProvider = ({
     setPayouts(newClaimedPayouts);
     setUnclaimedPayouts(newUnclaimedPayouts);
     setPoolClaims(newPoolClaims);
+  };
+
+  const fetchSubscanPagesUntilCutoff = async (
+    endpoint: string,
+    body: AnyApi,
+    getTimestampsForCutoff: (list: AnySubscan) => number[]
+  ) => {
+    const cutoffTimestamp = getUnixTime(subDays(new Date(), MaxPayoutDays));
+    const maxPages = 10;
+    let page = 0;
+    let list: AnySubscan = [];
+
+    while (page < maxPages) {
+      // eslint-disable-next-line no-await-in-loop
+      const result = await handleFetch(page, endpoint, SUBSCAN_PAGE_SIZE, body);
+      if (!pluginEnabled('subscan') || !result?.data?.list?.length) break;
+
+      const pageList = result.data.list;
+      list = list.concat(pageList);
+
+      if (pageList.length < SUBSCAN_PAGE_SIZE) break;
+
+      const timestamps = getTimestampsForCutoff(pageList).filter(
+        (t: number) => t > 0
+      );
+      if (timestamps.length > 0 && Math.min(...timestamps) <= cutoffTimestamp) {
+        break;
+      }
+
+      page++;
+    }
+
+    return list;
   };
 
   // reset all payout state
@@ -122,61 +158,44 @@ export const SubscanProvider = ({
   }, [payouts, poolClaims, unclaimedPayouts]);
 
   /* fetchPayouts
-   * fetches payout history from Subscan.
-   * Fetches a total of 300 records from 3 asynchronous requests.
-   * Also checks if subscan service is active *after* the fetch has resolved
-   * as the user could have turned off the service while payouts were fetching.
-   * Stores resulting payouts in context state.
+   * Fetches payout history from Subscan, paginating until the full MaxPayoutDays
+   * window is covered. Stops when the oldest claimed payout is beyond the cutoff,
+   * the API returns fewer results than requested, or a safety page limit is reached.
    */
   const fetchPayouts = async () => {
     let newClaimedPayouts: AnySubscan[] = [];
     let newUnclaimedPayouts: AnySubscan[] = [];
 
-    // fetch results if subscan is enabled
     if (activeAccount && pluginEnabled('subscan')) {
-      // fetch 1 page of results
-      const results = await Promise.all([
-        handleFetch(0, ApiEndpoints.subscanRewardSlash, 100, {
+      const fullList = await fetchSubscanPagesUntilCutoff(
+        ApiEndpoints.subscanRewardSlash,
+        {
           address: activeAccount,
           is_stash: true,
-        }),
-      ]);
+        },
+        (list: AnySubscan) =>
+          list
+            .filter((l: AnyApi) => l.block_timestamp !== 0)
+            .map((l: AnyApi) => l.block_timestamp)
+      );
 
-      // user may have turned off service while results were fetching.
-      // test again whether subscan service is still active.
-      if (pluginEnabled('subscan')) {
-        for (const result of results) {
-          if (!result?.data?.list) {
-            break;
-          }
-          // ensure no payouts have block_timestamp of 0
-          const list = result.data.list.filter(
-            (l: AnyApi) => l.block_timestamp !== 0
-          );
-          newClaimedPayouts = newClaimedPayouts.concat(list);
+      newClaimedPayouts = fullList.filter((l: AnyApi) => l.block_timestamp !== 0);
+      newUnclaimedPayouts = fullList.filter(
+        (l: AnyApi) => l.block_timestamp === 0
+      );
 
-          const unclaimedList = result.data.list.filter(
-            (l: AnyApi) => l.block_timestamp === 0
-          );
-
-          // Inject block_timestamp for unclaimed payouts. We take the timestamp of the start of the
-          // following payout era - this is the time payouts become available to claim by
-          // validators.
-          unclaimedList.forEach((p: AnyApi) => {
-            p.block_timestamp = activeEra.start
-              .multipliedBy(0.001)
-              .minus(erasToSeconds(activeEra.index.minus(p.era).minus(1)))
-              .toNumber();
-          });
-          newUnclaimedPayouts = newUnclaimedPayouts.concat(unclaimedList);
-        }
-      }
+      // Inject block_timestamp for unclaimed payouts. We take the timestamp
+      // of the start of the following payout era - this is the time payouts
+      // become available to claim by validators.
+      newUnclaimedPayouts.forEach((p: AnyApi) => {
+        p.block_timestamp = activeEra.start
+          .multipliedBy(0.001)
+          .minus(erasToSeconds(activeEra.index.minus(p.era).minus(1)))
+          .toNumber();
+      });
     }
 
-    // sort payouts by block_timestamp
-    // FIXME: the payouts should already be correctly sorted when fetched from Subscan but for some reason they are not.
     newClaimedPayouts.sort((a, b) => b.block_timestamp - a.block_timestamp);
-
     newUnclaimedPayouts.sort((a, b) => b.block_timestamp - a.block_timestamp);
 
     return {
@@ -186,43 +205,25 @@ export const SubscanProvider = ({
   };
 
   /* fetchPoolClaims
-   * fetches claim history from Subscan.
-   * Fetches a total of 300 records from 3 asynchronous requests.
-   * Also checks if subscan service is active *after* the fetch has resolved
-   * as the user could have turned off the service while payouts were fetching.
-   * Stores resulting claims in context state.
+   * Fetches pool claim history from Subscan, paginating until the full
+   * MaxPayoutDays window is covered.
    */
   const fetchPoolClaims = async () => {
     let newPoolClaims: AnySubscan[] = [];
 
-    // fetch results if subscan is enabled
     if (activeAccount && pluginEnabled('subscan')) {
-      // fetch 1 page of results
-      const results = await Promise.all([
-        handleFetch(0, ApiEndpoints.subscanPoolRewards, 100, {
+      const fullList = await fetchSubscanPagesUntilCutoff(
+        ApiEndpoints.subscanPoolRewards,
+        {
           address: activeAccount,
-        }),
-      ]);
+        },
+        (list: AnySubscan) =>
+          list
+            .filter((l: AnyApi) => l.block_timestamp !== 0)
+            .map((l: AnyApi) => l.block_timestamp)
+      );
 
-      // user may have turned off service while results were fetching.
-      // test again whether subscan service is still active.
-      if (pluginEnabled('subscan')) {
-        for (const result of results) {
-          // check incorrectly formatted result object
-          if (!result?.data?.list) {
-            break;
-          }
-          // check list has records
-          if (!result.data.list.length) {
-            break;
-          }
-          // ensure no payouts have block_timestamp of 0
-          const list = result.data.list.filter(
-            (l: AnyApi) => l.block_timestamp !== 0
-          );
-          newPoolClaims = newPoolClaims.concat(list);
-        }
-      }
+      newPoolClaims = fullList.filter((l: AnyApi) => l.block_timestamp !== 0);
     }
     return newPoolClaims;
   };
