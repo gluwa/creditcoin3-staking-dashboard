@@ -179,7 +179,9 @@ export const SubscanProvider = ({
             .map((l: AnyApi) => l.block_timestamp)
       );
 
-      newClaimedPayouts = fullList.filter((l: AnyApi) => l.block_timestamp !== 0);
+      newClaimedPayouts = fullList.filter(
+        (l: AnyApi) => l.block_timestamp !== 0
+      );
       newUnclaimedPayouts = fullList.filter(
         (l: AnyApi) => l.block_timestamp === 0
       );
