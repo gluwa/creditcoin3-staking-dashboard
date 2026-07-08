@@ -12,11 +12,23 @@ pr:
   - master
   - dev
 
+schedules:
+  - cron: "0 13 * * 1"
+    displayName: "Weekly Docker Scout report (Mon 09:00 EDT)"
+    branches:
+      include:
+        - dev
+    always: true
+
+variables:
+  - group: PenguinPatrol
+
 pool:
   vmImage: ubuntu-latest
 
 jobs:
   - job: 'BuildAndPush'
+    condition: ne(variables['Build.Reason'], 'Schedule')
     steps:
       - pwsh: |
           $branchtag=""
@@ -35,7 +47,7 @@ jobs:
           repository: 'gluwa/cc3-staking-dashboard'
           command: 'build'
           Dockerfile: '**/Dockerfile'
-          arguments: '--build-arg="TARGET_NETWORK=test"'
+          arguments: '--build-arg="TARGET_NETWORK=test" --sbom=true --provenance=mode=max'
           tags: |
             test-$(Build.BuildId)
 
@@ -46,11 +58,18 @@ jobs:
           repository: 'gluwa/cc3-staking-dashboard'
           command: 'build'
           Dockerfile: '**/Dockerfile'
-          arguments: '--build-arg="TARGET_NETWORK=prod"'
+          arguments: '--build-arg="TARGET_NETWORK=prod" --sbom=true --provenance=mode=max'
           tags: |
             $(Build.BuildId)
             latest
             $(releaseTag)
+
+      # DO-2221: informational only — never fails the build. See DO-2104 for the org-wide compliance initiative.
+      - script: |
+          curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
+          docker scout cves gluwa/cc3-staking-dashboard:$(Build.BuildId) --exit-code=false
+        displayName: 'Docker Scout CVE scan (informational, non-blocking)'
+        continueOnError: true
 
       - task: Docker@2
         displayName: 'Build Test Docker Image'
@@ -71,3 +90,34 @@ jobs:
             $(Build.BuildId)
             latest
             $(releaseTag)
+
+  - job: 'WeeklyScoutReport'
+    condition: eq(variables['Build.Reason'], 'Schedule')
+    steps:
+      - task: Docker@2
+        displayName: 'Docker login (Docker Scout org policy evaluation)'
+        inputs:
+          containerRegistry: 'substrate-relayer'
+          command: 'login'
+
+      - script: |
+          curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
+        displayName: 'Install Docker Scout CLI'
+
+      # Scans the published :latest image and posts a summary to #noti-docker-scout
+      # via the Penguin Patrol webhook (same webhook contract the
+      # gluwa/penguin-patrol-message GitHub Action uses, replicated with curl
+      # since this pipeline is Azure DevOps, not GitHub Actions).
+      - script: |
+          set -euo pipefail
+          REPORT=$(docker scout quickview gluwa/cc3-staking-dashboard:latest 2>&1 || true)
+          MESSAGE="*gluwa/cc3-staking-dashboard:latest*
+          \`\`\`
+          $REPORT
+          \`\`\`"
+          PAYLOAD=$(jq -n --arg title "Weekly Docker Scout Report — cc3-staking-dashboard" --arg msg "$MESSAGE" \
+            '{alertTitle: $title, alertName: "github-action", channel_name: "#noti-docker-scout", message: $msg}')
+          curl -sf -X POST "$WEBHOOK_URL" -H "Content-Type: application/json" -d "$PAYLOAD"
+        displayName: 'Weekly report to Penguin Patrol'
+        env:
+          WEBHOOK_URL: $(PENGUIN_PATROL_WEBHOOK_URL)
