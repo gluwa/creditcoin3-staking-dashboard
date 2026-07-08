@@ -52,7 +52,7 @@ jobs:
           repository: 'gluwa/cc3-staking-dashboard'
           command: 'build'
           Dockerfile: '**/Dockerfile'
-          arguments: '--build-arg="TARGET_NETWORK=test" --sbom=true --provenance=mode=max'
+          arguments: '--builder=attestation-builder --build-arg="TARGET_NETWORK=test" --sbom=true --provenance=mode=max'
           tags: |
             test-$(Build.BuildId)
 
@@ -63,7 +63,7 @@ jobs:
           repository: 'gluwa/cc3-staking-dashboard'
           command: 'build'
           Dockerfile: '**/Dockerfile'
-          arguments: '--build-arg="TARGET_NETWORK=prod" --sbom=true --provenance=mode=max'
+          arguments: '--builder=attestation-builder --build-arg="TARGET_NETWORK=prod" --sbom=true --provenance=mode=max'
           tags: |
             $(Build.BuildId)
             latest
