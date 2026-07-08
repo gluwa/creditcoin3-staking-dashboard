@@ -40,27 +40,35 @@ jobs:
           echo "branchtag: $branchtag"
           echo "##vso[task.setvariable variable=releaseTag;]$branchtag"
 
+      - task: Docker@2
+        displayName: 'Docker login'
+        inputs:
+          containerRegistry: 'substrate-relayer'
+          command: 'login'
+
       - script: |
           docker buildx create --name attestation-builder --driver docker-container --use
           docker buildx inspect --bootstrap
         displayName: 'Set up Docker Buildx (docker-container driver, required for --sbom/--provenance)'
 
-      # Plain script, not Docker@2 - Docker@2 isolates its own Docker config
-      # (for registry auth) in a temp dir that doesn't see the buildx builder
-      # created above, so --builder=attestation-builder there errors with
-      # "no builder found" even though the build itself needs no registry auth
-      # (base images are public). Docker@2 is still used for the push steps
-      # below, which do need the registry credentials.
+      # Plain script, not Docker@2's build command - Docker@2 build isolates its
+      # own Docker config in a temp dir that doesn't see the buildx builder
+      # created above ("no builder found"). Login above still applies here
+      # since both run against the default docker context. --push (not --load)
+      # because buildx's docker-exporter (used by --load) can't export a
+      # manifest list, which --sbom/--provenance always produce even for a
+      # single platform - pushing straight to the registry is the supported
+      # path for attestations.
       - script: |
           docker buildx build \
             --builder attestation-builder \
-            --load \
+            --push \
             -f Dockerfile \
             --build-arg TARGET_NETWORK=test \
             --sbom=true --provenance=mode=max \
             -t gluwa/cc3-staking-dashboard:test-$(Build.BuildId) \
             .
-        displayName: 'Build Test Docker Image'
+        displayName: 'Build and Push Test Docker Image'
 
       - script: |
           TAGS="-t gluwa/cc3-staking-dashboard:$(Build.BuildId) -t gluwa/cc3-staking-dashboard:latest"
@@ -69,40 +77,22 @@ jobs:
           fi
           docker buildx build \
             --builder attestation-builder \
-            --load \
+            --push \
             -f Dockerfile \
             --build-arg TARGET_NETWORK=prod \
             --sbom=true --provenance=mode=max \
             $TAGS \
             .
-        displayName: 'Build Docker Image'
+        displayName: 'Build and Push Docker Image'
 
       # DO-2221: informational only — never fails the build. See DO-2104 for the org-wide compliance initiative.
+      # Scans the just-pushed registry image directly (already logged in above) -
+      # no local copy exists since the build step pushed straight to the registry.
       - script: |
           curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
           docker scout cves gluwa/cc3-staking-dashboard:$(Build.BuildId) --exit-code=false
         displayName: 'Docker Scout CVE scan (informational, non-blocking)'
         continueOnError: true
-
-      - task: Docker@2
-        displayName: 'Build Test Docker Image'
-        inputs:
-          containerRegistry: 'substrate-relayer'
-          repository: 'gluwa/cc3-staking-dashboard'
-          command: 'push'
-          tags: |
-            test-$(Build.BuildId)
-
-      - task: Docker@2
-        displayName: 'Build Docker Image'
-        inputs:
-          containerRegistry: 'substrate-relayer'
-          repository: 'gluwa/cc3-staking-dashboard'
-          command: 'push'
-          tags: |
-            $(Build.BuildId)
-            latest
-            $(releaseTag)
 
   - job: 'WeeklyScoutReport'
     condition: eq(variables['Build.Reason'], 'Schedule')
