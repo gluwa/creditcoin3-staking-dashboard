@@ -107,20 +107,18 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
         displayName: 'Install Docker Scout CLI'
 
-      # Scans the published :latest image and posts a summary to #noti-docker-scout
-      # via the Penguin Patrol webhook (same webhook contract the
-      # gluwa/penguin-patrol-message GitHub Action uses, replicated with curl
-      # since this pipeline is Azure DevOps, not GitHub Actions).
+      # Scans the published :latest image and posts to #noti-docker-scout via the
+      # Penguin Patrol docker-scout-report type (raw quickview per image; Penguin Patrol
+      # parses + formats — one Slack block per image). IMAGES passed via env, never inline.
       - script: |
           set -euo pipefail
-          REPORT=$(docker scout quickview gluwa/cc3-staking-dashboard:latest 2>&1 || true)
-          MESSAGE="*gluwa/cc3-staking-dashboard:latest*
-          \`\`\`
-          $REPORT
-          \`\`\`"
-          PAYLOAD=$(jq -n --arg title "Weekly Docker Scout Report — cc3-staking-dashboard" --arg msg "$MESSAGE" \
-            '{alertTitle: $title, alertName: "github-action", channel_name: "#noti-docker-scout", message: $msg}')
-          curl -sf -X POST "$WEBHOOK_URL" -H "Content-Type: application/json" -d "$PAYLOAD"
+          QV=$(docker scout quickview gluwa/cc3-staking-dashboard:latest 2>&1 || true)
+          IMAGES=$(jq -n --arg qv "$QV" '[{label: "cc3-staking-dashboard", tag: "latest", quickview: $qv}]')
+          PAYLOAD=$(jq -n --argjson images "$IMAGES" \
+            '{alertName: "docker-scout-report", alertTitle: "Weekly Docker Scout Report — cc3-staking-dashboard", channel_name: "#noti-docker-scout", images: $images}')
+          HTTP=$(curl -s -o /tmp/pp_resp.txt -w '%{http_code}' -X POST "$WEBHOOK_URL" -H "Content-Type: application/json" -d "$PAYLOAD")
+          if [ "$HTTP" -ge 400 ]; then echo "Penguin Patrol webhook rejected (HTTP $HTTP):"; cat /tmp/pp_resp.txt; exit 1; fi
+          echo "Posted weekly Scout report to Penguin Patrol (HTTP $HTTP)."
         displayName: 'Weekly report to Penguin Patrol'
         env:
           WEBHOOK_URL: $(PENGUIN_PATROL_WEBHOOK_URL)
