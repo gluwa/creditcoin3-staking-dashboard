@@ -166,7 +166,12 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
     // fetch constants.
     const result = await Promise.all([
       newApi.consts.staking.bondingDuration,
-      newApi.consts.staking.maxNominations,
+      // NOTE: `consts.staking.maxNominations` was removed from pallet-staking in newer
+      // Polkadot SDK versions (it moved from a plain u32 constant to the `NominationsQuota`
+      // trait, which CC3 configures as `FixedNominationsQuota<16>` — a type parameter that
+      // is not surfaced in metadata). The value is read from the network config below
+      // instead; this slot is kept only to preserve the existing result indices.
+      undefined,
       newApi.consts.staking.sessionsPerEra,
       newApi.consts.staking.maxNominatorRewardedPerValidator,
       async () => 12_500,
@@ -184,9 +189,14 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
       ? new BigNumber(rmCommas(result[0].toString()))
       : FallbackBondingDuration;
 
-    const maxNominations = result[1]
-      ? new BigNumber(rmCommas(result[1].toString()))
-      : FallbackMaxNominations;
+    // `maxNominations` comes from the network config (see `result` note above): CC3's
+    // `FixedNominationsQuota<16>` is not exposed in chain metadata, so it cannot be read
+    // from `consts`. Falls back to the historical default if a network omits it.
+    const configuredMaxNominations = NetworkList[network]?.maxNominations;
+    const maxNominations =
+      configuredMaxNominations !== undefined
+        ? new BigNumber(configuredMaxNominations)
+        : FallbackMaxNominations;
 
     const sessionsPerEra = result[2]
       ? new BigNumber(rmCommas(result[2].toString()))
