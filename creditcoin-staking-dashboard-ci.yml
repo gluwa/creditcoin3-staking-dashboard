@@ -112,7 +112,7 @@ jobs:
             "https://api.github.com/repos/gluwa/creditcoin3-staking-dashboard/issues/$(System.PullRequest.PullRequestNumber)/comments")
           if [ "$HTTP" -ge 300 ]; then echo "PR comment post failed (HTTP $HTTP):"; cat /tmp/pr_comment_resp.txt; exit 1; fi
           echo "Posted Docker Scout results as a PR comment (HTTP $HTTP)."
-        displayName: "Post Docker Scout results as PR comment"
+        displayName: 'Post Docker Scout results as PR comment'
         condition: eq(variables['Build.Reason'], 'PullRequest')
         env:
           GITHUB_BOT_PR: $(GITHUB_BOT_PR)
