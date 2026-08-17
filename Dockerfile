@@ -6,7 +6,7 @@ ARG TARGET_NETWORK=""
 
 WORKDIR /app
 COPY . .
-RUN yarn policies set-version '3.3.1'
+RUN corepack enable && corepack prepare yarn@3.3.1 --activate
 
 RUN yarn install \
 && VITE_ENVIRONMENT=${TARGET_NETWORK} yarn build
