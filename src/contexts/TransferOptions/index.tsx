@@ -59,7 +59,7 @@ export const TransferOptionsProvider = ({
     if (getAccount(address) === null) return defaultTransferOptions;
 
     const { free, frozen } = getBalance(address);
-    const { active, total, unlocking } = getStashLedger(address);
+    const { active, unlocking } = getStashLedger(address);
     const locks = getLocks(address);
     const maxLock = getMaxLock(locks);
 
@@ -93,24 +93,18 @@ export const TransferOptionsProvider = ({
       activeEra.index
     );
 
-    // Free balance to stake after `total` (total staked) ledger amount.
-    const freeBalance = BigNumber.max(freeMinusReserve.minus(total), 0);
+    // Held stake is already out of `free`.
+    const freeBalance = freeMinusReserve;
 
     // Get nominator-specific balances.
-    const nominatorBalances = () => {
-      const totalPossibleBond = BigNumber.max(
-        freeMinusReserve.minus(totalUnlocking).minus(totalUnlocked),
-        0
-      );
-      return {
-        active,
-        totalUnlocking,
-        totalUnlocked,
-        totalPossibleBond,
-        totalAdditionalBond: BigNumber.max(totalPossibleBond.minus(active), 0),
-        totalUnlockChunks: unlocking.length,
-      };
-    };
+    const nominatorBalances = () => ({
+      active,
+      totalUnlocking,
+      totalUnlocked,
+      totalPossibleBond: freeMinusReserve,
+      totalAdditionalBond: freeMinusReserve,
+      totalUnlockChunks: unlocking.length,
+    });
 
     // Get pool-member-specific balances.
     const poolBalances = () => {
