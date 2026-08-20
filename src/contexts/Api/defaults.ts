@@ -22,6 +22,7 @@ export const defaultConsts: APIConstants = {
   existentialDeposit: new BigNumber(0),
   fastUnstakeDeposit: new BigNumber(0),
   poolsPalletId: stringToU8a('0'),
+  stakingPalletVersion: 15,
 };
 
 export const defaultChainState: APIChainState = {

@@ -163,25 +163,30 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
 
   // Connection callback. Called once `provider` and `api` have been initialised.
   const connectedCallback = async (newApi: ApiPromise) => {
-    // fetch constants.
-    const result = await Promise.all([
-      newApi.consts.staking.bondingDuration,
-      // NOTE: `consts.staking.maxNominations` was removed from pallet-staking in newer
-      // Polkadot SDK versions (it moved from a plain u32 constant to the `NominationsQuota`
-      // trait, which CC3 configures as `FixedNominationsQuota<16>` — a type parameter that
-      // is not surfaced in metadata). The value is read from the network config below
-      // instead; this slot is kept only to preserve the existing result indices.
-      undefined,
-      newApi.consts.staking.sessionsPerEra,
-      newApi.consts.staking.maxNominatorRewardedPerValidator,
-      async () => 12_500,
-      newApi.consts.babe.expectedBlockTime,
-      newApi.consts.babe.epochDuration,
-      newApi.consts.balances.existentialDeposit,
-      newApi.consts.staking.historyDepth,
-      newApi.consts.fastUnstake.deposit,
-      newApi.consts.nominationPools.palletId,
-      newApi.consts.staking.maxExposurePageSize,
+    // fetch constants. Pallet version is queried separately so the result indices below stay stable.
+    const [result, stakingPalletVersionRaw] = await Promise.all([
+      Promise.all([
+        newApi.consts.staking.bondingDuration,
+        // NOTE: `consts.staking.maxNominations` was removed from pallet-staking in newer
+        // Polkadot SDK versions (it moved from a plain u32 constant to the `NominationsQuota`
+        // trait, which CC3 configures as `FixedNominationsQuota<16>` — a type parameter that
+        // is not surfaced in metadata). The value is read from the network config below
+        // instead; this slot is kept only to preserve the existing result indices.
+        undefined,
+        newApi.consts.staking.sessionsPerEra,
+        newApi.consts.staking.maxNominatorRewardedPerValidator,
+        async () => 12_500,
+        newApi.consts.babe.expectedBlockTime,
+        newApi.consts.babe.epochDuration,
+        newApi.consts.balances.existentialDeposit,
+        newApi.consts.staking.historyDepth,
+        newApi.consts.fastUnstake.deposit,
+        newApi.consts.nominationPools.palletId,
+        newApi.consts.staking.maxExposurePageSize,
+      ]),
+      newApi.query.staking?.palletVersion
+        ? newApi.query.staking.palletVersion()
+        : Promise.resolve(null),
     ]);
 
     // format constants.
@@ -236,6 +241,13 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
 
     const poolsPalletId = result[10] ? result[10].toU8a() : new Uint8Array(0);
 
+    const parsedStakingPalletVersion = stakingPalletVersionRaw
+      ? Number(stakingPalletVersionRaw.toString())
+      : 15;
+    const stakingPalletVersion = Number.isFinite(parsedStakingPalletVersion)
+      ? parsedStakingPalletVersion
+      : 15;
+
     setConsts({
       bondDuration,
       maxNominations,
@@ -248,6 +260,7 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
       poolsPalletId,
       existentialDeposit,
       fastUnstakeDeposit,
+      stakingPalletVersion,
     });
     setApi(newApi);
   };

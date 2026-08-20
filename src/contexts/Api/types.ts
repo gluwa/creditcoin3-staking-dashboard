@@ -30,6 +30,8 @@ export interface APIConstants {
   existentialDeposit: BigNumber;
   fastUnstakeDeposit: BigNumber;
   poolsPalletId: U8aLike;
+  // pallet-staking storage version. 15 = stake locked in free; 16+ = held in reserved.
+  stakingPalletVersion: number;
 }
 
 export type APIChainState = {
