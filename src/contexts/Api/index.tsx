@@ -15,6 +15,7 @@ import {
   FallbackMaxNominations,
   FallbackNominatorRewardedPerValidator,
   FallbackSessionsPerEra,
+  FallbackStakingPalletVersion,
   UpgradedNetworks,
 } from 'consts';
 import type {
@@ -243,10 +244,10 @@ export const APIProvider = ({ children, network }: APIProviderProps) => {
 
     const parsedStakingPalletVersion = stakingPalletVersionRaw
       ? Number(stakingPalletVersionRaw.toString())
-      : 15;
+      : FallbackStakingPalletVersion;
     const stakingPalletVersion = Number.isFinite(parsedStakingPalletVersion)
       ? parsedStakingPalletVersion
-      : 15;
+      : FallbackStakingPalletVersion;
 
     setConsts({
       bondDuration,
