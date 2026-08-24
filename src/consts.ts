@@ -51,6 +51,7 @@ export const FallbackNominatorRewardedPerValidator = new BigNumber(512);
 export const FallbackMaxElectingVoters = new BigNumber(22500);
 export const FallbackExpectedBlockTime = new BigNumber(6000);
 export const FallbackEpochDuration = new BigNumber(2400);
+export const FallbackStakingPalletVersion = 15;
 
 /*
  * Misc values
