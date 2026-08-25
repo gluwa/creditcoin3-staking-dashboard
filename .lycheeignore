@@ -1,2 +1,5 @@
 staticsitellvmhtml.z13.web.core.windows.net
 www.conventionalcommits.org
+# DO-2342: this is an ADO pipeline variable template, not a real link — the unsubstituted
+# $(System.PullRequest.PullRequestNumber) makes lychee try to fetch it literally and 404.
+\$\(System\.PullRequest\.PullRequestNumber\)
