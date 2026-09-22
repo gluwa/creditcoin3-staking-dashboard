@@ -14,6 +14,7 @@ pr:
 
 variables:
   - group: PenguinPatrol
+  - group: 'Docker Scout'
 
 pool:
   vmImage: ubuntu-latest
@@ -76,11 +77,42 @@ jobs:
             .
         displayName: 'Build and Push Docker Image'
 
-      # DO-2221: informational only — never fails the build. See DO-2104 for the org-wide compliance initiative.
-      # Scans the just-pushed registry image directly (already logged in above) -
-      # no local copy exists since the build step pushed straight to the registry.
+      # DO-2221/DO-2336: informational only — never fails the build. See DO-2104 for the org-wide
+      # compliance initiative. Explicit login with the dedicated read-only DOCKERHUB_SCOUT_*
+      # credential rather than relying on Docker@2's earlier login above — that login sets
+      # DOCKER_CONFIG to an isolated temp dir for the rest of the job (see DO-2338/reference
+      # memory), which is fragile to depend on implicitly for an unrelated later step.
       - script: |
+          echo "$DOCKERHUB_SCOUT_TOKEN" | docker login -u "$DOCKERHUB_SCOUT_USERNAME" --password-stdin
+          export DOCKER_HOME="${DOCKER_CONFIG:-$HOME/.docker}"
           curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
-          docker scout cves gluwa/cc3-staking-dashboard:$(Build.BuildId)
+          docker scout cves gluwa/cc3-staking-dashboard:$(Build.BuildId) 2>&1 | tee scout-output.txt || true
         displayName: 'Docker Scout CVE scan (informational, non-blocking)'
         continueOnError: true
+        env:
+          DOCKERHUB_SCOUT_USERNAME: $(DOCKERHUB_SCOUT_USERNAME)
+          DOCKERHUB_SCOUT_TOKEN: $(DOCKERHUB_SCOUT_TOKEN)
+
+      # DO-2336: post the scan above as a PR comment so reviewers see it at review time
+      # instead of only in the raw pipeline log. Only meaningful on an actual PR build.
+      # This repo is hosted on GitHub (built here via an Azure DevOps pipeline), so the
+      # PR lives on GitHub too — posting requires the GitHub REST API with a GitHub
+      # token, NOT Azure Repos' PR-threads API (System.AccessToken is an ADO token and
+      # has no meaning to github.com). GITHUB_BOT_PR is the same gluwa-bot PAT used by
+      # creditcoin3's GitHub Actions workflow for this exact purpose (see DO-2338).
+      - script: |
+          set -euo pipefail
+          BODY_JSON=$(python3 -c "import json; print(json.dumps(open('scout-output.txt').read()))")
+          HTTP=$(curl -s -o /tmp/pr_comment_resp.txt -w '%{http_code}' \
+            -X POST \
+            -H "Authorization: Bearer $GITHUB_BOT_PR" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
+            --data "{\"body\": ${BODY_JSON}}" \
+            "https://api.github.com/repos/gluwa/creditcoin3-staking-dashboard/issues/$(System.PullRequest.PullRequestNumber)/comments")
+          if [ "$HTTP" -ge 300 ]; then echo "PR comment post failed (HTTP $HTTP):"; cat /tmp/pr_comment_resp.txt; exit 1; fi
+          echo "Posted Docker Scout results as a PR comment (HTTP $HTTP)."
+        displayName: 'Post Docker Scout results as PR comment'
+        condition: eq(variables['Build.Reason'], 'PullRequest')
+        env:
+          GITHUB_BOT_PR: $(GITHUB_BOT_PR)
