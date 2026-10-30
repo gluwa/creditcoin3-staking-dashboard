@@ -51,10 +51,10 @@ export const BalanceChart = () => {
     poolBondOpions.totalUnlocked
   );
 
-  // user's total balance
-  const { free, frozen } = balance;
+  // User's total balance: This account (free + reserved) plus pool balances held elsewhere.
+  const { free, frozen, reserved } = balance;
   const totalBalance = planckToUnit(
-    free.plus(poolBondOpions.active).plus(unlockingPools),
+    free.plus(reserved).plus(poolBondOpions.active).plus(unlockingPools),
     units
   );
   // convert balance to fiat value

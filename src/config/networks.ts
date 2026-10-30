@@ -33,6 +33,13 @@ const makeCreditcoinNetwork = ({
     subscanEndpoint,
     subscanUrl,
     currentEraWhenUpgraded,
+    // CC3's runtime configures `pallet_staking::FixedNominationsQuota<16>` (a flat cap of
+    // 16, matching Polkadot's historical MAX_NOMINATIONS). It is a type parameter rather
+    // than a `#[pallet::constant]`, so it is not exposed in metadata and must be set here.
+    // Confirmed against runtime/src/lib.rs by the CC3 runtime team (unchanged by the
+    // stable2409 -> stable2512 SDK bump). Revisit only if the runtime switches to a
+    // balance-tiered NominationsQuota.
+    maxNominations: 16,
 
     api: {
       unit: 'CTC',

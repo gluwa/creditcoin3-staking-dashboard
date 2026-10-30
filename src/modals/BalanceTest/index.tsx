@@ -32,13 +32,13 @@ export const BalanceTest = () => {
     }
 
     const txs = [
-      api.tx.balances.transfer(
+      api.tx.balances.transferKeepAlive(
         {
           id: '1554u1a67ApEt5xmjbZwjgDNaVckbzB6cjRHWAQ1SpNkNxTd',
         },
         unitToPlanck('0.1', units).toString()
       ),
-      api.tx.balances.transfer(
+      api.tx.balances.transferKeepAlive(
         {
           id: '1554u1a67ApEt5xmjbZwjgDNaVckbzB6cjRHWAQ1SpNkNxTd',
         },

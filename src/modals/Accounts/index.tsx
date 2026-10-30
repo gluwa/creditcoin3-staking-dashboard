@@ -37,7 +37,7 @@ export const Accounts = () => {
   const { balances } = useBalances();
   const { getDelegates } = useProxies();
   const { bondedAccounts } = useBonded();
-  const { ledgers, getLocks } = useBalances();
+  const { ledgers } = useBalances();
   const { extensionsStatus } = useExtensions();
   const { memberships } = usePoolMemberships();
   const {
@@ -55,10 +55,8 @@ export const Accounts = () => {
   const stashes: string[] = [];
   // accumulate imported stash accounts
   for (const { address } of localAccounts) {
-    const locks = getLocks(address);
-
-    // account is a stash if they have an active `staking` lock
-    if (locks.find(({ id }) => id === 'staking')) {
+    // Account is a stash if they have a staking ledger
+    if (ledgers.find(({ stash }) => stash === address)) {
       stashes.push(address);
     }
   }
