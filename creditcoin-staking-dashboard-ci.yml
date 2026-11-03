@@ -13,7 +13,6 @@ pr:
   - dev
 
 variables:
-  - group: PenguinPatrol
   - group: 'Docker Scout'
 
 pool:
@@ -32,61 +31,71 @@ jobs:
           echo "branchtag: $branchtag"
           echo "##vso[task.setvariable variable=releaseTag;]$branchtag"
 
-      - task: Docker@2
-        displayName: 'Docker login'
-        inputs:
-          containerRegistry: 'substrate-relayer'
-          command: 'login'
+      # DO-2935: login (substrate-relayer), builder and pushes only on push builds (compile-time). PR runs
+      # reference no service connection; their only checkpoint is the read-only 'Docker Scout' group,
+      # which allows refs/pull/* by design (keep it that way).
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - task: Docker@2
+          displayName: 'Docker login'
+          inputs:
+            containerRegistry: 'substrate-relayer'
+            command: 'login'
 
-      - script: |
-          docker buildx create --name attestation-builder --driver docker-container --use
-          docker buildx inspect --bootstrap
-        displayName: 'Set up Docker Buildx (docker-container driver, required for --sbom/--provenance)'
+        - script: |
+            docker buildx create --name attestation-builder --driver docker-container --use
+            docker buildx inspect --bootstrap
+          displayName: 'Set up Docker Buildx (docker-container driver, required for --sbom/--provenance)'
 
-      # Plain script, not Docker@2's build command - Docker@2 build isolates its
-      # own Docker config in a temp dir that doesn't see the buildx builder
-      # created above ("no builder found"). Login above still applies here
-      # since both run against the default docker context. --push (not --load)
-      # because buildx's docker-exporter (used by --load) can't export a
-      # manifest list, which --sbom/--provenance always produce even for a
-      # single platform - pushing straight to the registry is the supported
-      # path for attestations.
-      - script: |
-          docker buildx build \
-            --builder attestation-builder \
-            --push \
-            -f Dockerfile \
-            --build-arg TARGET_NETWORK=test \
-            --sbom=true --provenance=mode=max \
-            -t gluwa/cc3-staking-dashboard:test-$(Build.BuildId) \
-            .
-        displayName: 'Build and Push Test Docker Image'
+        # Plain script, not Docker@2's build command - Docker@2 build isolates its
+        # own Docker config in a temp dir that doesn't see the buildx builder
+        # created above ("no builder found"). Login above still applies here
+        # since both run against the default docker context. --push (not --load)
+        # because buildx's docker-exporter (used by --load) can't export a
+        # manifest list, which --sbom/--provenance always produce even for a
+        # single platform - pushing straight to the registry is the supported
+        # path for attestations.
+        - script: |
+            docker buildx build \
+              --builder attestation-builder \
+              --push \
+              -f Dockerfile \
+              --build-arg TARGET_NETWORK=test \
+              --sbom=true --provenance=mode=max \
+              -t gluwa/cc3-staking-dashboard:test-$(Build.BuildId) \
+              .
+          displayName: 'Build and Push Test Docker Image'
 
-      - script: |
-          TAGS="-t gluwa/cc3-staking-dashboard:$(Build.BuildId) -t gluwa/cc3-staking-dashboard:latest"
-          if [ -n "$(releaseTag)" ]; then
-            TAGS="$TAGS -t gluwa/cc3-staking-dashboard:$(releaseTag)"
-          fi
-          docker buildx build \
-            --builder attestation-builder \
-            --push \
-            -f Dockerfile \
-            --build-arg TARGET_NETWORK=prod \
-            --sbom=true --provenance=mode=max \
-            $TAGS \
-            .
-        displayName: 'Build and Push Docker Image'
+        - script: |
+            TAGS="-t gluwa/cc3-staking-dashboard:$(Build.BuildId) -t gluwa/cc3-staking-dashboard:latest"
+            if [ -n "$(releaseTag)" ]; then
+              TAGS="$TAGS -t gluwa/cc3-staking-dashboard:$(releaseTag)"
+            fi
+            docker buildx build \
+              --builder attestation-builder \
+              --push \
+              -f Dockerfile \
+              --build-arg TARGET_NETWORK=prod \
+              --sbom=true --provenance=mode=max \
+              $TAGS \
+              .
+          displayName: 'Build and Push Docker Image'
+      - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+        - script: |
+            set -e
+            docker build -f Dockerfile --build-arg TARGET_NETWORK=test -t gluwa/cc3-staking-dashboard:pr-$(Build.BuildId) .
+          displayName: 'Build test image (PR validation, no login, no push)'
 
       # DO-2221/DO-2336: informational only — never fails the build. See DO-2104 for the org-wide
       # compliance initiative. Explicit login with the dedicated read-only DOCKERHUB_SCOUT_*
-      # credential rather than relying on Docker@2's earlier login above — that login sets
+      # credential rather than relying on Docker@2's login (push builds only) — that login sets
       # DOCKER_CONFIG to an isolated temp dir for the rest of the job (see DO-2338/reference
       # memory), which is fragile to depend on implicitly for an unrelated later step.
       - script: |
           echo "$DOCKERHUB_SCOUT_TOKEN" | docker login -u "$DOCKERHUB_SCOUT_USERNAME" --password-stdin
           export DOCKER_HOME="${DOCKER_CONFIG:-$HOME/.docker}"
           curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
-          docker scout cves gluwa/cc3-staking-dashboard:$(Build.BuildId) 2>&1 | tee scout-output.txt || true
+          if [ "$(Build.Reason)" = "PullRequest" ]; then IMAGE_REF="local://gluwa/cc3-staking-dashboard:pr-$(Build.BuildId)"; else IMAGE_REF="gluwa/cc3-staking-dashboard:$(Build.BuildId)"; fi
+          docker scout cves "$IMAGE_REF" 2>&1 | tee scout-output.txt || true
         displayName: 'Docker Scout CVE scan (informational, non-blocking)'
         continueOnError: true
         env:
@@ -102,6 +111,7 @@ jobs:
       # creditcoin3's GitHub Actions workflow for this exact purpose (see DO-2338).
       - script: |
           set -euo pipefail
+          [ -f scout-output.txt ] || { echo "No scout-output.txt (build or scan did not complete), skipping PR comment"; exit 0; }
           BODY_JSON=$(python3 -c "import json; print(json.dumps(open('scout-output.txt').read()))")
           HTTP=$(curl -s -o /tmp/pr_comment_resp.txt -w '%{http_code}' \
             -X POST \
