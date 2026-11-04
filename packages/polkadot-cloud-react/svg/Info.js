@@ -1,0 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+export var InfoSVG = function () { return (_jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 64 64", width: "100%", height: "100%", children: _jsx("path", { d: "M32 15c-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5 4.5-2 4.5-4.5-2-4.5-4.5-4.5zm0 14.5c-2.5 0-4.5 2-4.5 4.5v12c0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5V34c0-2.5-2-4.5-4.5-4.5z" }) })); };
+
+
