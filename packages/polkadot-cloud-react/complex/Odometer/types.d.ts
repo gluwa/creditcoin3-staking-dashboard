@@ -1,0 +1,10 @@
+export interface Props {
+    value: number | string;
+    wholeColor?: string;
+    decimalColor?: string;
+    spaceBefore?: string | number;
+    spaceAfter?: string | number;
+    zeroDecimals?: number;
+}
+export type Status = "new" | "transition" | "inactive";
+export type Direction = "down" | "none";
