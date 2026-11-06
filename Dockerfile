@@ -2,6 +2,9 @@
 
 # build environment
 FROM node:24@sha256:392e1e23f34da768d8d1f4e502b64f200d3be3465934d4b7930f57d7e2fc1989 AS build
+# DO-2998: include this stage (node_modules) in the BuildKit SBOM attestation, so Docker Scout
+# sees the npm packages bundled into the static site.
+ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG TARGET_NETWORK=""
 
 WORKDIR /app
