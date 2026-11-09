@@ -14,7 +14,7 @@ import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import type { TransferOptions, TransferOptionsContextInterface } from './types';
 import {
-  getMaxLock,
+  calcNominatorTransferOptions,
   getLocalFeeReserve,
   getUnlocking,
   setLocalFeeReserve,
@@ -47,7 +47,7 @@ export const TransferOptionsProvider = ({
     networkData: { units, defaultFeeReserve },
   } = useNetwork();
   const { getStashLedger, getBalance, getLocks } = useBalances();
-  const { existentialDeposit } = consts;
+  const { existentialDeposit, stakingPalletVersion } = consts;
 
   // A user-configurable reserve amount to be used to pay for transaction fees.
   const [feeReserve, setFeeReserve] = useState<BigNumber>(
@@ -61,56 +61,24 @@ export const TransferOptionsProvider = ({
     const { free, frozen } = getBalance(address);
     const { active, total, unlocking } = getStashLedger(address);
     const locks = getLocks(address);
-    const maxLock = getMaxLock(locks);
-
-    // Calculate a forced amount of free balance that needs to be reserved to keep the account
-    // alive. Deducts `locks` from free balance reserve needed.
-    const edReserved = BigNumber.max(existentialDeposit.minus(maxLock), 0);
-
-    // Total free balance after `edReserved` is subtracted.
-    const freeMinusReserve = BigNumber.max(
-      free.minus(edReserved).minus(feeReserve),
-      0
-    );
-
-    // Free balance that can be transferred.
-    const transferrableBalance = BigNumber.max(
-      freeMinusReserve.minus(frozen),
-      0
-    );
-
-    // Gree balance to pay for tsx fees. Does not factor `feeReserve`.
-    const balanceTxFees = BigNumber.max(
-      free.minus(edReserved).minus(frozen),
-      0
-    );
-
-    // Staking specific balances.
-    //
-    // Total amount unlocking and unlocked.
-    const { totalUnlocking, totalUnlocked } = getUnlocking(
-      unlocking,
-      activeEra.index
-    );
-
-    // Free balance to stake after `total` (total staked) ledger amount.
-    const freeBalance = BigNumber.max(freeMinusReserve.minus(total), 0);
-
-    // Get nominator-specific balances.
-    const nominatorBalances = () => {
-      const totalPossibleBond = BigNumber.max(
-        freeMinusReserve.minus(totalUnlocking).minus(totalUnlocked),
-        0
-      );
-      return {
-        active,
-        totalUnlocking,
-        totalUnlocked,
-        totalPossibleBond,
-        totalAdditionalBond: BigNumber.max(totalPossibleBond.minus(active), 0),
-        totalUnlockChunks: unlocking.length,
-      };
-    };
+    const {
+      maxLock,
+      edReserved,
+      freeMinusReserve,
+      transferrableBalance,
+      balanceTxFees,
+      freeBalance,
+      nominate,
+    } = calcNominatorTransferOptions({
+      free,
+      frozen,
+      locks,
+      ledger: { active, total, unlocking },
+      stakingPalletVersion,
+      existentialDeposit,
+      feeReserve,
+      activeEraIndex: activeEra.index,
+    });
 
     // Get pool-member-specific balances.
     const poolBalances = () => {
@@ -134,7 +102,7 @@ export const TransferOptionsProvider = ({
       transferrableBalance,
       balanceTxFees,
       edReserved,
-      nominate: nominatorBalances(),
+      nominate,
       pool: poolBalances(),
     };
   };

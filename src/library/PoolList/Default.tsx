@@ -3,7 +3,6 @@
 
 import { faBars, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isNotZero } from '@polkadot-cloud/utils';
 import { motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -56,6 +55,10 @@ export const PoolList = ({
   const includes = getFilters('include', 'pools');
   const excludes = getFilters('exclude', 'pools');
   const searchTerm = getSearchTerm('pools');
+
+  useEffect(() => {
+    setSearchTerm('pools', '');
+  }, []);
 
   // current page
   const [page, setPage] = useState<number>(1);
@@ -141,7 +144,7 @@ export const PoolList = ({
 
   // Configure pool list when network is ready to fetch.
   useEffect(() => {
-    if (isReady && isNotZero(activeEra.index) && !fetched) {
+    if (isReady && !activeEra.isPlaceholder && !fetched) {
       setupPoolList();
     }
   }, [isReady, fetched, activeEra.index]);
@@ -171,10 +174,10 @@ export const PoolList = ({
   // Set default filters.
   useEffect(() => {
     if (defaultFilters?.includes?.length) {
-      setMultiFilters('include', 'pools', defaultFilters?.includes, false);
+      setMultiFilters('include', 'pools', defaultFilters?.includes, true);
     }
     if (defaultFilters?.excludes?.length) {
-      setMultiFilters('exclude', 'pools', defaultFilters?.excludes, false);
+      setMultiFilters('exclude', 'pools', defaultFilters?.excludes, true);
     }
   }, []);
 

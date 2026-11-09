@@ -135,14 +135,6 @@ export const calculateDailyPayouts = (
     }
   }
 
-  if (curPayout.amount.isGreaterThan(0)) {
-    dailyPayouts.push({
-      amount: planckToUnit(curPayout.amount, units),
-      event_id: getEventId(curPayout),
-      block_timestamp: getUnixTime(curDay),
-    });
-  }
-
   // return payout amounts as plain numbers.
   return dailyPayouts.map((q: AnyApi) => ({
     ...q,

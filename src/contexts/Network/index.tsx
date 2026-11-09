@@ -38,6 +38,7 @@ export const NetworkProvider = ({
     const localNetworkValid = !!Object.values(NetworkList).find(
       (n) => n.name === localNetwork
     );
+
     return localNetworkValid ? localNetwork : DefaultNetwork;
   };
 

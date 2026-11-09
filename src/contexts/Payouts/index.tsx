@@ -23,6 +23,7 @@ import {
   setLocalEraExposure,
   setLocalUnclaimedPayouts,
 } from './Utils';
+import { UpgradedNetworks } from 'consts';
 
 const worker = new Worker();
 
@@ -151,13 +152,16 @@ export const PayoutsProvider = ({
     // Helper function to check which eras a validator was exposed in.
     const validatorExposedEras = (validator: string) => {
       const exposedEras: string[] = [];
-      for (const era of erasToCheck)
+      for (const era of erasToCheck) {
         if (
-          Object.values(
-            Object.keys(getLocalEraExposure(network, era, activeAccount))
-          )?.[0] === validator
+          (
+            Object.values(
+              Object.keys(getLocalEraExposure(network, era, activeAccount))
+            ) ?? []
+          ).includes(validator)
         )
           exposedEras.push(era);
+      }
       return exposedEras;
     };
 
@@ -176,11 +180,46 @@ export const PayoutsProvider = ({
       Object.values(validatorControllers)
     );
     const unclaimedRewards: Record<string, string[]> = {};
-    for (const ledgerResult of ledgerResults) {
-      const ledger = ledgerResult.unwrapOr(null)?.toHuman();
-      if (ledger) {
-        // get claimed eras within `erasToCheck`.
-        const erasClaimed = ledger.claimedRewards
+
+    if (UpgradedNetworks.includes(network)) {
+      // For upgraded networks, we need to check claimedRewards for each era and validator
+
+      // First, collect all the multicall parameters for claimedRewards
+      const claimedRewardsCalls: Array<[string, string]> = []; // [era, controller]
+      const ledgerMap: Record<string, any> = {};
+
+      for (const ledgerResult of ledgerResults) {
+        const ledger = ledgerResult.unwrapOr(null)?.toHuman();
+        if (ledger) {
+          const stash = ledger.stash;
+
+          if (stash) {
+            ledgerMap[stash] = ledger;
+
+            // Get eras to check for this validator
+            const erasToCheckForValidator = erasToCheck
+              .map((e) => e.toString())
+              .filter((r: string) => validatorExposedEras(stash).includes(r));
+
+            // Add to multicall parameters
+            erasToCheckForValidator.forEach((era) => {
+              claimedRewardsCalls.push([era, stash]);
+            });
+          }
+        }
+      }
+
+      // Execute multicall for claimedRewards
+      const claimedRewardsResults =
+        await api.query.staking.claimedRewards.multi<AnyApi>(
+          claimedRewardsCalls.map(([era, controller]) => [era, controller])
+        );
+
+      // Process results for each validator
+      let callIndex = 0;
+      for (const [stash, ledger] of Object.entries(ledgerMap)) {
+        const legacyRewards = ledger.legacyClaimedRewards || [];
+        const legacyErasClaimed = legacyRewards
           .map((e: string) => rmCommas(e))
           .filter(
             (e: string) =>
@@ -188,11 +227,61 @@ export const PayoutsProvider = ({
               new BigNumber(e).isGreaterThanOrEqualTo(endEra)
           );
 
-        // filter eras yet to be claimed
-        unclaimedRewards[ledger.stash] = erasToCheck
+        // Get eras to check for this validator
+        const erasToCheckForValidator = erasToCheck
           .map((e) => e.toString())
-          .filter((r: string) => validatorExposedEras(ledger.stash).includes(r))
-          .filter((r: string) => !erasClaimed.includes(r));
+          .filter((r: string) => validatorExposedEras(stash).includes(r));
+
+        // Get results for this validator's eras
+        const validatorResults = claimedRewardsResults.slice(
+          callIndex,
+          callIndex + erasToCheckForValidator.length
+        );
+        callIndex += erasToCheckForValidator.length;
+
+        // Filter out eras that were claimed after upgrade
+        const postUpgradeClaimedEras = erasToCheckForValidator.filter(
+          (era, index) => {
+            const result = validatorResults[index];
+            // If result is not null/empty, it means the era was claimed after upgrade
+            return result && !result.isEmpty;
+          }
+        );
+
+        // Combine legacy claimed eras with post-upgrade claimed eras
+        const allClaimedEras = [
+          ...legacyErasClaimed,
+          ...postUpgradeClaimedEras,
+        ];
+
+        // Filter eras yet to be claimed
+        unclaimedRewards[stash] = erasToCheckForValidator.filter(
+          (r: string) => !allClaimedEras.includes(r)
+        );
+      }
+    } else {
+      // Original logic for non-upgraded networks
+      for (const ledgerResult of ledgerResults) {
+        const ledger = ledgerResult.unwrapOr(null)?.toHuman();
+        if (ledger) {
+          const rewards = ledger.claimedRewards;
+          // get claimed eras within `erasToCheck`.
+          const erasClaimed = rewards
+            .map((e: string) => rmCommas(e))
+            .filter(
+              (e: string) =>
+                new BigNumber(e).isLessThanOrEqualTo(startEra) &&
+                new BigNumber(e).isGreaterThanOrEqualTo(endEra)
+            );
+
+          // filter eras yet to be claimed
+          unclaimedRewards[ledger.stash] = erasToCheck
+            .map((e) => e.toString())
+            .filter((r: string) =>
+              validatorExposedEras(ledger.stash).includes(r)
+            )
+            .filter((r: string) => !erasClaimed.includes(r));
+        }
       }
     }
 
@@ -308,7 +397,7 @@ export const PayoutsProvider = ({
 
   // Fetch payouts if active account is nominating.
   useEffect(() => {
-    if (!activeEra.index.isZero()) {
+    if (!activeEra.isPlaceholder) {
       if (!isNominating()) {
         setStateWithRef('synced', setPayoutsSynced, payoutsSyncedRef);
       } else if (

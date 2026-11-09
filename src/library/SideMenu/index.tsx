@@ -12,14 +12,14 @@ import { useTranslation } from 'react-i18next';
 import { SideMenuStickyThreshold } from 'consts';
 import { useApi } from 'contexts/Api';
 import { useHelp } from 'contexts/Help';
-import { useTheme } from 'contexts/Themes';
+// import { useTheme } from 'contexts/Themes';
 import { useUi } from 'contexts/UI';
 import type { UIContextInterface } from 'contexts/UI/types';
 import CogOutlineSVG from 'img/cog-outline.svg?react';
-import LanguageSVG from 'img/language.svg?react';
+// import LanguageSVG from 'img/language.svg?react';
 import LogoGithubSVG from 'img/logo-github.svg?react';
-import MoonOutlineSVG from 'img/moon-outline.svg?react';
-import SunnyOutlineSVG from 'img/sunny-outline.svg?react';
+// import MoonOutlineSVG from 'img/moon-outline.svg?react';
+// import SunnyOutlineSVG from 'img/sunny-outline.svg?react';
 import { useOutsideAlerter } from 'library/Hooks';
 import { useOverlay } from '@polkadot-cloud/react/hooks';
 import { useNetwork } from 'contexts/Network';
@@ -32,7 +32,7 @@ export const SideMenu = () => {
   const { t } = useTranslation('base');
   const { apiStatus } = useApi();
   const { networkData, network } = useNetwork();
-  const { mode, toggleTheme } = useTheme();
+  // const { mode, toggleTheme } = useTheme();
   const { openModal } = useOverlay().modal;
   const {
     setSideMenu,
@@ -85,7 +85,7 @@ export const SideMenu = () => {
           minimised={sideMenuMinimised}
           icon={{
             Svg: ResourcesSVG,
-            size: sideMenuMinimised ? '1.4em' : '1.2em',
+            size: sideMenuMinimised ? '18' : '18',
           }}
         />
         <Secondary
@@ -94,7 +94,7 @@ export const SideMenu = () => {
           minimised={sideMenuMinimised}
           icon={{
             Svg: FeedbackSVG,
-            size: sideMenuMinimised ? '1.4em' : '1.2em',
+            size: sideMenuMinimised ? '18' : '18',
           }}
         />
         <Separator />
@@ -105,7 +105,7 @@ export const SideMenu = () => {
           onClick={() => openModal({ key: 'Networks' })}
           icon={{
             Svg: networkData.brand.inline.svg,
-            size: networkData.brand.inline.size,
+            size: '12.6',
           }}
           minimised={sideMenuMinimised}
           action={
@@ -131,7 +131,7 @@ export const SideMenu = () => {
           type="button"
           onClick={() =>
             window.open(
-              'https://github.com/gluwa/creditcoin-staking-dashboard',
+              'https://github.com/gluwa/creditcoin3-staking-dashboard',
               '_blank'
             )
           }
@@ -146,7 +146,7 @@ export const SideMenu = () => {
         >
           <CogOutlineSVG width="1.3em" height="1.3em" />
         </button>
-        <button
+        {/* <button
           type="button"
           onClick={() => openModal({ key: 'ChooseLanguage' })}
         >
@@ -168,7 +168,7 @@ export const SideMenu = () => {
           >
             <MoonOutlineSVG width="1.1em" height="1.1em" />
           </button>
-        )}
+        )} */}
       </section>
     </Wrapper>
   );

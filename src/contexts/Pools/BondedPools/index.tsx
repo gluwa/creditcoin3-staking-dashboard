@@ -176,8 +176,10 @@ export const BondedPoolsProvider = ({
     addresses: createAccounts(id),
   });
 
-  const getBondedPool = (poolId: MaybePool) =>
-    bondedPools.find((p) => p.id === poolId) ?? null;
+  const getBondedPool = (poolId: MaybePool) => {
+    if (poolId === null) return null;
+    return bondedPools.find((p) => Number(p.id) === Number(poolId)) ?? null;
+  };
 
   /*
    * poolSearchFilter Iterates through the supplied list and refers to the meta batch of the list to
@@ -352,7 +354,7 @@ export const BondedPoolsProvider = ({
 
   // Re-fetch bonded pools nominations when active era changes or when `bondedPools` update.
   useEffectIgnoreInitial(() => {
-    if (!activeEra.index.isZero() && bondedPools.length) {
+    if (!activeEra.isPlaceholder && bondedPools.length) {
       fetchPoolsNominations();
     }
   }, [activeEra.index, bondedPools.length]);

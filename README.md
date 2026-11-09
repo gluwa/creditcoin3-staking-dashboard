@@ -1,10 +1,8 @@
-![ci](https://github.com/gluwa/creditcoin-staking-dashboard/actions/workflows/ci.yml/badge.svg) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
 # Creditcoin Staking Dashboard
 
-#### Production:
+![ci](https://github.com/gluwa/creditcoin3-staking-dashboard/actions/workflows/ci.yml/badge.svg) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-https://staking.creditcoin.org
+**Production URL:** <https://staking.creditcoin.org/>
 
 ## Validator Operator Setup Guide
 
@@ -12,8 +10,8 @@ Validator operators can add their contact information, icon, and which validator
 
 To add an operator, submit a PR with the following changes:
 
-- **Thumbnail:** Add your operator's thumbnail as an SVG Component in [this folder](https://github.com/gluwa/creditcoin-staking-dashboard/tree/main/src/config/validators/thumbnails).
-- **Operator details:** Add your operator details to the `VALIDATORS_COMMUNITY`JSON object in [this file](https://github.com/gluwa/creditcoin-staking-dashboard/blob/main/src/config/validators/index.ts).
+- **Thumbnail:** Add your operator's thumbnail as an SVG Component in [this folder](https://github.com/gluwa/creditcoin3-staking-dashboard/tree/dev/src/config/validators/thumbnails).
+- **Operator details:** Add your operator details to the `VALIDATORS_COMMUNITY`JSON object in [this file](https://github.com/gluwa/creditcoin3-staking-dashboard/blob/dev/src/config/validators/index.ts).
 
 ### Operator Structure
 
@@ -37,7 +35,7 @@ Next, add your operator details to the `ValidatorCommunity` object. Only provide
 
 The following example defines 2 validators on the Creditcoin Mainnet, and 1 on the Creditcoin Testnet:
 
-```
+```typescript
 export const ValidatorCommunity = [
   ...
   {

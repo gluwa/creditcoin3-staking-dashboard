@@ -4,6 +4,7 @@
 
 import { stringToU8a } from '@polkadot/util';
 import BigNumber from 'bignumber.js';
+import { FallbackStakingPalletVersion } from 'consts';
 import type {
   APIChainState,
   APIConstants,
@@ -22,6 +23,7 @@ export const defaultConsts: APIConstants = {
   existentialDeposit: new BigNumber(0),
   fastUnstakeDeposit: new BigNumber(0),
   poolsPalletId: stringToU8a('0'),
+  stakingPalletVersion: FallbackStakingPalletVersion,
 };
 
 export const defaultChainState: APIChainState = {

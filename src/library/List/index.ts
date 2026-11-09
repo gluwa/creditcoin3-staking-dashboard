@@ -26,7 +26,7 @@ export const Header = styled.div<{ $displayFor?: DisplayFor }>`
 
   h4 {
     color: var(--text-color-secondary);
-    font-family: InterSemiBold, sans-serif;
+    font-family: Inter-SB, sans-serif;
   }
 
   > div {

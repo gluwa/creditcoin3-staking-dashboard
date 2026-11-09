@@ -13,18 +13,24 @@ export const HistoricalRewardsRateStat = () => {
   const { inflation, stakedReturn } = useInflation();
   const { totalIssuance } = metrics;
 
-  const value = `${
-    totalIssuance.isZero()
-      ? '0'
-      : new BigNumber(stakedReturn).decimalPlaces(2).toFormat()
-  }%`;
-
+  // Includes conditions to prevent genesis balances from skewing the amount
+  const value =
+    stakedReturn > 1000
+      ? '% Calculated starting era 25'
+      : `${
+          totalIssuance.isZero()
+            ? '0'
+            : new BigNumber(stakedReturn).decimalPlaces(2).toFormat()
+        }%`;
+  // Includes conditions to prevent genesis balances from skewing the amount
   const secondaryValue =
     totalIssuance.isZero() || stakedReturn === 0
       ? undefined
-      : `/ ${new BigNumber(Math.max(0, stakedReturn - inflation))
-          .decimalPlaces(2)
-          .toFormat()}% ${t('overview.afterInflation')}`;
+      : stakedReturn > 1000
+        ? undefined
+        : `/ ${new BigNumber(Math.max(0, stakedReturn - inflation))
+            .decimalPlaces(2)
+            .toFormat()}% ${t('overview.afterInflation')}`;
 
   const params = {
     label: t('overview.historicalRewardsRate'),

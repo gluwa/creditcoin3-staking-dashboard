@@ -3,7 +3,6 @@
 
 import { faBars, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isNotZero } from '@polkadot-cloud/utils';
 import { motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +35,7 @@ import type { ValidatorListProps } from './types';
 import { FilterHeaders } from './Filters/FilterHeaders';
 import { FilterBadges } from './Filters/FilterBadges';
 import type { NominationStatus } from './ValidatorItem/types';
+import { useStaking } from 'contexts/Staking';
 
 export const ValidatorListInner = ({
   nominator: initialNominator,
@@ -80,10 +80,11 @@ export const ValidatorListInner = ({
   const { activeEra } = useNetworkMetrics();
   const { activeAccount } = useActiveAccounts();
   const { setModalResize } = useOverlay().modal;
-  const { injectValidatorListData } = useValidators();
+  const { injectValidatorListData, sessionValidators } = useValidators();
   const { getNomineesStatus } = useNominationStatus();
   const { getPoolNominationStatus } = useBondedPools();
   const { applyFilter, applyOrder, applySearch } = useValidatorFilters();
+  const { eraStakers } = useStaking();
 
   const { selected, listFormat, setListFormat } = listProvider;
   const includes = getFilters('include', 'validators');
@@ -92,6 +93,10 @@ export const ValidatorListInner = ({
   const searchTerm = getSearchTerm('validators');
   const actionsAll = [...actions].filter((action) => !action.onSelected);
   const actionsSelected = [...actions].filter((action) => action.onSelected);
+
+  useEffect(() => {
+    setSearchTerm('validators', '');
+  }, []);
 
   // Determine the nominator of the validator list. Fallback to activeAccount if not provided.
   const nominator = initialNominator || activeAccount;
@@ -164,6 +169,10 @@ export const ValidatorListInner = ({
     renderIterationRef.current = iter;
     setRenderIterationState(iter);
   };
+
+  useEffect(() => {
+    setupValidatorList();
+  }, [eraStakers]);
 
   // Pagination.
   const totalPages = Math.ceil(validators.length / ListItemsPerPage);
@@ -249,7 +258,7 @@ export const ValidatorListInner = ({
           'include',
           'validators',
           defaultFilters?.includes,
-          false
+          true
         );
       }
       if (defaultFilters?.excludes?.length) {
@@ -257,7 +266,7 @@ export const ValidatorListInner = ({
           'exclude',
           'validators',
           defaultFilters?.excludes,
-          false
+          true
         );
       }
 
@@ -284,7 +293,7 @@ export const ValidatorListInner = ({
 
   // Configure validator list when network is ready to fetch.
   useEffect(() => {
-    if (isReady && isNotZero(activeEra.index) && !fetched) setupValidatorList();
+    if (isReady && !activeEra.isPlaceholder && !fetched) setupValidatorList();
   }, [isReady, activeEra.index, fetched]);
 
   // Control render throttle.
@@ -304,13 +313,12 @@ export const ValidatorListInner = ({
   // List ui changes / validator changes trigger re-render of list.
   useEffect(() => {
     if (allowFilters && fetched) handleValidatorsFilterUpdate();
-  }, [order, isSyncing, includes?.length, excludes?.length]);
+  }, [order, isSyncing, includes?.length, excludes?.length, sessionValidators]);
 
   // Handle modal resize on list format change.
   useEffect(() => {
     maybeHandleModalResize();
   }, [listFormat, renderIteration, validators, page]);
-
   return (
     <ListWrapper>
       <List $flexBasisLarge={allowMoreCols ? '33.33%' : '50%'}>

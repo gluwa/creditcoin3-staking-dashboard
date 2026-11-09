@@ -2,12 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
-import {
-  ButtonHelp,
-  ButtonPrimary,
-  ButtonRow,
-  Odometer,
-} from '@polkadot-cloud/react';
+import { ButtonHelp, ButtonPrimary, ButtonRow } from '@polkadot-cloud/react';
 import { minDecimalPlaces, planckToUnit } from '@polkadot-cloud/utils';
 import { useTranslation } from 'react-i18next';
 import { useHelp } from 'contexts/Help';
@@ -20,6 +15,7 @@ import { useOverlay } from '@polkadot-cloud/react/hooks';
 import { useNetwork } from 'contexts/Network';
 import { useActiveAccounts } from 'contexts/ActiveAccounts';
 import { useImportedAccounts } from 'contexts/Connect/ImportedAccounts';
+import { Odometer } from 'component/Odometer';
 
 export const ManageBond = () => {
   const { t } = useTranslation('pages');
@@ -54,7 +50,7 @@ export const ManageBond = () => {
           <ButtonHelp marginLeft onClick={() => openHelp('Bonded in Pool')} />
         </h4>
         <h2>
-          <Token className="networkIcon" />
+          <Token className="networkIcon" style={{ display: 'none' }} />
           <Odometer
             value={minDecimalPlaces(planckToUnit(active, units).toFormat(), 2)}
             zeroDecimals={2}

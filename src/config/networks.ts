@@ -14,6 +14,8 @@ type NetworkConfig = {
   endpoints: Network['endpoints'];
   namespace?: string;
   subscanEndpoint: string;
+  subscanUrl: string;
+  currentEraWhenUpgraded?: number;
 };
 
 const makeCreditcoinNetwork = ({
@@ -21,12 +23,23 @@ const makeCreditcoinNetwork = ({
   endpoints,
   namespace,
   subscanEndpoint,
+  subscanUrl,
+  currentEraWhenUpgraded,
 }: NetworkConfig): Network => {
   return {
     name,
     endpoints,
     namespace: namespace ?? '09573a3526818a8ecd6eb92f60f1175d',
     subscanEndpoint,
+    subscanUrl,
+    currentEraWhenUpgraded,
+    // CC3's runtime configures `pallet_staking::FixedNominationsQuota<16>` (a flat cap of
+    // 16, matching Polkadot's historical MAX_NOMINATIONS). It is a type parameter rather
+    // than a `#[pallet::constant]`, so it is not exposed in metadata and must be set here.
+    // Confirmed against runtime/src/lib.rs by the CC3 runtime team (unchanged by the
+    // stable2409 -> stable2512 SDK bump). Revisit only if the runtime switches to a
+    // balance-tiered NominationsQuota.
+    maxNominations: 16,
 
     api: {
       unit: 'CTC',
@@ -77,32 +90,9 @@ const makeCreditcoinNetwork = ({
 };
 
 const makeNetworkList = () => {
-  const networks: Networks = {
-    creditcoin: makeCreditcoinNetwork({
-      name: 'creditcoin',
-      endpoints: {
-        lightClient: null,
-        defaultRpcEndpoint: 'Gluwa',
-        rpcEndpoints: {
-          Gluwa: 'wss://rpc.cc3-mainnet.creditcoin.network/ws',
-        },
-      },
-      namespace: 'creditcoin-mainnet',
-      subscanEndpoint: 'http://127.0.0.1:4399',
-    }),
-    creditcoinTest: makeCreditcoinNetwork({
-      name: 'creditcoinTest',
-      endpoints: {
-        lightClient: null,
-        defaultRpcEndpoint: 'Gluwa',
-        rpcEndpoints: {
-          Gluwa: 'wss://rpc.cc3-testnet.creditcoin.network/ws',
-        },
-      },
-      namespace: '09573a3526818a8ecd6eb92f60f1175d',
-      subscanEndpoint: 'http://127.0.0.1:4399',
-    }),
-    creditcoinDev: makeCreditcoinNetwork({
+  const networks: Networks = {};
+  if (import.meta.env.VITE_ENVIRONMENT !== 'prod') {
+    networks.creditcoinDev = makeCreditcoinNetwork({
       name: 'creditcoinDev',
       endpoints: {
         lightClient: null,
@@ -112,9 +102,52 @@ const makeNetworkList = () => {
         },
       },
       namespace: '09573a3526818a8ecd6eb92f60f1175d',
-      subscanEndpoint: 'http://127.0.0.1:4399',
-    }),
-  };
+      subscanEndpoint: 'https://subscan-cc3-devnet.creditcoin.network',
+      subscanUrl: 'https://creditcoin3-dev.subscan.io',
+    });
+    networks.creditcoindryrun = makeCreditcoinNetwork({
+      name: 'creditcoindryrun',
+      endpoints: {
+        lightClient: null,
+        defaultRpcEndpoint: 'Gluwa',
+        rpcEndpoints: {
+          Gluwa: 'wss://rpc.cc3-devnet-dryrun.creditcoin.network/ws',
+        },
+      },
+      namespace: '09573a3526818a8ecd6eb92f60f1175d',
+      subscanEndpoint: 'https://subscan-cc3-testnet.creditcoin.network',
+      subscanUrl: 'https://creditcoin3-testnet.subscan.io',
+      currentEraWhenUpgraded: 4,
+    });
+  }
+  networks.creditcoinTest = makeCreditcoinNetwork({
+    name: 'creditcoinTest',
+    endpoints: {
+      lightClient: null,
+      defaultRpcEndpoint: 'Gluwa',
+      rpcEndpoints: {
+        Gluwa: 'wss://rpc.cc3-testnet.creditcoin.network/ws',
+      },
+    },
+    namespace: '09573a3526818a8ecd6eb92f60f1175d',
+    subscanEndpoint: 'https://subscan-cc3-testnet.creditcoin.network',
+    subscanUrl: 'https://creditcoin3-testnet.subscan.io',
+    currentEraWhenUpgraded: 557,
+  });
+  networks.creditcoin = makeCreditcoinNetwork({
+    name: 'creditcoin',
+    endpoints: {
+      lightClient: null,
+      defaultRpcEndpoint: 'Gluwa',
+      rpcEndpoints: {
+        Gluwa: 'wss://mainnet3.creditcoin.network',
+      },
+    },
+    namespace: 'creditcoin-mainnet',
+    subscanEndpoint: 'https://subscan-cc3-mainnet.creditcoin.network',
+    subscanUrl: 'https://creditcoin.subscan.io',
+    currentEraWhenUpgraded: 384,
+  });
   if (import.meta.env.DEV) {
     networks.creditcoinLocal = makeCreditcoinNetwork({
       name: 'creditcoinLocal',
@@ -126,6 +159,7 @@ const makeNetworkList = () => {
         },
       },
       subscanEndpoint: 'http://127.0.0.1:4399',
+      subscanUrl: 'https://creditcoin3-testnet.subscan.io',
     });
   }
   return networks;

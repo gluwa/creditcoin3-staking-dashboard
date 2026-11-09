@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import {
-  Odometer,
   PageHeading,
   PageRow,
   PageTitle,
   RowSection,
 } from '@polkadot-cloud/react';
+import { Odometer } from 'component/Odometer';
 import BigNumber from 'bignumber.js';
 import { formatDistance, fromUnixTime, getUnixTime } from 'date-fns';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +19,7 @@ import { StatBoxList } from 'library/StatBoxList';
 import { locales } from 'locale';
 import { ControllerNotStash } from 'pages/Nominate/Active/ControllerNotStash';
 import { minDecimalPlaces, planckToUnit } from '@polkadot-cloud/utils';
-import { PluginLabel } from 'library/PluginLabel';
+import { SubscanButton } from 'library/SubscanButton';
 import { useNetwork } from 'contexts/Network';
 import { ActiveAccounts } from './ActiveAccounts';
 import { BalanceChart } from './BalanceChart';
@@ -90,11 +90,11 @@ export const Overview = () => {
         </RowSection>
         <RowSection hLast vLast>
           <CardWrapper style={{ minHeight: PAYOUTS_HEIGHT }}>
-            <PluginLabel plugin="subscan" />
+            <SubscanButton />
             <CardHeaderWrapper>
               <h4>{t('overview.recentPayouts')}</h4>
               <h2>
-                <Token className="networkIcon" />
+                <Token className="networkIcon" style={{ display: 'none' }} />
                 <Odometer
                   value={minDecimalPlaces(
                     lastReward === null

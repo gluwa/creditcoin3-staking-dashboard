@@ -3,7 +3,6 @@
 
 import {
   greaterThanZero,
-  isNotZero,
   rmCommas,
   setStateWithRef,
 } from '@polkadot-cloud/utils';
@@ -81,7 +80,7 @@ export const FastUnstakeProvider = ({
     if (
       isReady &&
       activeAccount &&
-      isNotZero(activeEra.index) &&
+      !activeEra.isPlaceholder &&
       fastUnstakeErasToCheckPerBlock > 0
     ) {
       // cancel fast unstake check on network change or account change.

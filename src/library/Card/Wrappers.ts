@@ -38,7 +38,7 @@ export const CardHeaderWrapper = styled.div<CardHeaderWrapperProps>`
   }
   h3,
   h4 {
-    font-family: InterSemiBold, sans-serif;
+    font-family: Inter-SB, sans-serif;
   }
   h4 {
     margin-top: 0;
@@ -50,7 +50,7 @@ export const CardHeaderWrapper = styled.div<CardHeaderWrapperProps>`
   }
   .note {
     color: var(--text-color-secondary);
-    font-family: InterSemiBold, sans-serif;
+    font-family: Inter-SB, sans-serif;
     font-size: 1.1rem;
     margin-top: 0.2rem;
     margin-left: 0.4rem;

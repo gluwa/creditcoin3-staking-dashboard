@@ -220,18 +220,14 @@ export const useValidatorFilters = () => {
    */
   const applySearch = (list: any, searchTerm: string) => {
     // If we cannot derive data, fallback to include validator in filtered list.
-    if (
-      !searchTerm ||
-      !Object.values(validatorIdentities).length ||
-      !Object.values(validatorSupers).length
-    ) {
+    if (!searchTerm) {
       return list;
     }
 
     const filteredList: any = [];
     for (const validator of list) {
-      const identity = validatorIdentities[validator.address] ?? '';
-      const identityRaw = identity?.info?.display?.Raw ?? '';
+      const identity = validatorIdentities[validator.address] ?? null;
+      const identityRaw = identity?.[0]?.info?.display?.Raw ?? '';
       const identityAsBytes = u8aToString(u8aUnwrapBytes(identityRaw));
       const identitySearch = (
         identityAsBytes === '' ? identityRaw : identityAsBytes
@@ -239,7 +235,7 @@ export const useValidatorFilters = () => {
 
       const superIdentity = validatorSupers[validator.address] ?? null;
       const superIdentityRaw =
-        superIdentity?.identity?.info?.display?.Raw ?? '';
+        superIdentity?.identity?.[0]?.info?.display?.Raw ?? '';
       const superIdentityAsBytes = u8aToString(
         u8aUnwrapBytes(superIdentityRaw)
       );

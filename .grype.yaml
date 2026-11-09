@@ -1,0 +1,21 @@
+ignore:
+  # transitive dependencies
+  - package:
+      name: axios
+      version: 0.21.4
+      type: npm
+
+  - package:
+      name: postcss
+      version: 8.4.21
+      type: npm
+
+  - package:
+      name: postcss
+      version: 8.4.24
+      type: npm
+
+  - package:
+      name: sharp
+      version: 0.32.5
+      type: npm

@@ -48,10 +48,39 @@ export const PayoutLine = ({
   const { t } = useTranslation('library');
   const { mode } = useTheme();
   const { payouts, poolClaims } = useSubscan();
-  const { unit, units, colors } = useNetwork().networkData;
+  const {
+    unit,
+    units,
+    // colors,
+  } = useNetwork().networkData;
   const { isSyncing } = useUi();
   const { inSetup } = useStaking();
   const { membership: poolMembership } = usePoolMemberships();
+
+  graphColors.grid.dark = '#e1e1e1';
+
+  const colors = {
+    primary: {
+      light: 'rgb(211, 48, 121)',
+      dark: '#3dc77a',
+    },
+    secondary: {
+      light: '#552bbf',
+      dark: '#6d39ee',
+    },
+    stroke: {
+      light: 'rgb(211, 48, 121)',
+      dark: 'rgb(211, 48, 121)',
+    },
+    transparent: {
+      light: 'rgb(211, 48, 121, 0.05)',
+      dark: 'rgb(211, 48, 121, 0.05)',
+    },
+    pending: {
+      light: 'rgb(211, 48, 121, 0.33)',
+      dark: 'rgb(211, 48, 121, 0.33)',
+    },
+  };
 
   const notStaking = !isSyncing && inSetup() && !poolMembership;
   const poolingOnly = !isSyncing && inSetup() && poolMembership !== null;

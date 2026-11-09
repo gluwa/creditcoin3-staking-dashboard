@@ -4,6 +4,28 @@
 import type { AnyApi, NetworkName } from 'types';
 import { rmCommas } from '@polkadot-cloud/utils';
 import type { Exposure, LocalExposure, LocalExposuresData } from './types';
+import { UpgradedNetworks } from 'consts';
+import { NetworkList } from 'config/networks';
+
+// Validates if a network is upgraded based on network configuration and current era
+export const isNetworkUpgraded = (
+  network: NetworkName,
+  era: string
+): boolean => {
+  const networkConfig = NetworkList[network];
+  // If network is not in UpgradedNetworks list, it's not upgraded
+  if (!UpgradedNetworks.includes(network)) {
+    return false;
+  }
+  // If network has currentEraWhenUpgraded configuration, check era threshold
+  // Old storage items work for eras <= currentEraWhenUpgraded
+  // New storage items work for eras > currentEraWhenUpgraded
+  if (networkConfig?.currentEraWhenUpgraded !== undefined) {
+    return Number(era) > networkConfig.currentEraWhenUpgraded;
+  }
+  // If no era threshold configured, network is considered upgraded
+  return true;
+};
 
 // Get local `erasStakers` entries for an era.
 export const getLocalEraExposures = (

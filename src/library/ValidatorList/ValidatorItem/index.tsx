@@ -18,7 +18,10 @@ export const ValidatorItemInner = (props: ValidatorItemProps) => {
 
 export class ValidatorItem extends React.Component<ValidatorItemProps> {
   shouldComponentUpdate(nextProps: ValidatorItemProps) {
-    return this.props.validator.address !== nextProps.validator.address;
+    return (
+      this.props.validator.address !== nextProps.validator.address ||
+      this.props.validator.totalStake !== nextProps.validator.totalStake
+    );
   }
 
   render() {

@@ -85,6 +85,10 @@ export const GenerateNominations = ({
 
   // refetch if fetching is triggered
   useEffect(() => {
+    if (fetching && method === 'From Favorites') {
+      fetchNominationsForMethod();
+      return;
+    }
     if (
       !isReady ||
       !validators.length ||
@@ -221,6 +225,7 @@ export const GenerateNominations = ({
       onClick: () => {
         setMethod('Manual');
         setNominations([]);
+        setFetching(false);
       },
     },
   ];

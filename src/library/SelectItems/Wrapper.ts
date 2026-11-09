@@ -134,7 +134,7 @@ export const Wrapper = styled.div<{
         overflow: hidden;
 
         h3 {
-          font-family: InterSemiBold, sans-serif;
+          font-family: Inter-SB, sans-serif;
           padding: 0;
           margin: 0;
         }

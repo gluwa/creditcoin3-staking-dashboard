@@ -42,7 +42,7 @@ export const Wrapper = styled(motion.div)`
     align-items: center;
   }
   .name {
-    font-family: 'SF-Pro-M';
+    font-family: 'Inter-M';
     margin: 0;
     padding: 0;
     line-height: 1.35rem;

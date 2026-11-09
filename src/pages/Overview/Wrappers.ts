@@ -82,7 +82,7 @@ export const BannerWrapper = styled.div`
     align-items: center;
 
     h3 {
-      font-family: InterSemiBold, sans-serif;
+      font-family: Inter-SB, sans-serif;
       line-height: 1.8rem;
     }
     button {

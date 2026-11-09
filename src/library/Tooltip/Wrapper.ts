@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 
   h3 {
     color: var(--text-color-invert);
-    font-family: InterSemiBold, sans-serif;
+    font-family: Inter-SB, sans-serif;
     font-size: 0.9rem;
     padding: 0;
     text-align: center;

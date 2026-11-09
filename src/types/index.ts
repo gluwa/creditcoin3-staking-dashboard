@@ -16,7 +16,8 @@ export type NetworkName =
   | 'creditcoin'
   | 'creditcoinDev'
   | 'creditcoinTest'
-  | 'creditcoinLocal';
+  | 'creditcoinLocal'
+  | 'creditcoindryrun';
 
 export type Networks = Record<string, Network>;
 
@@ -37,6 +38,7 @@ export interface Network {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   colors: Record<NetworkColor, { [key in Theme]: string }>;
   subscanEndpoint: string;
+  subscanUrl: string;
   unit: string;
   units: number;
   ss58: number;
@@ -66,6 +68,13 @@ export interface Network {
   };
   params: Record<string, number>;
   defaultFeeReserve: number;
+  currentEraWhenUpgraded?: number;
+  // Max validators a single nominator can select. CC3's runtime configures
+  // `pallet_staking::FixedNominationsQuota<16>`, which is a type parameter (not a
+  // `#[pallet::constant]`), so it is NOT exposed in metadata — there is no
+  // `consts.staking.maxNominations` nor a `stakingApi.nominationsQuota` runtime API to
+  // read it from. It must therefore be configured off-chain, per network.
+  maxNominations?: number;
 }
 
 export interface PageCategory {

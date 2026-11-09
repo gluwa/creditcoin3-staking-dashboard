@@ -159,7 +159,7 @@ export const MembersListInner = ({
           <ListStatusHeader style={{ marginTop: '0.5rem' }}>
             {t('pools.fetchingMemberList')}....
           </ListStatusHeader>
-        ) : (
+        ) : listMembers.length > 0 ? (
           <MotionContainer>
             {listMembers.map((member: PoolMember, index: number) => (
               <motion.div
@@ -184,6 +184,10 @@ export const MembersListInner = ({
               </motion.div>
             ))}
           </MotionContainer>
+        ) : (
+          <ListStatusHeader style={{ marginTop: '0.5rem' }}>
+            {t('pools.noMembers')}
+          </ListStatusHeader>
         )}
       </List>
     </ListWrapper>

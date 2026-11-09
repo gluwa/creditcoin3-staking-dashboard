@@ -4,8 +4,8 @@
 import type { VoidFn } from '@polkadot/api/types';
 import {
   greaterThanZero,
-  isNotZero,
   localStorageOrDefault,
+  rmCommas,
   setStateWithRef,
 } from '@polkadot-cloud/utils';
 import BigNumber from 'bignumber.js';
@@ -40,7 +40,9 @@ import {
   setLocalEraExposures,
   getLocalEraExposures,
   formatRawExposures,
+  isNetworkUpgraded,
 } from './Utils';
+import { UpgradedNetworks } from 'consts';
 
 const worker = new Worker();
 
@@ -135,7 +137,7 @@ export const StakingProvider = ({
 
   // Multi subscription to staking metrics.
   const subscribeToStakingkMetrics = async () => {
-    if (api !== null && isReady && isNotZero(activeEra.index)) {
+    if (api !== null && isReady && !activeEra.isPlaceholder) {
       const previousEra = activeEra.index.minus(1);
 
       const u = await api.queryMulti<AnyApi>(
@@ -175,6 +177,14 @@ export const StakingProvider = ({
     const payeeHuman = rawPayee.toHuman();
 
     let payeeFinal: PayeeConfig;
+    if (UpgradedNetworks.includes(network)) {
+      if (payeeHuman === null)
+        return {
+          destination: null,
+          account: null,
+        };
+    }
+
     if (typeof payeeHuman === 'string') {
       const destination = payeeHuman as PayeeOptions;
       payeeFinal = {
@@ -193,6 +203,49 @@ export const StakingProvider = ({
     return payeeFinal;
   };
 
+  const fetchAllExposuresPaged = async (era: string): Promise<Exposure[]> => {
+    if (!isReady || activeEra.isPlaceholder || !api) return [];
+
+    const overviewEntries: [any, any][] =
+      await api.query.staking.erasStakersOverview.entries(era);
+
+    const rawResults = await Promise.all(
+      overviewEntries.map(async (entry): Promise<any | null> => {
+        const [storageKey, metaOpt] = entry;
+        if (metaOpt.isNone) {
+          return null;
+        }
+
+        const meta = metaOpt.unwrap();
+        const { own, total } = meta.toHuman() as { own: string; total: string };
+
+        const stashId = storageKey.args[1].toString();
+
+        const pages: [any, any][] =
+          await api.query.staking.erasStakersPaged.entries(era, stashId);
+
+        const others = pages.flatMap(([, page]) => {
+          const { others: o } = page.toHuman() as any;
+          return (o as any[]).map(({ who, value }) => ({
+            who,
+            value: rmCommas(value),
+          }));
+        });
+
+        return {
+          keys: [era.toString(), stashId],
+          val: {
+            own: rmCommas(own),
+            total: rmCommas(total),
+            others,
+          },
+        };
+      })
+    );
+
+    return rawResults.filter((x): x is any => x !== null);
+  };
+
   // Fetches erasStakers exposures for an era, and saves to `localStorage`.
   const fetchEraStakers = async (era: string) => {
     if (!isReady || activeEra.isPlaceholder || !api) return [];
@@ -206,6 +259,8 @@ export const StakingProvider = ({
 
     if (localExposures) {
       exposures = localExposures;
+    } else if (isNetworkUpgraded(network, era)) {
+      exposures = await fetchAllExposuresPaged(era);
     } else {
       exposures = formatRawExposures(
         await api.query.staking.erasStakers.entries(era)
@@ -221,7 +276,7 @@ export const StakingProvider = ({
 
   // Fetches the active nominator set and metadata around it.
   const fetchActiveEraStakers = async () => {
-    if (!isReady || activeEra.index.isZero() || !api) return;
+    if (!isReady || activeEra.isPlaceholder || !api) return;
 
     // flag eraStakers is recyncing
     setStateWithRef(true, setErasStakersSyncing, erasStakersSyncingRef);

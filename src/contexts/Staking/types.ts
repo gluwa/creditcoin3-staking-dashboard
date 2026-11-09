@@ -5,6 +5,17 @@ import type BigNumber from 'bignumber.js';
 import type { PayeeConfig } from 'contexts/Setup/types';
 import type { MaybeAddress } from 'types';
 
+export type Nominator = { who: string; value: string };
+
+export type Exposure = {
+  keys: [string, string];
+  val: {
+    own: string;
+    total: string;
+    others: Nominator[];
+  };
+};
+
 export interface StakingMetrics {
   totalNominators: BigNumber;
   totalValidators: BigNumber;
@@ -32,11 +43,6 @@ export type NominationStatuses = Record<string, string>;
 
 export interface StakingTargets {
   nominations: string[];
-}
-
-export interface Exposure {
-  keys: string[];
-  val: ExposureValue;
 }
 
 export interface ExposureValue {
