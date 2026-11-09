@@ -81,5 +81,3 @@ export var Background = function (_a) {
                 },
             } })) }));
 };
-
-

@@ -21,5 +21,3 @@ export var onMouseHandlers = function (props) {
             : undefined,
     };
 };
-
-

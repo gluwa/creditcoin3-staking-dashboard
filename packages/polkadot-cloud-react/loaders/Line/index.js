@@ -4,5 +4,3 @@ export var Line = function (_a) {
     var text = _a.text;
     return (_jsxs("div", { className: "line-loading", children: [text && _jsx("p", { children: text }), _jsx("span", {})] }));
 };
-
-

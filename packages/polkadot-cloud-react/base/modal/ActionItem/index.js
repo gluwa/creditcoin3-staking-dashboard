@@ -25,5 +25,3 @@ export var ActionItem = function (_a) {
                     setToggle(!toggle);
                 }, children: toggle && _jsx(FontAwesomeIcon, { icon: faCheck, transform: "shrink-3" }) })), text, inlineButton && _jsx("span", { children: inlineButton })] }));
 };
-
-

@@ -9,5 +9,3 @@ export var PageTitleTabs = function (_a) {
                     return (_jsx(ButtonTab, { active: !!active, onClick: function () { return onClick(); }, title: title, badge: badge }, "page_tab_".concat(i)));
                 }) }) }) }));
 };
-
-

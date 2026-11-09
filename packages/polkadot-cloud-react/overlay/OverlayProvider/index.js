@@ -151,5 +151,3 @@ export var OverlayProvider = function (_a) {
             },
         }, children: children }));
 };
-
-

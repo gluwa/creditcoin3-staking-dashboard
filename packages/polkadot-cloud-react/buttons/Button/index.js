@@ -76,5 +76,3 @@ export var Button = function (props) {
         }
     }
 };
-
-

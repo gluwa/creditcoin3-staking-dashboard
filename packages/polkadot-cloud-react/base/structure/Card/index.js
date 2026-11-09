@@ -17,5 +17,3 @@ export var Card = function (_a) {
     var children = _a.children, style = _a.style, animations = _a.animations, className = _a.className;
     return (_jsx(motion.div, __assign({}, animations, { style: style, className: "core-card" + valEmpty(className, className), children: children })));
 };
-
-

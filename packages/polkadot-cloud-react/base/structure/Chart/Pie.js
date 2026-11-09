@@ -64,5 +64,3 @@ export var Pie = function (_a) {
                 return (_jsx("path", { stroke: segment.color, fill: segment.color, d: segment.path }, segment.color));
             }) }) }));
 };
-
-

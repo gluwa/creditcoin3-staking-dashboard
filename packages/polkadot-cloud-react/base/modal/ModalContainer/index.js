@@ -27,5 +27,3 @@ export var ModalContainer = function (_a) {
     var children = _a.children, rest = __rest(_a, ["children"]);
     return (_jsx(motion.div, __assign({ className: "modal-container" }, rest, { children: children })));
 };
-
-

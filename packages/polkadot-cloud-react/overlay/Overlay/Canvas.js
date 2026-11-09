@@ -103,5 +103,3 @@ export var Canvas = function (_a) {
                 },
             }, children: _jsx(CanvasScroll, { size: size, scroll: scroll || false, children: _jsx(ModalContent, { canvas: true, children: _jsx(CanvasContent, { children: _jsx(ErrorBoundary, { FallbackComponent: Fallback, children: ActiveCanvas && _jsx(ActiveCanvas, {}) }) }) }) }) })) }));
 };
-
-

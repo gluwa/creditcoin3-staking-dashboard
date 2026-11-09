@@ -44,5 +44,3 @@ export var removeFromLocalExtensions = function (id) {
         localStorage.setItem("active_extensions", JSON.stringify(localExtensions));
     }
 };
-
-

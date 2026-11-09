@@ -31,5 +31,3 @@ export var HardwareStatusBar = function (_a) {
                             }
                         } })) })] }) }));
 };
-
-

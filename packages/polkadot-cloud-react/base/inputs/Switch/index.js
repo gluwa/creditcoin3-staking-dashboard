@@ -90,5 +90,3 @@ export var Switch = function (_a) {
                         }
                     }, checked: switchOn, className: "base-inputs-switch-checkbox", type: "checkbox" }), _jsx("span", { style: { backgroundColor: buttonColor }, className: "base-inputs-switch-button ".concat(valEmpty(size, size), " ").concat(disabled ? "is-disabled" : "", " is-clicked").concat(switchOn ? "" : "-not") })] }) }));
 };
-
-

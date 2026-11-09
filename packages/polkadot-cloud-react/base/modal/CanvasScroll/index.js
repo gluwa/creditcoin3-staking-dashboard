@@ -28,5 +28,3 @@ export var CanvasScroll = function (_a) {
     var children = _a.children, size = _a.size, _b = _a.scroll, scroll = _b === void 0 ? true : _b, rest = __rest(_a, ["children", "size", "scroll"]);
     return (_jsx(motion.div, __assign({ className: "canvas-scroll".concat(valEmpty(size === "xl", "xl")).concat(valEmpty(scroll, "scroll")) }, rest, { children: children })));
 };
-
-

@@ -7,5 +7,3 @@ export var ModalPadding = forwardRef(function (_a, ref) {
     return (_jsx("div", { ref: ref, className: "modal-padding".concat(valEmpty(verticalOnly, "vertical-only")).concat(valEmpty(horizontalOnly, "horizontal-only")), style: style, children: children }));
 });
 ModalPadding.displayName = "ModalPadding";
-
-

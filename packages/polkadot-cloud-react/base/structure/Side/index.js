@@ -17,5 +17,3 @@ export var Side = function (_a) {
     var vars = { "--core-side-width": width };
     return (_jsx("div", { style: __assign(__assign({}, vars), style), className: "core-side".concat(valEmpty(!open, "hidden")).concat(valEmpty(minimised, "minimised")), children: children }));
 };
-
-

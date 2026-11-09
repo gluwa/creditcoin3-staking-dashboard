@@ -123,5 +123,3 @@ export var initPolkadotSnap = function (config) {
             resolve(false);
     });
 };
-
-

@@ -6,5 +6,3 @@ export var Main = forwardRef(function (_a, ref) {
     return (_jsx("div", { ref: ref, className: "core-main", style: style, children: children }));
 });
 Main.displayName = "Main";
-
-

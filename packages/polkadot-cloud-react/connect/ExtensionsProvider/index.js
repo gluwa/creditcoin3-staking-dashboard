@@ -140,5 +140,3 @@ export var ExtensionsProvider = function (_a) {
             extensionHasFeature: extensionHasFeature,
         }, children: children }));
 };
-
-

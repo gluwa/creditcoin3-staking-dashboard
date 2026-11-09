@@ -21,5 +21,3 @@ export var Chart = function (props) {
         }
     }
 };
-
-

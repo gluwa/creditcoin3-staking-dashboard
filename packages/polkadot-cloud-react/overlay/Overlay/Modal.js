@@ -145,5 +145,3 @@ export var Modal = function (_a) {
                             setModalStatus("closing");
                         }, children: "\u00A0" })] }) })) : null }));
 };
-
-

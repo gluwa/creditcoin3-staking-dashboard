@@ -10,5 +10,3 @@ export var defaultHandleImportExtension = {
         removedActiveAccount: null,
     },
 };
-
-

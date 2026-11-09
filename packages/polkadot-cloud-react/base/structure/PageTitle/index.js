@@ -27,5 +27,3 @@ export var PageTitle = function (_a) {
     return (_jsxs(_Fragment, { children: [_jsx("div", { className: "core-page-title-hide-scrollable" }), _jsxs("header", { ref: ref, className: "core-page-title".concat(valEmpty(sticky, "sticky")), children: [_jsxs("section", { className: "title", children: [_jsx("div", { children: _jsx("h1", { children: title }) }), _jsx("div", { className: "right", children: button && (_jsx(ButtonSecondary, { text: button.title, onClick: function () { return button.onClick(); }, iconRight: faBars, iconTransform: "shrink-4", lg: true })) })] }), tabs.length > 0 && _jsx(PageTitleTabs, { sticky: sticky, tabs: tabs })] })] }));
 };
 PageTitle.displayName = "PageTitle";
-
-

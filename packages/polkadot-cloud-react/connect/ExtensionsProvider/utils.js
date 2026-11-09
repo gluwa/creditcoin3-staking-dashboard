@@ -84,5 +84,3 @@ export var polkadotSnapAvailable = function () { return __awaiter(void 0, void 0
         }
     });
 }); };
-
-

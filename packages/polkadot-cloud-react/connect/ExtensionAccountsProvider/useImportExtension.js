@@ -115,5 +115,3 @@ export var useImportExtension = function () {
         connectActiveExtensionAccount: connectActiveExtensionAccount,
     };
 };
-
-

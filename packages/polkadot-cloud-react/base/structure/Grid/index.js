@@ -4,7 +4,7 @@ import "@polkadot-cloud/core/css/base/structure/Grid/index.css";
 export var Grid = function (_a) {
     var alignItems = _a.alignItems, children = _a.children, column = _a.column, expanded = _a.expanded, justify = _a.justify, lg = _a.lg, md = _a.md, row = _a.row, sm = _a.sm, style = _a.style;
     var isRow = row || !column;
-    var classes = 
+    var classes =
     (!isRow ? "column" : "row") +
         valEmpty(isRow && expanded, "expanded") +
         valEmpty(justify, justify) +
@@ -14,5 +14,3 @@ export var Grid = function (_a) {
         valEmpty(!isRow && !!lg, "lg-" + lg);
     return (_jsx("div", { style: style, className: classes, children: children }));
 };
-
-

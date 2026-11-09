@@ -16,5 +16,3 @@ export var useEffectIgnoreInitial = function (fn, deps) {
         isInitial.current = false;
     }, deps ? __spreadArray([], deps, true) : undefined);
 };
-
-

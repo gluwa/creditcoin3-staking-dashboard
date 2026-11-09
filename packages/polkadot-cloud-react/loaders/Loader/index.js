@@ -14,5 +14,3 @@ export var Loader = function (_a) {
             return _jsx(Line, { text: text });
     }
 };
-
-

@@ -7,5 +7,3 @@ export var ModalFixedTitle = forwardRef(function (_a, ref) {
     return (_jsx("div", { ref: ref, className: "modal-fixed-title".concat(valEmpty(withStyle, "with-style")), style: style, children: children }));
 });
 ModalFixedTitle.displayName = "ModalFixedTitle";
-
-

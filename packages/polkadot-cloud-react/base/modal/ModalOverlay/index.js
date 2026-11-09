@@ -27,5 +27,3 @@ export var ModalOverlay = function (_a) {
     var children = _a.children, blur = _a.blur, rest = __rest(_a, ["children", "blur"]);
     return (_jsx(motion.div, __assign({ style: blur ? { backdropFilter: "blur(".concat(blur, ")") } : undefined, className: "modal-overlay" }, rest, { children: children })));
 };
-
-

@@ -6,5 +6,3 @@ export var ModalCard = forwardRef(function (_a, ref) {
     return (_jsx("div", { ref: ref, className: "modal-card".concat(className ? " ".concat(className) : ""), style: style, children: children }));
 });
 ModalCard.displayName = "ModalCard";
-
-

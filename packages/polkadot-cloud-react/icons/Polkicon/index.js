@@ -214,5 +214,3 @@ export var Polkicon = function (_a) {
                         fontWeight: "bold",
                     }, children: _jsx("p", { style: { fontSize: f, fontWeight: "bold" }, children: message }) })) }))] })));
 };
-
-

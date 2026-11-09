@@ -7,5 +7,3 @@ export var defaultExtensionsContext = {
     extensionCanConnect: function (id) { return false; },
     extensionHasFeature: function (id, feature) { return false; },
 };
-
-

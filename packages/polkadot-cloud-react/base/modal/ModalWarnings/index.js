@@ -5,5 +5,3 @@ export var ModalWarnings = function (_a) {
     var children = _a.children, style = _a.style, withMargin = _a.withMargin;
     return (_jsx("div", { className: "modal-warnings".concat(valEmpty(withMargin, "with-margin")), style: style, children: children }));
 };
-
-

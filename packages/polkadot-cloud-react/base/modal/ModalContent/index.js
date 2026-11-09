@@ -28,5 +28,3 @@ export var ModalContent = function (_a) {
     var children = _a.children, canvas = _a.canvas, rest = __rest(_a, ["children", "canvas"]);
     return (_jsx(motion.div, __assign({ className: "modal-content".concat(valEmpty(canvas, "canvas")) }, rest, { children: children })));
 };
-
-

@@ -7,5 +7,3 @@ export var ModalScroll = forwardRef(function (_a, ref) {
     return (_jsx("div", { ref: ref, className: "modal-scroll".concat(valEmpty(size === "xl", "xl")).concat(valEmpty(size === "lg", "lg")), style: style, children: children }));
 });
 ModalScroll.displayName = "ModalScroll";
-
-

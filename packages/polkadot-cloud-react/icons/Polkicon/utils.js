@@ -137,5 +137,3 @@ export var getColors = function (address) {
     });
     return scheme.colors.map(function (_, i) { return palette[scheme.colors[i < 18 ? (i + rot) % 18 : 18]]; });
 };
-
-

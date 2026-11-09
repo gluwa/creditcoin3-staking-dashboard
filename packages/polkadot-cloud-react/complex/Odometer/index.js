@@ -109,5 +109,3 @@ export var Odometer = function (_a) {
                                     }, children: d === "dot" ? "." : d === "comma" ? "," : d })), status === "transition" && childDigits] }, "digit_".concat(i)));
                     }), spaceAfter ? _jsx("span", { style: { paddingRight: spaceAfter } }) : null] })] }));
 };
-
-

@@ -162,7 +162,7 @@ export var ExtensionAccountsProvider = function (_a) {
                     if (!!exists) return [3 , 1];
                     updateInitialisedExtensions("unknown_extension_".concat(extensionsInitialisedRef.current.length + 1));
                     return [3 , 10];
-                case 1: 
+                case 1:
                 return [4 , handleExtensionAdapters([id])];
                 case 2:
                     _a.sent();
@@ -311,5 +311,3 @@ export var ExtensionAccountsProvider = function (_a) {
             extensionAccounts: extensionAccountsRef.current,
         }, children: children }));
 };
-
-

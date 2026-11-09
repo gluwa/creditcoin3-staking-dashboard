@@ -16,5 +16,3 @@ export var ButtonTab = function (_a) {
     var disabled = _a.disabled, className = _a.className, style = _a.style, active = _a.active, title = _a.title, badge = _a.badge, onClick = _a.onClick, onMouseOver = _a.onMouseOver, onMouseMove = _a.onMouseMove, onMouseOut = _a.onMouseOut;
     return (_jsxs("button", __assign({ className: "btn-tab".concat(valEmpty(active, "active")).concat(className ? " ".concat(className) : ""), style: style, type: "button", disabled: disabled }, onMouseHandlers({ onClick: onClick, onMouseOver: onMouseOver, onMouseMove: onMouseMove, onMouseOut: onMouseOut }), { children: [title, badge ? _jsx("span", { className: "badge", children: badge }) : null] })));
 };
-
-

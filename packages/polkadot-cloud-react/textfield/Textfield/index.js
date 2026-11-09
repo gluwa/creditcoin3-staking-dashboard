@@ -15,5 +15,3 @@ export var Textfield = function (_a) {
                     return onChange(target === null || target === void 0 ? void 0 : target.value);
                 }, type: inputType, placeholder: placeholder && capitalizeFirstLetter(placeholder), autoFocus: autoFocus, name: name, value: value }), iconRight ? (_jsx(FontAwesomeIcon, { icon: iconRight.icon, className: "icon-right ".concat((iconRight === null || iconRight === void 0 ? void 0 : iconRight.action) ? "icon-action" : null), transform: valOr(iconRight.iconTransform, iconRight.iconTransform, undefined), onClick: iconRight.action })) : null] }));
 };
-
-

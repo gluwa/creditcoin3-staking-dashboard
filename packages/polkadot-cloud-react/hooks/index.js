@@ -3,5 +3,3 @@ export { useExtensionAccounts } from "../connect/ExtensionAccountsProvider/useEx
 export { useImportExtension } from "../connect/ExtensionAccountsProvider/useImportExtension";
 export { useExtensions } from "../connect/ExtensionsProvider/useExtensions";
 export { useOverlay } from "../overlay/OverlayProvider/useOverlay";
-
-

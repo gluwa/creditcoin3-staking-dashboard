@@ -27,5 +27,3 @@ export var ModalMotionTwoSection = function (_a) {
     var children = _a.children, rest = __rest(_a, ["children"]);
     return (_jsx(motion.div, __assign({ className: "modal-motion-two-sections" }, rest, { children: children })));
 };
-
-

@@ -36,5 +36,3 @@ export var defaultOverlayContext = {
         setModalHeightRef: function (heightRef) { return unimplemented; },
     },
 };
-
-

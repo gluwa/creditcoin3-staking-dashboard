@@ -39,5 +39,3 @@ export var HardwareAddress = function (_a) {
                                                 }
                                             } }), editing && (_jsxs("div", { style: { display: "flex" }, children: ["\u00A0", _jsx("button", { type: "button", className: "edit", onClick: function () { return commitEdit(); }, children: _jsx(FontAwesomeIcon, { icon: faCheck, transform: "grow-1", className: "icon" }) }), "\u00A0", _jsx("button", { type: "button", className: "edit", onClick: function () { return cancelEditing(); }, children: _jsx(FontAwesomeIcon, { icon: faXmark, transform: "grow-1" }) })] }))] }), _jsx("h5", { className: "full", children: _jsx("span", { children: address }) })] })] }) }), _jsx("div", { className: "action", children: isImported ? (_jsx(_Fragment, { children: _jsx(Button, { type: "text", iconLeft: faTimes, text: tRemove, onClick: function () { return openRemoveHandler(address); } }) })) : (_jsx(Button, { type: "text", iconLeft: faPlus, text: tImport, onClick: function () { return openConfirmHandler(address, index); } })) })] }));
 };
-
-
