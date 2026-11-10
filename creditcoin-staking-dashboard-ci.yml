@@ -12,14 +12,6 @@ pr:
   - master
   - dev
 
-schedules:
-  - cron: '0 13 * * 1'
-    displayName: 'Weekly Docker Scout report (Mon 09:00 EDT)'
-    branches:
-      include:
-        - dev
-    always: true
-
 variables:
   - group: PenguinPatrol
 
@@ -28,7 +20,6 @@ pool:
 
 jobs:
   - job: 'BuildAndPush'
-    condition: ne(variables['Build.Reason'], 'Schedule')
     steps:
       - pwsh: |
           $branchtag=""
@@ -90,35 +81,6 @@ jobs:
       # no local copy exists since the build step pushed straight to the registry.
       - script: |
           curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
-          docker scout cves gluwa/cc3-staking-dashboard:$(Build.BuildId) --exit-code=false
+          docker scout cves gluwa/cc3-staking-dashboard:$(Build.BuildId)
         displayName: 'Docker Scout CVE scan (informational, non-blocking)'
         continueOnError: true
-
-  - job: 'WeeklyScoutReport'
-    condition: eq(variables['Build.Reason'], 'Schedule')
-    steps:
-      - task: Docker@2
-        displayName: 'Docker login (Docker Scout org policy evaluation)'
-        inputs:
-          containerRegistry: 'substrate-relayer'
-          command: 'login'
-
-      - script: |
-          curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
-        displayName: 'Install Docker Scout CLI'
-
-      # Scans the published :latest image and posts to #noti-docker-scout via the
-      # Penguin Patrol docker-scout-report type (raw quickview per image; Penguin Patrol
-      # parses + formats — one Slack block per image). IMAGES passed via env, never inline.
-      - script: |
-          set -euo pipefail
-          QV=$(docker scout quickview gluwa/cc3-staking-dashboard:latest 2>&1 || true)
-          IMAGES=$(jq -n --arg qv "$QV" '[{label: "cc3-staking-dashboard", tag: "latest", quickview: $qv}]')
-          PAYLOAD=$(jq -n --argjson images "$IMAGES" \
-            '{alertName: "docker-scout-report", alertTitle: "Weekly Docker Scout Report — cc3-staking-dashboard", channel_name: "#noti-docker-scout", images: $images}')
-          HTTP=$(curl -s -o /tmp/pp_resp.txt -w '%{http_code}' -X POST "$WEBHOOK_URL" -H "Content-Type: application/json" -d "$PAYLOAD")
-          if [ "$HTTP" -ge 400 ]; then echo "Penguin Patrol webhook rejected (HTTP $HTTP):"; cat /tmp/pp_resp.txt; exit 1; fi
-          echo "Posted weekly Scout report to Penguin Patrol (HTTP $HTTP)."
-        displayName: 'Weekly report to Penguin Patrol'
-        env:
-          WEBHOOK_URL: $(PENGUIN_PATROL_WEBHOOK_URL)
