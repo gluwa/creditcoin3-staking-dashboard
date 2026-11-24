@@ -56,6 +56,7 @@ jobs:
           # path for attestations.
           - script: |
               docker buildx build \
+                --label "org.opencontainers.image.source=$(Build.Repository.Uri)" \
                 --builder attestation-builder \
                 --push \
                 -f Dockerfile \
@@ -71,6 +72,7 @@ jobs:
                 TAGS="$TAGS -t gluwa/cc3-staking-dashboard:$(releaseTag)"
               fi
               docker buildx build \
+                --label "org.opencontainers.image.source=$(Build.Repository.Uri)" \
                 --builder attestation-builder \
                 --push \
                 -f Dockerfile \
